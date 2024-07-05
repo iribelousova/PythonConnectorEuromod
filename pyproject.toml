@@ -41,13 +41,10 @@ dependencies = [
 euromod = "euromod.euromod_cli:cli"
 
 [project.urls]
-GitHub = "https://github.com/ec-jrc/JRC-EUROMOD-software-source-code/tree/master/Connectors/PythonIntegration"
-Issues = "https://github.com/ec-jrc/JRC-EUROMOD-software-source-code/tree/master/Connectors/PythonIntegration/discussions"
+Documentation = "http://pythonconnectoreuromod.readthedocs.io/"
+GitHub = "https://github.com/ec-jrc/pythonconnectoreuromod"
+Issues = "https://github.com/ec-jrc/pythonconnectoreuromod/discussions"
 EUROMOD = "https://euromod-web.jrc.ec.europa.eu/"
-Download = "https://euromod-web.jrc.ec.europa.eu/download-euromod"
-Documentation = "https://euromod-web.jrc.ec.europa.eu/resources/model-documentation"
-Euromod-Online = "https://euromod-web.jrc.ec.europa.eu/info-euromod-online"
-
 
 [tool.setuptools]
 include-package-data = true
