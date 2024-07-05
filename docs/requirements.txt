@@ -5,3 +5,5 @@ sphinx_rtd_theme
 sphinxcontrib-napoleon
 euromod
 pythonnet>=3.0.2
+numpy
+pandas
