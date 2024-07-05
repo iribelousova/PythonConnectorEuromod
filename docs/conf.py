@@ -19,7 +19,7 @@ release = "0.1.20a"
 
 extensions = [
     "myst_nb",
-    # "myst_parser",
+    "myst_parser",
     "autoapi.extension",
     # "sphinx_copybutton",
     "sphinx.ext.napoleon",

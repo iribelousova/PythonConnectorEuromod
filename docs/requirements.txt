@@ -1,4 +1,5 @@
 sphinx-autoapi
+myst_parser
 myst-nb
 sphinx_rtd_theme
 sphinxcontrib-napoleon
