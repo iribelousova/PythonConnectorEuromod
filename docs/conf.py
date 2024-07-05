@@ -135,6 +135,8 @@ def skip_member(app, what, name, obj, skip, options):
        skip = True
     if what == "module" and "info" in name:
        skip = True
+    if what == "module" and "euromod_cli" in name:
+       skip = True
     return skip
 
 def setup(sphinx):
