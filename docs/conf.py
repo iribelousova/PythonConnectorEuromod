@@ -28,7 +28,7 @@ extensions = [
 ]
 
 # -- Intersphinx options
- intersphinx_mapping = {
+intersphinx_mapping = {
      "euromod": ("https://euromod.readthedocs.io/en/latest/", None),
      "python": ("https://docs.python.org/3/", None),
      "numpy": ("https://numpy.org/doc/stable/", None),
