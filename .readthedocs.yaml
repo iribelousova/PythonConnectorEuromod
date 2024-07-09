@@ -19,7 +19,7 @@ build:
   tools:
     python: "3.11"
   jobs:
-    post_create_environment:
+    post_install:
       - python from pythonnet import load
       - python load("coreclr", runtime_config="docs/runtimeconfig.json")
       #- pip uninstall clr
