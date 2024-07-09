@@ -10,6 +10,9 @@ build:
   tools:
     python: "3.11"
     nodejs: "16"
+  jobs:
+    pre_build:
+      - pydoc-markdown --build --site-dir "$READTHEDOCS_OUTPUT/html"
   commands:
         - mkdir --parents $READTHEDOCS_OUTPUT/html/
 
