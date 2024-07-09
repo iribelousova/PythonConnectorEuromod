@@ -10,7 +10,7 @@ import os
 
 project = 'Euromod Connector'
 copyright = '2024 European Commission. EUROMOD is licensed under the EUPL, Version 1.2'
-author = 'Belousova Irina, Manios Kostas, Serruys Hannes'
+author = 'Belousova Irina, Serruys Hannes'
 release = "0.1.20a"
 
 # -- General configuration ---------------------------------------------------
@@ -33,6 +33,8 @@ intersphinx_mapping = {
      "numpy": ("https://numpy.org/doc/stable/", None),
      "pandas": ("https://pandas.pydata.org/docs/", None),
  }
+
+autodoc_mock_imports = ["pythonnet"]
 
 # -- Plausible support
 ENABLE_PLAUSIBLE = os.environ.get("READTHEDOCS_VERSION_TYPE", "") in ["branch", "tag"]
