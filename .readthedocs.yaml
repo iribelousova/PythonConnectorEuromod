@@ -30,7 +30,7 @@ sphinx:
   # use the dirhtml builder for simpler URLs
   builder: "html"
   # Fail on all warnings to avoid broken references
-  fail_on_warning: false
+  fail_on_warning: true
 
 # Optionally build your docs in additional formats such as PDF and ePub
 formats:
