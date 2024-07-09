@@ -19,7 +19,7 @@ build:
   tools:
     python: "3.11"
   jobs:
-    post_create_environment:
+    pre_create_environment:
       - pip uninstall clr
       - pip install pythonnet
       - pip install euromod
