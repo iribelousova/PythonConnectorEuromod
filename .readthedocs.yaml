@@ -13,7 +13,6 @@ build:
   commands:
     - mkdir --parents $READTHEDOCS_OUTPUT/html/
     - cp --recursive docs/* $READTHEDOCS_OUTPUT/html/
-    - pip uninstall clr
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
