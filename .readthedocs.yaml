@@ -10,10 +10,9 @@ build:
   tools:
     python: "3.11"
   jobs:
-    pre_create_environment:
-      - pip uninstall clr
     post_install:
       - pip uninstall clr
+      - pip install pythonnet
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
