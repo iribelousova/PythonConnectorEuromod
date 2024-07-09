@@ -20,8 +20,8 @@ build:
     python: "3.11"
   jobs:
     post_install:
-      - python from pythonnet import load
-      - python load("coreclr", runtime_config="docs/runtimeconfig.json")
+      - from pythonnet import load
+      - load("coreclr", runtime_config="docs/runtimeconfig.json")
       #- pip uninstall clr
       #- pip install pythonnet
       #- pip install euromod
