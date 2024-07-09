@@ -54,7 +54,7 @@ autoapi_keep_files = True
 #autoapi_python_class_content = "both" # Use the concatenation of the class docstring and the __init__ docstring.
 autoapi_member_order = "groupwise"
 
-autodoc_typehints = "signature"
+autodoc_typehints = "both"
 autosummary_generate = True
 
 templates_path = ['_templates']

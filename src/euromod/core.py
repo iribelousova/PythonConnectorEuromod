@@ -49,9 +49,8 @@ class Model:
         """
         :class:`Model` instance for the tax-benefit model EUROMOD.
         """
-        self.extensions: list[Extension] | None = None 
+        self.extensions: list[Extension]
         """: A :obj:`list` with :class:`Model` extensions."""
-        #: Path to the EUROMOD project
         self.model_path: str = model_path 
         """: Path to the EUROMOD project."""
         self.countries: list[Country] = CountryContainer() #: Container with `core.Country` objects
@@ -134,7 +133,7 @@ class Country(Euromod_Element):
     >>> mod.countries[0]    
     """
 
-    def __init__(self,country: str,model: str):
+    def __init__(self,country: str,model: str):        
         """Instance of the EUORMOD country-specific tax-benefit model.
         """
         self.name: str = country #: Two-letter country code
@@ -278,25 +277,26 @@ class System(Euromod_Element):
     >>> mod.countries[0].systems[-1]
     """
     def __init__(self,*arg):
-        super().__init__(*arg)
-        self.ID: str = ""
+        self.ID: str 
         """Identifier number of the system."""
-        self.comment: str = ""
+        self.comment: str 
         """Comment specific to the system."""
-        self.currencyOutput: str = ""
+        self.currencyOutput: str 
         """Currency of the simulation results."""
-        self.currencyParam: str = ""
+        self.currencyParam: str 
         """Currency of the monetary parameters in the system."""
-        self.headDefInc: str = ""
+        self.headDefInc: str 
         """Main income definition."""
-        self.name: str = ""
+        self.name: str 
         """Name of the system."""
-        self.order: str = ""
+        self.order: str 
         """System order in the spine."""
-        self.private: str = ""
+        self.private: str 
         """Access type."""
-        self.year: str = ""
+        self.year: str 
         """System year."""
+        
+        super().__init__(*arg)
         self.datasets: list[DatasetInSystem] | None = None
         """: A :obj:`list` of :class:`DatasetInSystem` objects in the system."""
         self.policies: list[PolicyInSystem] | None = None
@@ -594,8 +594,15 @@ class Dataset(Euromod_Element):
     def _container_middle_repr(self):
         return ""
     def __init__(self,*args): 
-        self.ID: str = ""
+        self.ID: str 
         """: Dataset identifier number."""
+        self.name: str 
+        """: Name of the dataset."""
+        self.yearCollection: str 
+        """: Year of the dataset collection."""
+        self.yearInc: str 
+        """: Reference year for the income variables."""
+        
         self.coicopVersion: str = ""
         """: COICOP  version."""
         self.comment: str = ""
@@ -604,20 +611,15 @@ class Dataset(Euromod_Element):
         """: Currency of the monetary values in the dataset."""
         self.decimalSign: str = ""
         """: Decimal sign"""
-        self.name: str = ""
-        """: Name of the dataset."""
         self.private: str = "no"
         """: Access type."""
         self.readXVariables: str = "no"
         """: Read variables."""
         self.useCommonDefault: str = "no"
         """: Use default."""
-        self.yearCollection: str = ""
-        """: Year of the dataset collection."""
-        self.yearInc: str = ""
-        """: Reference year for the income variables."""
-        super().__init__(*args)
-                
+        super().__init__(*args)      
+        
+        
 
 class Policy(SpineElement):
     """Policy rules modeled in a country.
@@ -655,22 +657,23 @@ class Policy(SpineElement):
     def __init__(self,*arg):
         self.private: str = "no"
         """: Access type. Default is 'no'."""
+        super().__init__(*arg)
         self.functions: list[Function] | None = None
         """: A :obj:`list` of policy-specific :class:`Function` objects."""
         self.extensions: list[Extension] | None = None
         """: A :obj:`list` of policy-specific :class:`Extension` objects."""
-        self.ID: str = ""
+        
+        self.ID: str 
         """Identifier number of the policy."""
-        self.comment: str = ""
+        self.comment: str 
         """Comment specific to the policy."""
-        self.name: str = ""
+        self.name: str 
         """Name of the policy."""
-        self.order: str = ""
+        self.order: str 
         """Order of the policy in the specific spine."""
-        self.spineOrder: str = ""
+        self.spineOrder: str 
         """Order of the policy in the spine."""
-        super().__init__(*arg)
-         
+    
     
 class ReferencePolicy(SpineElement):
     """Object storing the reference policies."""
@@ -731,25 +734,27 @@ class Function(SpineElement):
             return self.parameters
         return super().__getattribute__(name)
     def __init__(self,*arg):
-        self.ID: str = ""
-        """Identifier number of the function."""
-        self.comment: str = ""
-        """Comment specific to the function."""
-        self.name: str = ""
-        """Name of the function."""
-        self.order: str = ""
-        """Order of the function in the specific spine."""
-        self.polID: str = ""
-        """Identifier number of the reference policy."""
-        self.private: str = "no"
-        """Access type."""
-        self.spineOrder: str = ""
-        """Order of the function in the spine."""
+        super().__init__(*arg)
         self.parameters: list[Parameter] | None = None
         """: A :obj:`list` of :class:`Parameter` objects in a country."""
         self.extensions: list[Extension] | None = None
         """: A :obj:`list` of :class:`Extension` objects in a country."""
-        super().__init__(*arg)
+        
+        self.ID: str 
+        """Identifier number of the function."""
+        self.comment: str
+        """Comment specific to the function."""
+        self.name: str
+        """Name of the function."""
+        self.order: str
+        """Order of the function in the specific spine."""
+        self.polID: str
+        """Identifier number of the reference policy."""
+        self.private: str 
+        """Access type."""
+        self.spineOrder: str
+        """Order of the function in the spine."""        
+
 
 class Parameter(SpineElement):
     """Parameters set up in a function.
@@ -775,22 +780,23 @@ class Parameter(SpineElement):
         return super().__getattribute__(name)
     def __init__(self,*arg):
         self.group: str = ""
-        """str: Parameter group number."""
+        """str: Parameter group value."""
+        super().__init__(*arg)
         self.extensions: list[Extension] | None = None
         """: A :obj:`list` with :class:`Extension` objects."""
-        self.ID: str = ""
+        
+        self.ID: str 
         """Identifier number of the parameter."""
-        self.comment: str = ""
+        self.comment: str 
         """Comment specific to the parameter."""
-        self.funID: str = ""
+        self.funID: str 
         """Identifier number of the reference function at country level."""
-        self.name: str = ""
+        self.name: str 
         """Name of the parameter."""
-        self.order: str = ""
+        self.order: str 
         """Order of the parameter in the specific spine."""
-        self.spineOrder: str = ""
+        self.spineOrder: str 
         """Order of the parameter in the spine."""
-        super().__init__(*arg)
 
 
 class PolicyInSystem(SystemElement):
@@ -801,27 +807,28 @@ class PolicyInSystem(SystemElement):
         super().__init__(*arg)
         self.functions: list[FunctionInSystem] | None = None
         """: A :obj:`list` with :class:`FunctionInSystem` objects specific to the system"""
-        self.private: str = "no"
+
+        self.private: str 
         """: Access type. Default is 'no'."""
-        self.extensions: list[Extension] | None = None
+        self.extensions: list[Extension]
         """: A :obj:`list` of policy-specific :class:`Extension` objects."""
-        self.ID: str = ""
+        self.ID: str
         """Identifier number of the policy."""
-        self.comment: str = ""
+        self.comment: str
         """Comment specific to the policy."""
-        self.name: str = ""
+        self.name: str 
         """Name of the policy."""
-        self.order: str = ""
+        self.order: str 
         """Order of the policy in the specific spine."""
-        self.spineOrder: str = ""
+        self.spineOrder: str 
         """Order of the policy in the spine."""
-        self.polID: str = ""
+        self.polID: str 
         """Identifier number of the reference policy at country level."""
-        self.sysID: str = ""
+        self.sysID: str 
         """Identifier number of the reference system."""
-        self.switch: str = ""
+        self.switch: str 
         """Policy switch action."""
-        
+
     def _container_middle_repr(self):
         ext = self._get_extension_repr()
         return f"{self.switch}{ext}" 
@@ -849,32 +856,31 @@ class PolicyInSystem(SystemElement):
 class ParameterInSystem(SystemElement):
     """Parameters set up in a function for a specific system.
     """
+    group: str 
+    """str: Parameter group number."""
+    extensions: list # list[Extension]
+    """: A :obj:`list` with :class:`Extension` objects."""
+    ID: str
+    """Identifier number of the parameter."""
+    comment: str
+    """Comment specific to the parameter."""
+    funID: str 
+    """Identifier number of the reference function at country level."""
+    name: str 
+    """Name of the parameter."""
+    order: str 
+    """Order of the parameter in the specific spine."""
+    spineOrder: str 
+    """Order of the parameter in the spine."""
+    parID: str 
+    """Identifier number of the reference parameter at country level."""
+    sysID: str 
+    """Identifier number of the reference system."""
+    value: str 
+    """Value of the parameter."""
+    
     _extensionType = ReadCountryOptions.EXTENSION_PAR
     _ctryOption = ReadCountryOptions.SYS_PAR
-    
-    def __init__(self):
-        self.group: str = ""
-        """str: Parameter group number."""
-        self.extensions: list[Extension] | None = None
-        """: A :obj:`list` with :class:`Extension` objects."""
-        self.ID: str = ""
-        """Identifier number of the parameter."""
-        self.comment: str = ""
-        """Comment specific to the parameter."""
-        self.funID: str = ""
-        """Identifier number of the reference function at country level."""
-        self.name: str = ""
-        """Name of the parameter."""
-        self.order: str = ""
-        """Order of the parameter in the specific spine."""
-        self.spineOrder: str = ""
-        """Order of the parameter in the spine."""
-        self.parID: str = ""
-        """Identifier number of the reference parameter at country level."""
-        self.sysID: str = ""
-        """Identifier number of the reference system."""
-        self.value: str = ""
-        """Value of the parameter."""
 
     def _short_repr(self):
         return f"{self.parentTypeObject.name}" 
@@ -884,38 +890,38 @@ class ParameterInSystem(SystemElement):
         comment = self.comment if len(self.comment) < 50 else self.comment[:50] + " ..."
         return  f"{comment}"
     
+    
 class DatasetInSystem(SystemElement):
     """Datasets available in a system model.
     """
-    def __init__(self): 
-        self.ID: str = ""
-        """: Dataset identifier number."""
-        self.bestMatch: str = ""
-        """: If yes, the current dataset is a best match for the specific system."""
-        self.coicopVersion: str = ""
-        """: COICOP  version."""
-        self.comment: str = ""
-        """: Comment  about the dataset."""
-        self.currency: str = ""
-        """: Currency of the monetary values in the dataset."""
-        self.dataID: str = ""
-        """: Identifier number of the reference dataset at the country level."""
-        self.decimalSign: str = ""
-        """: Decimal sign"""
-        self.name: str = ""
-        """: Name of the dataset."""
-        self.private: str = "no"
-        """: Access type."""
-        self.readXVariables: str = "no"
-        """: Read variables."""
-        self.sysID: str = ""
-        """: Identifier number of the reference system."""
-        self.useCommonDefault: str = "no"
-        """: Use default."""
-        self.yearCollection: str = ""
-        """: Year of the dataset collection."""
-        self.yearInc: str = ""
-        """: Reference year for the income variables."""
+    ID: str 
+    """: Dataset identifier number."""
+    bestMatch: str 
+    """: If yes, the current dataset is a best match for the specific system."""
+    coicopVersion: str 
+    """: COICOP  version."""
+    comment: str 
+    """: Comment  about the dataset."""
+    currency: str 
+    """: Currency of the monetary values in the dataset."""
+    dataID: str 
+    """: Identifier number of the reference dataset at the country level."""
+    decimalSign: str 
+    """: Decimal sign"""
+    name: str 
+    """: Name of the dataset."""
+    private: str 
+    """: Access type."""
+    readXVariables: str 
+    """: Read variables."""
+    sysID: str 
+    """: Identifier number of the reference system."""
+    useCommonDefault: str 
+    """: Use default."""
+    yearCollection: str 
+    """: Year of the dataset collection."""
+    yearInc: str 
+    """: Reference year for the income variables."""
         
     _ctryOption = ReadCountryOptions.SYS_DATA
     def _container_middle_repr(self):
@@ -925,35 +931,38 @@ class DatasetInSystem(SystemElement):
             return ""
     
 class FunctionInSystem(SystemElement):
-    """Function implemented in a policy for a specific system.
+    """Functions implemented in a policy for a specific system.
     """
     _ctryOption = ReadCountryOptions.SYS_FUN 
     def __init__(self,*arg):
-        self.ID: str = ""
-        """Identifier number of the function."""
-        self.comment: str = ""
-        """Comment specific to the function."""
-        self.funID: str = ""
-        """Identifier number of the reference function at country level."""
-        self.name: str = ""
-        """Name of the function."""
-        self.order: str = ""
-        """Order of the function in the specific spine."""
-        self.polID: str = ""
-        """Identifier number of the reference policy."""
-        self.private: str = "no"
-        """Access type."""
-        self.spineOrder: str = ""
-        """Order of the function in the spine."""
-        self.switch: str = ""
-        """: Policy switch action."""
-        self.sysID: str = ""
-        """: Identifier number of the reference policy."""
-        self.extensions: list[Extension] | None = None
-        """: A :obj:`list` of :class:`Extension` objects in a country."""
+        super().__init__(*arg)
         self.parameters: list[ParameterInSystem] | None = None
         """: A :obj:`list` with :class:`ParameterInSystem` objects specific to a function."""
-        super().__init__(*arg)
+        
+        
+        self.ID: str
+        """Identifier number of the function."""
+        self.comment: str
+        """Comment specific to the function."""
+        self.funID: str 
+        """Identifier number of the reference function at country level."""
+        self.name: str 
+        """Name of the function."""
+        self.order: str 
+        """Order of the function in the specific spine."""
+        self.polID: str
+        """Identifier number of the reference policy."""
+        self.private: str 
+        """Access type."""
+        self.spineOrder: str
+        """Order of the function in the spine."""
+        self.switch: str 
+        """: Policy switch action."""
+        self.sysID: str
+        """: Identifier number of the reference policy."""
+        self.extensions: list[Extension] 
+        """: A :obj:`list` of :class:`Extension` objects in a country."""
+
     
     def _container_middle_repr(self):
         ext = self._get_extension_repr()
@@ -977,14 +986,12 @@ class FunctionInSystem(SystemElement):
 class Extension(Euromod_Element):
     """EUROMOD built-in extensions. 
     """
-    _objectType = ReadModelOptions.EXTENSIONS
-    
-    def __init__(self):
-        self.name: str = ""
-        """Full name of the extension."""
-        self.shortName: str = ""
-        """Short name of the extension."""
+    name: str 
+    """Full name of the extension."""
+    shortName: str 
+    """Short name of the extension."""
         
+    _objectType = ReadModelOptions.EXTENSIONS
     def __repr__(self):
         return f"Extension: {self.name}" 
 
@@ -996,6 +1003,3 @@ class Extension(Euromod_Element):
 
 
     
-
-
-

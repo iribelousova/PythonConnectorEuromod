@@ -12,6 +12,7 @@
 
 # Distribution / packaging
 dev/
+_test/
 .Python
 build/
 resources/
@@ -83,6 +84,7 @@ docs/autoapi
 # PyBuilder
 .pybuilder/
 target/
+.pypirc
 
 # Jupyter Notebook
 .ipynb_checkpoints

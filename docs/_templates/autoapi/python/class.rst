@@ -36,7 +36,7 @@
    {% if "inherited-members" in autoapi_options %}
    {% set visible_attributes = obj.attributes|selectattr("display")|list %}
    {% else %}
-   {% set visible_attributes = obj.attributes|rejectattr("inherited")|selectattr("display")|list %}
+   {% set visible_attributes = obj.attributes|selectattr("display")|list %}
    {% endif %}
    {% if "inherited-members" in autoapi_options %}
    {% set visible_methods = obj.methods|selectattr("display")|list %}
