@@ -2,7 +2,7 @@
 
 ![python](https://img.shields.io/pypi/pyversions/euromod)
 ![Static Badge](https://img.shields.io/badge/0.1.20a-blu?label=euromod&color=blu)
-[![Documentation Status](https://img.shields.io/readthedocs/euromod?label=Read%20the%20Docs&logo=read-the-docs)](https://euromod.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://img.shields.io/readthedocs/euromod?label=Read%20the%20Docs&logo=read-the-docs)](http://pythonconnectoreuromod.readthedocs.io/)
 
 ## What is _Euromod_?
 
@@ -144,6 +144,6 @@ PolicyInSystem
 
 ## License
 
-EUROMOD is licensed under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license and the MIT license. See the
-[documentation](https://euromod.readthedocs.io/en/latest/license.html) for details.
+&copy; Copyright 2024 European Commission. EUROMOD is licensed under the [EUPL, Version 1.2](https://joinup.ec.europa.eu/software/page/eupl). See the
+[documentation](http://pythonconnectoreuromod.readthedocs.io/) for details.
 

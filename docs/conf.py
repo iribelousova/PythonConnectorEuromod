@@ -9,7 +9,7 @@ import os
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Euromod Connector'
-copyright = '2024, European Commission, Joint Research Centre (CC BY 4.0, MIT License)'
+copyright = '2024 European Commission. EUROMOD is licensed under the EUPL, Version 1.2'
 author = 'Belousova Irina, Manios Kostas, Serruys Hannes'
 release = "0.1.20a"
 
@@ -54,7 +54,7 @@ autoapi_keep_files = True
 #autoapi_python_class_content = "both" # Use the concatenation of the class docstring and the __init__ docstring.
 autoapi_member_order = "groupwise"
 
-autodoc_typehints = "both"
+autodoc_typehints = "signature"
 autosummary_generate = True
 
 templates_path = ['_templates']
