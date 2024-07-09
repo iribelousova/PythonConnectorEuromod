@@ -11,7 +11,7 @@ build:
     python: "3.11"
     nodejs: "16"
   commands:
-        - py -m pip uninstall clr
+        - pip uninstall clr
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
