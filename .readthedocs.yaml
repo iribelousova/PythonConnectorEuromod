@@ -19,10 +19,12 @@ build:
   tools:
     python: "3.11"
   jobs:
-    pre_build:
-      - pip uninstall clr
-      - pip install pythonnet
-      - pip install euromod
+    post_create_environment:
+      - python -m from pythonnet import load
+      - python -m load("coreclr", runtime_config="docs/runtimeconfig.json")
+      #- pip uninstall clr
+      #- pip install pythonnet
+      #- pip install euromod
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
