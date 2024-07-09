@@ -11,9 +11,9 @@ build:
     python: "3.11"
   jobs:
     pre_create_environment:
-      - pip install setuptools
+      - pip uninstall clr
     post_install:
-      - VIRTUAL_ENV=$READTHEDOCS_VIRTUALENV_PATH setuptools install --with docs
+      - pip uninstall clr
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
