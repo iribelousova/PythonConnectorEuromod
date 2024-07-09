@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting Started &mdash; Euromod Connector</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="_static/css/label.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=eb9420fa"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Simulation examples" href="example.html" />
+    <link rel="prev" title="What is euromod?" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Euromod Connector
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">What is euromod?</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#load-the-model">Load the model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#countries-and-systems">Countries and systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#datasets">Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#policies">Policies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#run-simulation">Run simulation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Simulation examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Euromod Connector</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Getting Started</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/getstarted.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h1>
+<p>The Euromod Conector is a Python library providing tools for running simulations and interacting with the tax-benefit microsimulation model <a class="reference external" href="https://euromod-web.jrc.ec.europa.eu" title="https://euromod-web.jrc.ec.europa.eu">EUROMOD</a>.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>The Euromod Connector can be installed from <a class="reference external" href="https://test.pypi.org/project/euromod/">PyPi</a>  using <em>pip</em>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>euromod
+</pre></div>
+</div>
+<section id="requirements">
+<h3>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h3>
+<p>The Euromod Connector requires two EUROMOD components: 1) the model (coded policy rules), and 2) the input microdata with the variables that respect the EUROMOD naming conventions.
+For more information, please, read the sections “Model” and “Input microdata” on the <a class="reference external" href="https://euromod-web.jrc.ec.europa.eu/download-euromod" title="https://euromod-web.jrc.ec.europa.eu/download-euromod">Download Euromod</a> web page.</p>
+</section>
+</section>
+<section id="load-the-model">
+<h2>Load the model<a class="headerlink" href="#load-the-model" title="Link to this heading"></a></h2>
+<p>Import the EUROMOD model:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">euromod</span> <span class="kn">import</span> <span class="n">Model</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Create an object of the <code class="docutils literal notranslate"><span class="pre">core.Model</span></code> class by passing  the path to the  EUROMOD project:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">=</span><span class="n">Model</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\EUROMOD_RELEASES_I6.0+&quot;</span><span class="p">)</span>
+<span class="n">mod</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model located in C:\EUROMOD_RELEASES_I6.0+
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="countries-and-systems">
+<h2>Countries and systems<a class="headerlink" href="#countries-and-systems" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Model.countries</span></code> attirbute is a container storing the <code class="docutils literal notranslate"><span class="pre">core.Country</span></code> objects which nest the country-specific tax-benefit policies and systems.</p>
+<p>Displays the EUROMOD default countries:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0: AT 
+1: BE 
+2: BG 
+3: CY 
+4: CZ 
+5: DE 
+6: DK 
+7: EE 
+8: EL 
+9: ES 
+10: FI
+11: FR
+12: HR
+13: HU
+14: IE
+15: IT
+16: LT
+17: LU
+18: LV
+19: MT
+20: NL
+21: PL
+22: PT
+23: RO
+24: SE
+25: SI
+26: SK
+27: SL
+</pre></div>
+</div>
+</div>
+</div>
+<p>Displaying a specific country model, e.g. Simpleland, using the two-letters country code index:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;SL&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+Country
+------------------------------
+	 datasets: sl_demo_v4
+	 local_extensions: 0 elements
+	 name: &#39;SL&#39;
+	 policies: 12 elements
+	 systems: SL_1996
+</pre></div>
+</div>
+</div>
+</div>
+<p>Get the <code class="docutils literal notranslate"><span class="pre">core.System</span></code> object from the country class, e.g. for the system ‘SL_1996’ of the country Simpleland ‘SL’:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;SL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;SL_1996&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+System
+------------------------------
+	 ID: &#39;F7E5CACE-CECC-4BB6-9841-A936D0975481&#39;
+	 bestmatch_datasets: sl_demo_v4
+	 currencyOutput: &#39;euro&#39;
+	 currencyParam: &#39;euro&#39;
+	 datasets: sl_demo_v4
+	 headDefInc: &#39;ils_origy&#39;
+	 name: &#39;SL_1996&#39;
+	 order: &#39;1&#39;
+	 policies: 12 elements
+	 private: &#39;no&#39;
+	 year: &#39;1996&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="datasets">
+<h3>Datasets<a class="headerlink" href="#datasets" title="Link to this heading"></a></h3>
+<p>All the datasets that are available for a country-system model are collected in the attribute <code class="docutils literal notranslate"><span class="pre">datasets</span></code> as <code class="docutils literal notranslate"><span class="pre">core.Dataset</span></code> objects.</p>
+<p>Displaying information about a dataset relative to a country, e.g. dataset ‘sl_demo_v4’ for the country Simpleland, by indexing the attribute <code class="docutils literal notranslate"><span class="pre">datasets</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;SL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+Dataset
+------------------------------
+	 ID: &#39;CBA7E428-F8E4-4CEB-8A5E-9ACE73987DD7&#39;
+	 coicopVersion: &#39;&#39;
+	 comment: &#39;&#39;
+	 currency: &#39;euro&#39;
+	 decimalSign: &#39;.&#39;
+	 name: &#39;sl_demo_v4&#39;
+	 private: &#39;no&#39;
+	 readXVariables: &#39;no&#39;
+	 useCommonDefault: &#39;no&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Displaying information about a dataset relative to a system, e.g. dataset ‘sl_demo_v4’ for the system ‘SL_1996’, by indexing the attribute <code class="docutils literal notranslate"><span class="pre">datasets</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;SL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;SL_1996&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+DatasetInSystem
+------------------------------
+	 ID: &#39;F7E5CACE-CECC-4BB6-9841-A936D0975481CBA7E428-F8E4-4CEB-8A5E-9ACE73987DD7&#39;
+	 bestMatch: &#39;yes&#39;
+	 coicopVersion: &#39;&#39;
+	 comment: &#39;&#39;
+	 currency: &#39;euro&#39;
+	 dataID: &#39;CBA7E428-F8E4-4CEB-8A5E-9ACE73987DD7&#39;
+	 decimalSign: &#39;.&#39;
+	 name: &#39;sl_demo_v4&#39;
+	 private: &#39;no&#39;
+	 readXVariables: &#39;no&#39;
+	 sysID: &#39;F7E5CACE-CECC-4BB6-9841-A936D0975481&#39;
+	 useCommonDefault: &#39;no&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="policies">
+<h3>Policies<a class="headerlink" href="#policies" title="Link to this heading"></a></h3>
+<p>All the policies that apply in a country-system model are collected in the attribute <code class="docutils literal notranslate"><span class="pre">policies</span></code> as <code class="docutils literal notranslate"><span class="pre">core.Policy</span></code> and <code class="docutils literal notranslate"><span class="pre">core.PolicyInSystem</span></code> objects, respectively for the country and system objects.</p>
+<p>Displaying all the policies modeled in a country using the attribute <code class="docutils literal notranslate"><span class="pre">policies</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;SL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0: Uprate_sl            |    DEF: UPRATING FACTORS 
+1: ILsDef_sl            |    DEF: STANDARD INCOME CONCEPTS 
+2: ILDef_sl             |    DEF: SPECIFIC INCOME CONCEPTS 
+3: TUDef_sl             |    DEF: ASSESSMENT UNITS 
+4: yem_sl               |    DEF: Minimum Wage 
+5: neg_sl               |    DEF: recode negative self-employment income to zer ... 
+6: sic_sl               |    SIC: Social Insurance Contributions 
+7: bch_sl               |    BEN: Child Benefit 
+8: tin_sl               |    TAX: Income Tax 
+9: bsa_sl               |    BEN: Social Assistance 
+10: output_std_sl       |    DEF: STANDARD OUTPUT INDIVIDUAL LEVEL 
+11: output_std_hh_sl    |    DEF: STANDARD OUTPUT HOUSEHOLD LEVEL 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Displaying all the policies modeled in a system using the attribute <code class="docutils literal notranslate"><span class="pre">policies</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;SL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;SL_1996&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0: Uprate_sl             | on        |    DEF: UPRATING FACTORS 
+1: ILsDef_sl             | on        |    DEF: STANDARD INCOME CONCEPTS 
+2: ILDef_sl              | on        |    DEF: SPECIFIC INCOME CONCEPTS 
+3: TUDef_sl              | on        |    DEF: ASSESSMENT UNITS 
+4: yem_sl                | on        |    DEF: Minimum Wage 
+5: neg_sl                | on        |    DEF: recode negative self-employment income to zer ... 
+6: sic_sl                | on        |    SIC: Social Insurance Contributions 
+7: bch_sl                | on        |    BEN: Child Benefit 
+8: tin_sl                | on        |    TAX: Income Tax 
+9: bsa_sl                | on        |    BEN: Social Assistance 
+10: output_std_sl        | on        |    DEF: STANDARD OUTPUT INDIVIDUAL LEVEL 
+11: output_std_hh_sl     | off       |    DEF: STANDARD OUTPUT HOUSEHOLD LEVEL 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Displaying the <code class="docutils literal notranslate"><span class="pre">core.Policy</span></code> ‘sic_sl’ in the country Simpleland ‘SL’:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;SL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+Policy
+------------------------------
+	 ID: &#39;20901CF5-0A2A-4BA8-A18A-7092CD6A182D&#39;
+	 comment: &#39;SIC: Social Insurance Contributions&#39;
+	 extensions: 0 elements
+	 functions: SchedCalc, SchedCalc, SchedCalc
+	 name: &#39;sic_sl&#39;
+	 order: &#39;7&#39;
+	 private: &#39;no&#39;
+	 spineOrder: &#39;7&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Displaying the <code class="docutils literal notranslate"><span class="pre">core.PolicyInSystem</span></code> ‘sic_sl’ for the system ‘SL_1996’ in country Simpleland ‘SL’:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;SL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;SL_1996&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+PolicyInSystem
+------------------------------
+	 ID: &#39;F7E5CACE-CECC-4BB6-9841-A936D097548120901CF5-0A2A-4BA8-A18A-7092CD6A182D&#39;
+	 comment: &#39;SIC: Social Insurance Contributions&#39;
+	 extensions: 0 elements
+	 functions: SchedCalc, SchedCalc, SchedCalc
+	 name: &#39;sic_sl&#39;
+	 order: &#39;7&#39;
+	 polID: &#39;20901CF5-0A2A-4BA8-A18A-7092CD6A182D&#39;
+	 private: &#39;no&#39;
+	 spineOrder: &#39;7&#39;
+	 switch: &#39;on&#39;
+	 sysID: &#39;F7E5CACE-CECC-4BB6-9841-A936D0975481&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<p>The attribute <code class="docutils literal notranslate"><span class="pre">functions</span></code> stores all the functions defined in a country-system model as <code class="docutils literal notranslate"><span class="pre">core.Function</span></code> objects and <code class="docutils literal notranslate"><span class="pre">core.FunctionInSystem</span></code> objects, respectively.</p>
+<p>Displaying the <code class="docutils literal notranslate"><span class="pre">core.Function</span></code> object for the function ‘SchedCalc’ in the policy ‘sic_sl’ in country Simpleland ‘SL’:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;SL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+Function
+------------------------------
+	 ID: &#39;0093C4C1-5B69-492F-B88B-99E880201D08&#39;
+	 comment: &quot;employee&#39;s contribution&quot;
+	 extensions: 0 elements
+	 name: &#39;SchedCalc&#39;
+	 order: &#39;2&#39;
+	 parameters: base, band_rate, uplim, output_var, TAX_UNIT
+	 polID: &#39;20901CF5-0A2A-4BA8-A18A-7092CD6A182D&#39;
+	 spineOrder: &#39;7.2&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Displaying the <code class="docutils literal notranslate"><span class="pre">core.FunctionInSystem</span></code> object for the function ‘SchedCalc’ in the policy ‘sic_sl’ and system ‘SL_1996’ in country Simpleland ‘SL’:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;SL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;SL_1996&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+FunctionInSystem
+------------------------------
+	 ID: &#39;F7E5CACE-CECC-4BB6-9841-A936D09754810093C4C1-5B69-492F-B88B-99E880201D08&#39;
+	 comment: &quot;employee&#39;s contribution&quot;
+	 extensions: 0 elements
+	 funID: &#39;0093C4C1-5B69-492F-B88B-99E880201D08&#39;
+	 name: &#39;SchedCalc&#39;
+	 order: &#39;2&#39;
+	 parameters: base, band_rate, uplim, output_var, TAX_UNIT
+	 polID: &#39;20901CF5-0A2A-4BA8-A18A-7092CD6A182D&#39;
+	 spineOrder: &#39;7.2&#39;
+	 switch: &#39;on&#39;
+	 sysID: &#39;F7E5CACE-CECC-4BB6-9841-A936D0975481&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h3>
+<p>The attribute <code class="docutils literal notranslate"><span class="pre">parameters</span></code> is a container collecting all the policy-functions parameters of a given country-system model, respectively as <code class="docutils literal notranslate"><span class="pre">core.Parameter</span></code> and <code class="docutils literal notranslate"><span class="pre">core.ParameterInSystem</span></code> objects.</p>
+<p>Displaying the <code class="docutils literal notranslate"><span class="pre">core.Parameter</span></code> object for parameter ‘uplim’ from the function ‘SchedCalc’ in policy ‘sic_sl’ for country ‘SL’:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;SL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+Parameter
+------------------------------
+	 ID: &#39;7BE96A7F-610A-4B58-A9B0-36A387B785A7&#39;
+	 comment: &#39;i.e. switched off&#39;
+	 extensions: 0 elements
+	 funID: &#39;0093C4C1-5B69-492F-B88B-99E880201D08&#39;
+	 group: &#39;&#39;
+	 name: &#39;uplim&#39;
+	 order: &#39;3&#39;
+	 spineOrder: &#39;7.2.3&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Displaying the <code class="docutils literal notranslate"><span class="pre">core.ParameterInSystem</span></code> object for parameter ‘uplim’ from the function ‘SchedCalc’ in policy ‘sic_sl’ for system ‘SL_1996’ and country ‘SL’:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="p">[</span><span class="s1">&#39;SL&#39;</span><span class="p">][</span><span class="s1">&#39;SL_1996&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+ParameterInSystem
+------------------------------
+	 ID: &#39;F7E5CACE-CECC-4BB6-9841-A936D09754817BE96A7F-610A-4B58-A9B0-36A387B785A7&#39;
+	 comment: &#39;i.e. switched off&#39;
+	 extensions: 0 elements
+	 funID: &#39;0093C4C1-5B69-492F-B88B-99E880201D08&#39;
+	 group: &#39;&#39;
+	 name: &#39;uplim&#39;
+	 order: &#39;3&#39;
+	 parID: &#39;7BE96A7F-610A-4B58-A9B0-36A387B785A7&#39;
+	 spineOrder: &#39;7.2.3&#39;
+	 sysID: &#39;F7E5CACE-CECC-4BB6-9841-A936D0975481&#39;
+	 value: &#39;999999999.99#m&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="run-simulation">
+<h2>Run simulation<a class="headerlink" href="#run-simulation" title="Link to this heading"></a></h2>
+<p>The example below shows how to run a simulation on the EUROMOD’s Simpleland country model, which is an example of a simple country model provided by default with EUROMOD.</p>
+<p>Load the EUROMOD model:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">euromod</span> <span class="kn">import</span> <span class="n">Model</span>
+<span class="n">mod</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="s2">&quot;C:\EUROMOD_RELEASES_I6.0+&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Get the best-match dataset for the system ‘SL_1996’ in the country Simpleland ‘SL’:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset_id</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;SL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;SL_1996&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">bestmatch_datasets</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+<span class="n">dataset_id</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;sl_demo_v4&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Load the Simpleland ‘SL’ dataset as a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\EUROMOD_RELEASES_I6.0+\Input\sl_demo_v4.txt&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Run the simulation of the ‘SL’ system ‘SL_1996’ using the dataset ‘sl_demo_v4’:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out</span><span class="o">=</span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;SL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;SL_1996&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="s1">&#39;sl_demo_v4&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulation for system SL_1996 with dataset sl_demo_v4 finished.
+</pre></div>
+</div>
+</div>
+</div>
+<p>The simulation run returns a <code class="docutils literal notranslate"><span class="pre">core.Simulation</span></code> class that stores the results as <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> objects in the attribute <code class="docutils literal notranslate"><span class="pre">outputs</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>idhh</th>
+      <th>idperson</th>
+      <th>idmother</th>
+      <th>idfather</th>
+      <th>idpartner</th>
+      <th>dag</th>
+      <th>dgn</th>
+      <th>dec</th>
+      <th>dwt</th>
+      <th>dms</th>
+      <th>...</th>
+      <th>ils_taxsim</th>
+      <th>ils_tax</th>
+      <th>ils_sicee</th>
+      <th>ils_sicse</th>
+      <th>ils_sicer</th>
+      <th>ils_sicot</th>
+      <th>ils_sicdy</th>
+      <th>ils_dispy</th>
+      <th>il_taxabley</th>
+      <th>il_bsa_base</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.0</td>
+      <td>101.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>102.0</td>
+      <td>65.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>2.0</td>
+      <td>...</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>807.018500</td>
+      <td>0.00000</td>
+      <td>807.01850</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.0</td>
+      <td>102.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>101.0</td>
+      <td>60.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>2.0</td>
+      <td>...</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.0</td>
+      <td>103.0</td>
+      <td>102.0</td>
+      <td>101.0</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.0</td>
+      <td>104.0</td>
+      <td>102.0</td>
+      <td>101.0</td>
+      <td>0.0</td>
+      <td>28.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>7.87094</td>
+      <td>0.0</td>
+      <td>15.74188</td>
+      <td>0.0</td>
+      <td>7.87094</td>
+      <td>934.294772</td>
+      <td>149.54786</td>
+      <td>149.54786</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2.0</td>
+      <td>201.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>202.0</td>
+      <td>29.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>2.0</td>
+      <td>...</td>
+      <td>84.31707</td>
+      <td>84.31707</td>
+      <td>53.76765</td>
+      <td>0.0</td>
+      <td>107.53530</td>
+      <td>0.0</td>
+      <td>53.76765</td>
+      <td>1337.268280</td>
+      <td>1421.58535</td>
+      <td>1337.26828</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1255</th>
+      <td>500.0</td>
+      <td>50003.0</td>
+      <td>50002.0</td>
+      <td>50001.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>10.0</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>1256</th>
+      <td>500.0</td>
+      <td>50004.0</td>
+      <td>50002.0</td>
+      <td>50001.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>1257</th>
+      <td>500.0</td>
+      <td>50005.0</td>
+      <td>50002.0</td>
+      <td>50001.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>1258</th>
+      <td>500.0</td>
+      <td>50006.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>50007.0</td>
+      <td>68.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>2.0</td>
+      <td>...</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>839.845300</td>
+      <td>0.00000</td>
+      <td>839.84530</td>
+    </tr>
+    <tr>
+      <th>1259</th>
+      <td>500.0</td>
+      <td>50007.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>50006.0</td>
+      <td>62.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>2.0</td>
+      <td>...</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+    </tr>
+  </tbody>
+</table>
+<p>1260 rows × 43 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="What is euromod?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="example.html" class="btn btn-neutral float-right" title="Simulation examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, European Commission, Joint Research Centre (CC BY 4.0, MIT License).
+      <span class="lastupdated">Last updated on Jul 09, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
