@@ -11,9 +11,9 @@ build:
     python: "3.11"
   jobs:
     pre_create_environment:
-      - pip install poetry
+      - pip install setuptools
     post_install:
-      - VIRTUAL_ENV=$READTHEDOCS_VIRTUALENV_PATH poetry install --with docs
+      - VIRTUAL_ENV=$READTHEDOCS_VIRTUALENV_PATH setuptools install --with docs
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
