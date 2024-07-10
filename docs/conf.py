@@ -34,8 +34,6 @@ intersphinx_mapping = {
      "pandas": ("https://pandas.pydata.org/docs/", None),
  }
 
-# autodoc_mock_imports = ["pythonnet"]
-
 # -- Plausible support
 ENABLE_PLAUSIBLE = os.environ.get("READTHEDOCS_VERSION_TYPE", "") in ["branch", "tag"]
 html_context = {"enable_plausible": ENABLE_PLAUSIBLE}
@@ -143,3 +141,4 @@ def skip_member(app, what, name, obj, skip, options):
 
 def setup(sphinx):
    sphinx.connect("autoapi-skip-member", skip_member)
+

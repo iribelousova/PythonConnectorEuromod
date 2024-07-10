@@ -11,7 +11,6 @@ Contents
 ```{toctree}
 :maxdepth: 2
 
-self
 getstarted.ipynb
 example.ipynb
 userguide.ipynb
