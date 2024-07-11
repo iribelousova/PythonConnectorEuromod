@@ -11,7 +11,7 @@ build:
     python: "3.11"
   jobs:
     post_install:
-      - importmodule
+      - python -m importmodule
       #- pip uninstall clr
       #- pip install pythonnet
 
