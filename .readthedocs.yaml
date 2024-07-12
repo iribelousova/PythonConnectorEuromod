@@ -11,8 +11,9 @@ build:
   tools:
     python: "3.11"
   jobs:
-    post_install:
-      - dotnet-install.ps1
+    pre_install:
+      - bash ./docs/dotnet-install.ps1
+      #- dotnet-install.ps1
       #- python -m importmodule
       #- pip uninstall clr
       #- pip install pythonnet
