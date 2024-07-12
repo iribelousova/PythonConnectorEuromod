@@ -12,7 +12,7 @@ build:
     python: "3.11"
   jobs:
     post_install:
-      - winget install Microsoft.DotNet.SDK.8
+      - dotnet-install.ps1
       #- python -m importmodule
       #- pip uninstall clr
       #- pip install pythonnet
