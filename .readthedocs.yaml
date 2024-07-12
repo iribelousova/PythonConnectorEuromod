@@ -10,8 +10,9 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.11"
-  #jobs:
-    #post_install:
+  jobs:
+    post_install:
+      - winget install Microsoft.DotNet.SDK.8
       #- python -m importmodule
       #- pip uninstall clr
       #- pip install pythonnet
