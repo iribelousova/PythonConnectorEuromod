@@ -1,8 +1,12 @@
 API Reference
 =============
 
-This reference documentation details the public objects of the Euromod Connector package. For a complete documentation please refer to the Euromod Connector User Guide. 
-For futher readings on the tax-benefit microsimulation model EUROMOD please visit the official `web-site <https://euromod-web.jrc.ec.europa.eu/>`_.  [#f1]_
+This reference guide lists the main public objects of the Euromod Connector package. 
+The `euromod.core` module contains most of the public classes of the library. 
+It provides useful functionalities that allow the user to interact with EUROMOD [#f1]_ and run simulations.
+The `euromod.container` module defines a storage class for the model objects accessible by indexing.
+
+Please, refer to the `User Guide`_ and `Examples`_ for futher readings.
 
 .. toctree::
    :titlesonly:
@@ -11,4 +15,6 @@ For futher readings on the tax-benefit microsimulation model EUROMOD please visi
    {{ page.include_path }}
    {% endfor %}
 
-.. [#f1] Created with `Euromod web-site <https://euromod-web.jrc.ec.europa.eu/>`_
+.. [#f1] See the documetation for the EUROMOD tax-benefit microsimulation model on the `official webpage <https://euromod-web.jrc.ec.europa.eu/>`_ and in the `resources page <https://euromod-web.jrc.ec.europa.eu/resources>`_.
+.. _User Guide: ..docs/notebooks/userguide.ipynb
+.. _Examples: ..docs/notebooks/example.ipynb

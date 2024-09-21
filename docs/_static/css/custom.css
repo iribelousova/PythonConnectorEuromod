@@ -10,3 +10,7 @@ span.summarylabel {
     filter: opacity(40%);
 }
 
+table.summarytable {
+    width: 100%;
+}
+

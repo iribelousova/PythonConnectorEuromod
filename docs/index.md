@@ -11,11 +11,9 @@ Contents
 ```{toctree}
 :maxdepth: 2
 
-getstarted.ipynb
-example.ipynb
-userguide.ipynb
+notebooks/example.ipynb
+notebooks/userguide.ipynb
 autoapi/index.rst
-changelog.md
 license.md
 ```
 

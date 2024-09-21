@@ -10,11 +10,14 @@
 .asv
 .vs
 
-# Distribution / packaging
+# Development
 dev/
 _test/
+
+# Distribution / packaging
+**/_build/
+**/build/
 .Python
-build/
 resources/
 develop-eggs/
 dist/ 
@@ -78,7 +81,6 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/_build/
 docs/autoapi
 
 # PyBuilder
