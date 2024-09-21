@@ -84,21 +84,6 @@ todo_include_todos = False
 
 html_theme = 'furo'
 
-# extensions.append("sphinxjp.themes.basicstrap")
-# html_theme = 'basicstrap'
-
-# import sphinx_bootstrap_theme
-# html_theme = 'bootstrap'
-# html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-
-# html_theme="sizzle"
-
-# html_theme = "sphinx_rtd_theme"
-# html_static_path = ['_static']
-# # html_css_files = [
-# #     "css/custom.css",
-# # ]
-# html_style = 'css/theme.css' 
 html_title = 'Euromod Connector'
 html_short_title = 'Euromod'
 html_last_updated_fmt = ''
