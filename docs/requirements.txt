@@ -1,7 +1,7 @@
 sphinx-autoapi
 myst_parser
 myst-nb
-furo
+sphinx_rtd_theme
 sphinxcontrib-napoleon
 euromod
 pythonnet>=3.0.2
