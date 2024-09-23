@@ -31,8 +31,8 @@ Below are listed the main public classes of the euromod.container module.
 
 .. py:class:: Container(idDict=False)
    This class is a container for objects that allow for indexing and representation in multiple ways:
-   via keys that are the name of the objects
-   or via integer indexing as in a list.
+   - via keys that are the name of the objects or,
+   - via integer indexing as in a list.
 
 
 
@@ -46,7 +46,13 @@ Below are listed the main public classes of the euromod.container module.
       :class: summarytable
 
       * - :py:obj:`find <euromod.container.Container.find>`\ (key, pattern, return_children, case_insentive)
-        - Search for object attributes by pattern.
+        - Find objects that match pattern.
+      * - :py:obj:`items <euromod.container.Container.items>`\ ()
+        - Get items of the :class:`Container`.
+      * - :py:obj:`keys <euromod.container.Container.keys>`\ ()
+        - Get keys of the :class:`Container`.
+      * - :py:obj:`values <euromod.container.Container.values>`\ ()
+        - Get values of the :class:`Container`.
 
 
 
@@ -55,24 +61,51 @@ Below are listed the main public classes of the euromod.container module.
    
    .. py:method:: find(key, pattern, return_children=False, case_insentive=True)
 
-      Search for object attributes by pattern.
+      Find objects that match pattern.
 
-      :param key: Name of the attribute or the attribute of a child element that you want to look for.
+      :param key: Name of the attribute or the attribute of a child element that you want to look for
                   One can search child elements by using the dot-notation.
                   E.g.: mod["BE"]["BE_2023"].policies.find("functions.name","BenCalc")
       :type key: :obj:`str`
-      :param pattern: Pattern that you want to match.
+      :param pattern: pattern that you want to match.
       :type pattern: :obj:`str`
-      :param return_children: When True, the return type will be a :obj:`Container` containing elements of the type for which the find method was used
-                              When False, the return type will be a :obj:`Container` of the elements of the deepest level specified by the pattern key-word.
+      :param return_children: When True, the return type will be a Container containing elements of the type for which the find method was used
+                              When False, the return type will be a Container of the elements of the deepest level specified by the pattern key-word.
                               E.g.: mod["BE"]["BE_2023"].policies.find("function)
-                              The default is :obj:`False`.
-      :type return_children: :obj:`bool`, optional
-      :param case_insentive: When false, perform case-insensitive matching. The default is :obj:`True`.
+                              The default is False.
+      :type return_children: bool, optional
+      :param case_insentive: DESCRIPTION. The default is True.
       :type case_insentive: :obj:`bool`, optional
 
-      :returns: A container of objects that matched the pattern.
-      :rtype: container.Container
+      :returns: An object that matches the pattern.
+      :rtype: Container
+
+
+   
+   .. py:method:: items()
+
+      Get items of the :class:`Container`.
+
+      :returns: Object items.
+      :rtype: :obj:`Container.items`
+
+
+   
+   .. py:method:: keys()
+
+      Get keys of the :class:`Container`.
+
+      :returns: Names of the attribute or the attribute of a child element.
+      :rtype: :obj:`Container.keys`
+
+
+   
+   .. py:method:: values()
+
+      Get values of the :class:`Container`.
+
+      :returns: Value of the object attribute.
+      :rtype: :obj:`Container.values`
 
 
 

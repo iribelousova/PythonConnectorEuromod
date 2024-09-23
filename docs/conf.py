@@ -47,7 +47,7 @@ autoapi_template_dir = "_templates/autoapi"
 autoapi_options = [
     "members", # Display children of an object
     "undoc-members", # Display objects without docstrings. ??If this is removed API reference is not generated??
-    "show-inheritance", # Display a list of base classes below the class signature.
+    # "show-inheritance", # Display a list of base classes below the class signature.
     "show-module-summary", # summary at the top
     "imported-members", # display objects imported from the same top level package or module
 ]

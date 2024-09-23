@@ -26,7 +26,7 @@ Below are listed the main public classes of the euromod.core module.
    * - :py:obj:`Extension <euromod.core.Extension>`
      - EUROMOD extensions.
    * - :py:obj:`ExtensionSwitch <euromod.core.ExtensionSwitch>`
-     - \-
+     - A class containing the extension switches of an object.
    * - :py:obj:`Function <euromod.core.Function>`
      - Functions implemented in a country policy.
    * - :py:obj:`FunctionInSystem <euromod.core.FunctionInSystem>`
@@ -57,8 +57,8 @@ Below are listed the main public classes of the euromod.core module.
    :maxdepth: 3
 
 
-.. py:class:: Country(country: str, model: str)
-   Bases: :py:obj:`base.Euromod_Element`
+.. py:class:: Country(country: str, model: Model)
+
 
    Country-specific EUROMOD tax-benefit model.
 
@@ -68,6 +68,15 @@ Below are listed the main public classes of the euromod.core module.
 
    This class contains subclasses of type :class:`System`, :class:`Policy`,
    :class:`Dataset` and :class:`Extension`.
+
+   :param country: Name of the country.
+                   Must be a two-letter country codes, see the Eurostat `Glossary:Country codes <https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Country_codes>`_.
+   :type country: :obj:`str`
+   :param model: A class containing the EUROMOD base model.
+   :type model: :obj:`Model`
+
+   :returns: A class containing the EUROMOD country models.
+   :rtype: Country
 
    .. rubric:: Example
 
@@ -92,7 +101,7 @@ Below are listed the main public classes of the euromod.core module.
       * - :py:obj:`local_extensions <euromod.core.Country.local_extensions>`
         - A :obj:`Container` with :class:`Extension` objects. These are the local extensions defined for the country.
       * - :py:obj:`model <euromod.core.Country.model>`
-        - Returns the base :class:`Model` object.
+        - ":class:`Model` Returns the base :class:`Model` object.
       * - :py:obj:`name <euromod.core.Country.name>`
         - Two-letters country code.
       * - :py:obj:`policies <euromod.core.Country.policies>`
@@ -107,7 +116,7 @@ Below are listed the main public classes of the euromod.core module.
       :class: summarytable
 
       * - :py:obj:`get_switch_value <euromod.core.Country.get_switch_value>`\ (ext_name, dataset_name, sys_name)
-        - :param ext_name: Name of the extension. The default is :obj:`None`.
+        - Get the configuration of the switch.
       * - :py:obj:`load_data <euromod.core.Country.load_data>`\ (ID_DATASET, PATH_DATA)
         - Load data as a :class:`pandas.DataFrame` object.
 
@@ -139,9 +148,7 @@ Below are listed the main public classes of the euromod.core module.
    .. py:attribute:: model
       :type:  Model
 
-      Returns the base :class:`Model` object.
-
-      :type: "
+      ":class:`Model` Returns the base :class:`Model` object.
 
    .. py:attribute:: name
       :type:  str
@@ -167,19 +174,21 @@ Below are listed the main public classes of the euromod.core module.
    
    .. py:method:: get_switch_value(ext_name: Optional[str] = None, dataset_name: Optional[str] = None, sys_name: Optional[str] = None)
 
-      :param ext_name: Name of the extension. The default is :obj:`None`.
+      Get the configuration of the switch.
+
+      :param ext_name: Name of the extension. The default is None.
       :type ext_name: :obj:`str` , optional
-      :param dataset_name: Name of the dataset. The default is :obj:`None`.
+      :param dataset_name: Name of the dataset. The default is None.
       :type dataset_name: :obj:`str` , optional
-      :param sys_name: Name of the system. The default is :obj:`None`.
-      :type sys_name: :obj:`str` , optional
+      :param sys_name: Name of the system. The default is None.
+      :type sys_name: :obj:`str`, optional
 
       :raises KeyError: Is raised if ext_name, dataset_name or sys_name, but is not configured in the model.
 
-      :returns: Object of the type :obj:`ExtensionSwitch` containing information how the switch is configured.
+      :returns: Object containing information how the switch is configured.
                 Note that there is only a value returned if the switch is either explicitly 'off' or 'on'.
                 When it's configured as n/a in the model no value will be included.
-      :rtype: core.ExtensionSwitch
+      :rtype: Container[ExtensionSwitch]
 
 
    
@@ -189,7 +198,7 @@ Below are listed the main public classes of the euromod.core module.
 
       :param ID_DATASET: Name of the dataset excluding extension (Note: must be a `txt` file).
       :type ID_DATASET: :obj:`str`
-      :param PATH_DATA: Path to the dataset. Default is the PATH_TO_EUROMOD_PROJECT/Input folder.
+      :param PATH_DATA: Path to the dataset. Default is the folder "PATH_TO_EUROMOD_PROJECT/Input".
       :type PATH_DATA: :obj:`str`, optional
 
       :returns: Dataset is returned as a :class:`pandas.DataFrame` object.
@@ -201,10 +210,14 @@ Below are listed the main public classes of the euromod.core module.
 
 
 .. py:class:: Dataset(*args)
-   Bases: :py:obj:`base.Euromod_Element`
+
 
    Dataset available in a country model.
 
+   This class contains the relevant information about a dataset.
+
+   :returns: A class with the country-specific dataset.
+   :rtype: Dataset
 
 
 
@@ -228,6 +241,8 @@ Below are listed the main public classes of the euromod.core module.
         - Decimal sign
       * - :py:obj:`name <euromod.core.Dataset.name>`
         - Name of the dataset.
+      * - :py:obj:`parent <euromod.core.Dataset.parent>`
+        - The country-specific class.
       * - :py:obj:`private <euromod.core.Dataset.private>`
         - Access type.
       * - :py:obj:`readXVariables <euromod.core.Dataset.readXVariables>`
@@ -282,6 +297,11 @@ Below are listed the main public classes of the euromod.core module.
 
       Name of the dataset.
 
+   .. py:attribute:: parent
+      :type:  Country
+
+      The country-specific class.
+
    .. py:attribute:: private
       :type:  str
       :value: 'no'
@@ -319,10 +339,12 @@ Below are listed the main public classes of the euromod.core module.
 
 
 .. py:class:: DatasetInSystem
-   Bases: :py:obj:`base.SystemElement`
+
 
    Datasets available in a system model.
 
+   :returns: A class with the system-specific dataset.
+   :rtype: DatasetInSystem
 
 
 
@@ -350,6 +372,8 @@ Below are listed the main public classes of the euromod.core module.
         - Decimal sign
       * - :py:obj:`name <euromod.core.DatasetInSystem.name>`
         - Name of the dataset.
+      * - :py:obj:`parent <euromod.core.DatasetInSystem.parent>`
+        - The country specific class.
       * - :py:obj:`private <euromod.core.DatasetInSystem.private>`
         - Access type.
       * - :py:obj:`readXVariables <euromod.core.DatasetInSystem.readXVariables>`
@@ -408,6 +432,11 @@ Below are listed the main public classes of the euromod.core module.
 
       Name of the dataset.
 
+   .. py:attribute:: parent
+      :type:  Country
+
+      The country specific class.
+
    .. py:attribute:: private
       :type:  str
 
@@ -444,10 +473,12 @@ Below are listed the main public classes of the euromod.core module.
 
 
 .. py:class:: Extension(*arg)
-   Bases: :py:obj:`base.Euromod_Element`
+
 
    EUROMOD extensions.
 
+   :returns: A class with the model extensions.
+   :rtype: Extension
 
 
 
@@ -460,7 +491,9 @@ Below are listed the main public classes of the euromod.core module.
       :class: summarytable
 
       * - :py:obj:`name <euromod.core.Extension.name>`
-        - Full name of the extension.
+        - Long name of the extension.
+      * - :py:obj:`parent <euromod.core.Extension.parent>`
+        - The model base class.
       * - :py:obj:`shortName <euromod.core.Extension.shortName>`
         - Short name of the extension.
 
@@ -474,7 +507,12 @@ Below are listed the main public classes of the euromod.core module.
       :value: None
 
 
-      Full name of the extension.
+      Long name of the extension.
+
+   .. py:attribute:: parent
+      :type:  Model
+
+      The model base class.
 
    .. py:attribute:: shortName
       :type:  str
@@ -489,10 +527,15 @@ Below are listed the main public classes of the euromod.core module.
 
 
 .. py:class:: ExtensionSwitch(info, ctry)
-   Bases: :py:obj:`base.Euromod_Element`
 
-   
 
+   A class containing the extension switches of an object.
+
+   This class is returned by :func:`~Country.get_switch_value` method and should not
+   be used by the user as a stand alone.
+
+   :returns: A class with relevant information on the extension switch.
+   :rtype: ExtensionSwitch
 
 
 
@@ -505,13 +548,15 @@ Below are listed the main public classes of the euromod.core module.
       :class: summarytable
 
       * - :py:obj:`data_name <euromod.core.ExtensionSwitch.data_name>`
-        - Name of the applicable dataset
+        - Name of the applicable dataset.
       * - :py:obj:`extension_name <euromod.core.ExtensionSwitch.extension_name>`
-        - Short name of the extension
+        - Short name of the extension.
+      * - :py:obj:`parent <euromod.core.ExtensionSwitch.parent>`
+        - The country-specific class.
       * - :py:obj:`sys_name <euromod.core.ExtensionSwitch.sys_name>`
-        - Name of the applicable system
+        - Name of the applicable system.
       * - :py:obj:`value <euromod.core.ExtensionSwitch.value>`
-        - value of the switch as configured in EUROOMOD.
+        - Value of the switch as configured in EUROOMOD.
 
 
 
@@ -519,22 +564,31 @@ Below are listed the main public classes of the euromod.core module.
    .. rubric:: Attributes
 
    .. py:attribute:: data_name
+      :type:  str
 
-      Name of the applicable dataset
+      Name of the applicable dataset.
 
    .. py:attribute:: extension_name
+      :type:  str
 
-      Short name of the extension
+      Short name of the extension.
+
+   .. py:attribute:: parent
+      :type:  Country
+
+      The country-specific class.
 
    .. py:attribute:: sys_name
+      :type:  str
 
-      Name of the applicable system
+      Name of the applicable system.
 
    .. py:attribute:: value
+      :type:  str
       :value: ''
 
 
-      value of the switch as configured in EUROOMOD.
+      Value of the switch as configured in EUROOMOD.
 
 
 
@@ -542,10 +596,12 @@ Below are listed the main public classes of the euromod.core module.
 
 
 .. py:class:: Function(*arg)
-   Bases: :py:obj:`base.SpineElement`
+
 
    Functions implemented in a country policy.
 
+   :returns: A class with country-specific function.
+   :rtype: Function
 
 
 
@@ -569,6 +625,8 @@ Below are listed the main public classes of the euromod.core module.
         - Order of the function in the specific spine.
       * - :py:obj:`parameters <euromod.core.Function.parameters>`
         - A :obj:`Container` of :class:`Parameter` objects in a country.
+      * - :py:obj:`parent <euromod.core.Function.parent>`
+        - The class of the country-specific policy.
       * - :py:obj:`polID <euromod.core.Function.polID>`
         - Identifier number of the reference policy.
       * - :py:obj:`private <euromod.core.Function.private>`
@@ -615,6 +673,11 @@ Below are listed the main public classes of the euromod.core module.
 
       A :obj:`Container` of :class:`Parameter` objects in a country.
 
+   .. py:attribute:: parent
+      :type:  Policy
+
+      The class of the country-specific policy.
+
    .. py:attribute:: polID
       :type:  str
 
@@ -636,10 +699,12 @@ Below are listed the main public classes of the euromod.core module.
 
 
 .. py:class:: FunctionInSystem(*arg)
-   Bases: :py:obj:`base.SystemElement`
+
 
    Functions implemented in a policy for a specific system.
 
+   :returns: A class with the system-specific function.
+   :rtype: FunctionInSystem
 
 
 
@@ -656,7 +721,7 @@ Below are listed the main public classes of the euromod.core module.
       * - :py:obj:`comment <euromod.core.FunctionInSystem.comment>`
         - Comment specific to the function.
       * - :py:obj:`extensions <euromod.core.FunctionInSystem.extensions>`
-        - A :obj:`Container` of :class:`Extension` objects in a country.
+        - A :obj:`Container` of :class:`Extension` objects in a system.
       * - :py:obj:`funID <euromod.core.FunctionInSystem.funID>`
         - Identifier number of the reference function at country level.
       * - :py:obj:`name <euromod.core.FunctionInSystem.name>`
@@ -665,6 +730,8 @@ Below are listed the main public classes of the euromod.core module.
         - Order of the function in the specific spine.
       * - :py:obj:`parameters <euromod.core.FunctionInSystem.parameters>`
         - A :obj:`Container` with :class:`ParameterInSystem` objects specific to a function.
+      * - :py:obj:`parent <euromod.core.FunctionInSystem.parent>`
+        - The class of the country-specific policy.
       * - :py:obj:`polID <euromod.core.FunctionInSystem.polID>`
         - Identifier number of the reference policy.
       * - :py:obj:`private <euromod.core.FunctionInSystem.private>`
@@ -694,7 +761,7 @@ Below are listed the main public classes of the euromod.core module.
    .. py:attribute:: extensions
       :type:  container.Container[Extension]
 
-      A :obj:`Container` of :class:`Extension` objects in a country.
+      A :obj:`Container` of :class:`Extension` objects in a system.
 
    .. py:attribute:: funID
       :type:  str
@@ -717,6 +784,11 @@ Below are listed the main public classes of the euromod.core module.
 
 
       A :obj:`Container` with :class:`ParameterInSystem` objects specific to a function.
+
+   .. py:attribute:: parent
+      :type:  Policy
+
+      The class of the country-specific policy.
 
    .. py:attribute:: polID
       :type:  str
@@ -749,21 +821,16 @@ Below are listed the main public classes of the euromod.core module.
 
 
 .. py:class:: Model(model_path: str)
-   Bases: :py:obj:`base.Euromod_Element`
+
 
    Base class of the Euromod Connector instantiating the microsimulation model
    EUROMOD.
 
    :param model_path: Path to the EUROMOD project.
    :type model_path: :obj:`str`
-   :param countries: Countries to load from the project folder. Names must be two-letter
-                     country codes, see the Eurostat `Glossary:Country codes <https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Country_codes>`_.
-                     If omitted, will load all the available countries in the project folder.
-                     Default is None.
-   :type countries: :obj:`str`, or :obj:`Container` [ :obj:`str` ], optional
 
-   :returns: A class containing the EUROMOD country models.
-   :rtype: core.Model
+   :returns: A class containing the EUROMOD base model.
+   :rtype: Model
 
    .. rubric:: Example
 
@@ -784,13 +851,9 @@ Below are listed the main public classes of the euromod.core module.
       :class: summarytable
 
       * - :py:obj:`countries <euromod.core.Model.countries>`
-        - A :obj:`Container` with :class:`Country` objects.
-      * - :py:obj:`emPath <euromod.core.Model.emPath>`
-        - \-
-      * - :py:obj:`errors <euromod.core.Model.errors>`
-        - \-
+        - A :class:`Container` with :class:`Country` objects.
       * - :py:obj:`extensions <euromod.core.Model.extensions>`
-        - A :obj:`Container` with :class:`Model` extensions.
+        - A :class:`Container` with :class:`Model` extensions.
       * - :py:obj:`model_path <euromod.core.Model.model_path>`
         - Path to the EUROMOD project.
 
@@ -802,16 +865,12 @@ Below are listed the main public classes of the euromod.core module.
    .. py:attribute:: countries
       :type:  container.Container[Country]
 
-      A :obj:`Container` with :class:`Country` objects.
-
-   .. py:attribute:: emPath
-
-   .. py:attribute:: errors
+      A :class:`Container` with :class:`Country` objects.
 
    .. py:attribute:: extensions
       :type:  container.Container[Extension]
 
-      A :obj:`Container` with :class:`Model` extensions.
+      A :class:`Container` with :class:`Model` extensions.
 
    .. py:attribute:: model_path
       :type:  str
@@ -824,10 +883,12 @@ Below are listed the main public classes of the euromod.core module.
 
 
 .. py:class:: Parameter(*arg)
-   Bases: :py:obj:`base.SpineElement`
+
 
    Parameters set up in a function.
 
+   :returns: A class with country-specific parameter.
+   :rtype: Parameter
 
 
 
@@ -853,6 +914,8 @@ Below are listed the main public classes of the euromod.core module.
         - Name of the parameter.
       * - :py:obj:`order <euromod.core.Parameter.order>`
         - Order of the parameter in the specific spine.
+      * - :py:obj:`parent <euromod.core.Parameter.parent>`
+        - The class of the country-specific function.
       * - :py:obj:`spineOrder <euromod.core.Parameter.spineOrder>`
         - Order of the parameter in the spine.
 
@@ -902,6 +965,11 @@ Below are listed the main public classes of the euromod.core module.
 
       Order of the parameter in the specific spine.
 
+   .. py:attribute:: parent
+      :type:  Function
+
+      The class of the country-specific function.
+
    .. py:attribute:: spineOrder
       :type:  str
 
@@ -913,10 +981,12 @@ Below are listed the main public classes of the euromod.core module.
 
 
 .. py:class:: ParameterInSystem
-   Bases: :py:obj:`base.SystemElement`
+
 
    Parameters set up in a function for a specific system.
 
+   :returns: A class with the system-specific function parameter.
+   :rtype: ParameterInSystem
 
 
 
@@ -944,6 +1014,8 @@ Below are listed the main public classes of the euromod.core module.
         - Order of the parameter in the specific spine.
       * - :py:obj:`parID <euromod.core.ParameterInSystem.parID>`
         - Identifier number of the reference parameter at country level.
+      * - :py:obj:`parent <euromod.core.ParameterInSystem.parent>`
+        - The class of the country-specific function.
       * - :py:obj:`spineOrder <euromod.core.ParameterInSystem.spineOrder>`
         - Order of the parameter in the spine.
       * - :py:obj:`sysID <euromod.core.ParameterInSystem.sysID>`
@@ -967,7 +1039,7 @@ Below are listed the main public classes of the euromod.core module.
       Comment specific to the parameter.
 
    .. py:attribute:: extensions
-      :type:  list
+      :type:  container.Container
 
       A :obj:`Container` with :class:`Extension` objects.
 
@@ -980,8 +1052,6 @@ Below are listed the main public classes of the euromod.core module.
       :type:  str
 
       Parameter group number.
-
-      :type: str
 
    .. py:attribute:: name
       :type:  str
@@ -997,6 +1067,11 @@ Below are listed the main public classes of the euromod.core module.
       :type:  str
 
       Identifier number of the reference parameter at country level.
+
+   .. py:attribute:: parent
+      :type:  Function
+
+      The class of the country-specific function.
 
    .. py:attribute:: spineOrder
       :type:  str
@@ -1019,10 +1094,12 @@ Below are listed the main public classes of the euromod.core module.
 
 
 .. py:class:: Policy(*arg)
-   Bases: :py:obj:`base.SpineElement`
+
 
    Policy rules modeled in a country.
 
+   :returns: A class with the country-specific policies.
+   :rtype: Policy
 
 
 
@@ -1046,6 +1123,8 @@ Below are listed the main public classes of the euromod.core module.
         - Name of the policy.
       * - :py:obj:`order <euromod.core.Policy.order>`
         - Order of the policy in the specific spine.
+      * - :py:obj:`parent <euromod.core.Policy.parent>`
+        - The country-specific class.
       * - :py:obj:`private <euromod.core.Policy.private>`
         - Access type. Default is 'no'.
       * - :py:obj:`spineOrder <euromod.core.Policy.spineOrder>`
@@ -1090,6 +1169,11 @@ Below are listed the main public classes of the euromod.core module.
 
       Order of the policy in the specific spine.
 
+   .. py:attribute:: parent
+      :type:  Country
+
+      The country-specific class.
+
    .. py:attribute:: private
       :type:  str
       :value: 'no'
@@ -1108,10 +1192,12 @@ Below are listed the main public classes of the euromod.core module.
 
 
 .. py:class:: PolicyInSystem(*arg)
-   Bases: :py:obj:`base.SystemElement`
+
 
    Policy rules modeled in a system.
 
+   :returns: A class with system-specific policies.
+   :rtype: PolicyInSystem
 
 
 
@@ -1135,6 +1221,8 @@ Below are listed the main public classes of the euromod.core module.
         - Name of the policy.
       * - :py:obj:`order <euromod.core.PolicyInSystem.order>`
         - Order of the policy in the specific spine.
+      * - :py:obj:`parent <euromod.core.PolicyInSystem.parent>`
+        - The country-specific class.
       * - :py:obj:`polID <euromod.core.PolicyInSystem.polID>`
         - Identifier number of the reference policy at country level.
       * - :py:obj:`private <euromod.core.PolicyInSystem.private>`
@@ -1183,6 +1271,11 @@ Below are listed the main public classes of the euromod.core module.
 
       Order of the policy in the specific spine.
 
+   .. py:attribute:: parent
+      :type:  Country
+
+      The country-specific class.
+
    .. py:attribute:: polID
       :type:  str
 
@@ -1214,9 +1307,12 @@ Below are listed the main public classes of the euromod.core module.
 
 
 .. py:class:: ReferencePolicy(info, parent)
-   Bases: :py:obj:`base.SpineElement`
+
 
    Object storing the reference policies.
+
+   :returns: A class with the country-specific reference policies.
+   :rtype: ReferencePolicy
 
 
 
@@ -1232,6 +1328,8 @@ Below are listed the main public classes of the euromod.core module.
         - A :obj:`Container` of reference policy-specific :class:`Extension` objects.
       * - :py:obj:`name <euromod.core.ReferencePolicy.name>`
         - Name of the reference policy.
+      * - :py:obj:`parent <euromod.core.ReferencePolicy.parent>`
+        - The country-specific class.
 
 
 
@@ -1250,18 +1348,26 @@ Below are listed the main public classes of the euromod.core module.
 
       Name of the reference policy.
 
+   .. py:attribute:: parent
+      :type:  Country
+
+      The country-specific class.
+
 
 
    
 
 
 .. py:class:: Simulation(out, constantsToOverwrite)
-   Bases: :py:obj:`base.Euromod_Element`
+
 
    Object storing the simulation results.
 
-   This is a class containing results from the simulation :obj:`run`
+   This is a class containing results from the simulation :func:`~System.run`
    and other related configuration information.
+
+   :returns: A class with simulation output.
+   :rtype: Simulation
 
 
 
@@ -1280,7 +1386,7 @@ Below are listed the main public classes of the euromod.core module.
       * - :py:obj:`output_filenames <euromod.core.Simulation.output_filenames>`
         - A :obj:`list` of file-names of simulation output.
       * - :py:obj:`outputs <euromod.core.Simulation.outputs>`
-        - A :obj:`Container` with type :class:`pandas.DataFrame` simulation results.
+        - A :obj:`Container` with :class:`pandas.DataFrame`-type simulation results.
 
 
 
@@ -1307,7 +1413,7 @@ Below are listed the main public classes of the euromod.core module.
    .. py:attribute:: outputs
       :type:  container.Container[pandas.DataFrame]
 
-      A :obj:`Container` with type :class:`pandas.DataFrame` simulation results.
+      A :obj:`Container` with :class:`pandas.DataFrame`-type simulation results.
       For indexing use an integer or a label from :obj:`output_filenames`.
 
 
@@ -1316,14 +1422,16 @@ Below are listed the main public classes of the euromod.core module.
 
 
 .. py:class:: System(*arg)
-   Bases: :py:obj:`base.Euromod_Element`
+
 
    A EUROMOD tax-benefit system.
 
    This class represents a EUROMOD tax system.
-   Instances of this class are generated automatically when loading a EUROMOD model and are contained in the
-   `systems` Contaiber which is an attribute of the :class:`Country`.
+   Instances of this class are generated when loading the EUROMOD base model.
+   These are collected in a :obj:`Container` as attribute `systems` of the :class:`Country`.
 
+   :returns: A class with country systems.
+   :rtype: System
 
    .. rubric:: Example
 
@@ -1359,6 +1467,8 @@ Below are listed the main public classes of the euromod.core module.
         - Name of the system.
       * - :py:obj:`order <euromod.core.System.order>`
         - System order in the spine.
+      * - :py:obj:`parent <euromod.core.System.parent>`
+        - The country-specific class.
       * - :py:obj:`policies <euromod.core.System.policies>`
         - A :obj:`Container` of :class:`PolicyInSystem` objects in the system.
       * - :py:obj:`private <euromod.core.System.private>`
@@ -1428,6 +1538,11 @@ Below are listed the main public classes of the euromod.core module.
 
       System order in the spine.
 
+   .. py:attribute:: parent
+      :type:  Country
+
+      The country-specific class.
+
    .. py:attribute:: policies
       :type:  container.Container[PolicyInSystem] | None
       :value: None
@@ -1457,30 +1572,31 @@ Below are listed the main public classes of the euromod.core module.
       :type data: :class:`pandas.DataFrame`
       :param dataset_id: ID of the dataset.
       :type dataset_id: :obj:`str`
-      :param constantsToOverwrite: A :obj:`list` of constants to overwrite. Note that the key is a tuple for which the first element is the name of the constant and the second string the groupnumber
+      :param constantsToOverwrite: A :obj:`dict` with constants to overwrite. Note that the key is a tuple of two strings, for which the first element is the name of the constant and the second is the groupnumber.
+                                   Note that the values must be defined as strings.
                                    Default is :obj:`None`.
       :type constantsToOverwrite: :obj:`dict` [ :obj:`tuple` [ :obj:`str`, :obj:`str` ], :obj:`str` ], optional
       :param verbose: If True then information on the output will be printed. Default is :obj:`True`.
       :type verbose: :obj:`bool`, optional
-      :param outputpath: When an output path is provided, there will be anoutput file generated. Default is "".
+      :param outputpath: When the output path is provided, there will be anoutput file generated. Default is "".
       :type outputpath: :obj:`str`, optional
-      :param addons: :obj:`list` of addons to be integrated in the spine, where the first element of the tuple is the name of the Addon
+      :param addons: List of tuples with addons to be integrated in the spine. The first element of the tuple is the name of the addon
                      and the second element is the name of the system in the Addon to be integrated. Default is [].
       :type addons: :obj:`list` [ :obj:`tuple` [ :obj:`str`, :obj:`str` ]], optional
-      :param switches: :obj:`list` of Extensions to be switched on or of. The first element of the tuple is the short name of the Addon.
+      :param switches: List of tuples with extensions to be switched on or of. The first element of the tuple is the short name of the extension.
                        The second element is a boolean Default is [].
       :type switches: :obj:`list` [ :obj:`tuple` [ :obj:`str`, :obj:`bool` ]], optional
       :param nowarnings: If True, the warning messages resulting from the simulations will be suppressed. Default is :obj:`False`.
       :type nowarnings: :obj:`bool`, optional
-      :param euro: If True then the monetary variables in the output will be converted to euro. Default value is :obj:`False`.
+      :param euro: If True, the monetary variables will be converted to euro for the simulation. Default value is :obj:`False`.
       :type euro: :obj:`bool`, optional
-      :param public_compoments_only: If True then the the model will be on with only the public compoments. Default value is :obj:`False`.
+      :param public_compoments_only: If True, the the model will be on with only the public compoments. Default value is :obj:`False`.
       :type public_compoments_only: :obj:`bool`, optional
 
       :raises Exception: Exception when simulation does not finish succesfully, i.e. without errors.
 
       :returns: A class containing simulation output and error messages.
-      :rtype: core.Simulation
+      :rtype: Simulation
 
       .. rubric:: Example
 
