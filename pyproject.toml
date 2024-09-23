@@ -7,7 +7,7 @@ no-build-isolation = true
 
 [project]
 name = "euromod"
-version = "VERSION.txt"
+dynamic = ["version"]
 
 requires-python = ">=3.8"
 authors = [  
