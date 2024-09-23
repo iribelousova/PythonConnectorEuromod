@@ -2,6 +2,7 @@
 
 ![python](https://img.shields.io/pypi/pyversions/euromod)
 ![Static Badge](https://img.shields.io/badge/0.2.40a-blu?label=euromod&color=blu)
+[![EUROMOD](https://euromod-web.jrc.ec.europa.eu)](https://img.shields.io/badge/0.2.40a-blu?label=EUROMOD&color=blu)
 [![Documentation Status](https://readthedocs.org/projects/pythonconnectoreuromod/badge/?version=latest)](https://pythonconnectoreuromod.readthedocs.io/en/latest/?badge=latest)
 
 ## What is _Euromod_?
