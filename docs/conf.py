@@ -135,12 +135,6 @@ autoapi_prepare_jinja_env = prepare_jinja_env
 def skip_member(app, what, name, obj, skip, options):
     if what == "method" and "add" in name:
        skip = True
-    if what == "method" and "items" in name:
-       skip = True
-    if what == "method" and "keys" in name:
-       skip = True
-    if what == "method" and "values" in name:
-       skip = True
     if what == "package" and "utils" in name:
        skip = True
     if what == "package" and "libs" in name:
