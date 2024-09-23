@@ -1,0 +1,211 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter B
+  \item \spxentry{bestMatch}\spxextra{euromod.core.DatasetInSystem attribute}, \hyperpage{27}
+  \item \spxentry{bestmatch\_datasets}\spxextra{euromod.core.System attribute}, \hyperpage{37}
+
+  \indexspace
+  \bigletter C
+  \item \spxentry{coicopVersion}\spxextra{euromod.core.Dataset attribute}, \hyperpage{26}
+  \item \spxentry{coicopVersion}\spxextra{euromod.core.DatasetInSystem attribute}, \hyperpage{27}
+  \item \spxentry{comment}\spxextra{euromod.core.Dataset attribute}, \hyperpage{26}
+  \item \spxentry{comment}\spxextra{euromod.core.DatasetInSystem attribute}, \hyperpage{27}
+  \item \spxentry{comment}\spxextra{euromod.core.Function attribute}, \hyperpage{29}
+  \item \spxentry{comment}\spxextra{euromod.core.FunctionInSystem attribute}, \hyperpage{30}
+  \item \spxentry{comment}\spxextra{euromod.core.Parameter attribute}, \hyperpage{32}
+  \item \spxentry{comment}\spxextra{euromod.core.ParameterInSystem attribute}, \hyperpage{33}
+  \item \spxentry{comment}\spxextra{euromod.core.Policy attribute}, \hyperpage{34}
+  \item \spxentry{comment}\spxextra{euromod.core.PolicyInSystem attribute}, \hyperpage{35}
+  \item \spxentry{comment}\spxextra{euromod.core.System attribute}, \hyperpage{37}
+  \item \spxentry{constantsToOverwrite}\spxextra{euromod.core.Simulation attribute}, \hyperpage{36}
+  \item \spxentry{Container}\spxextra{class in euromod.container}, \hyperpage{22}
+  \item \spxentry{countries}\spxextra{euromod.core.Model attribute}, \hyperpage{31}
+  \item \spxentry{Country}\spxextra{class in euromod.core}, \hyperpage{23}
+  \item \spxentry{currency}\spxextra{euromod.core.Dataset attribute}, \hyperpage{26}
+  \item \spxentry{currency}\spxextra{euromod.core.DatasetInSystem attribute}, \hyperpage{27}
+  \item \spxentry{currencyOutput}\spxextra{euromod.core.System attribute}, \hyperpage{37}
+  \item \spxentry{currencyParam}\spxextra{euromod.core.System attribute}, \hyperpage{37}
+
+  \indexspace
+  \bigletter D
+  \item \spxentry{data\_name}\spxextra{euromod.core.ExtensionSwitch attribute}, \hyperpage{28}
+  \item \spxentry{dataID}\spxextra{euromod.core.DatasetInSystem attribute}, \hyperpage{27}
+  \item \spxentry{Dataset}\spxextra{class in euromod.core}, \hyperpage{25}
+  \item \spxentry{DatasetInSystem}\spxextra{class in euromod.core}, \hyperpage{26}
+  \item \spxentry{datasets}\spxextra{euromod.core.Country attribute}, \hyperpage{24}
+  \item \spxentry{datasets}\spxextra{euromod.core.System attribute}, \hyperpage{37}
+  \item \spxentry{decimalSign}\spxextra{euromod.core.Dataset attribute}, \hyperpage{26}
+  \item \spxentry{decimalSign}\spxextra{euromod.core.DatasetInSystem attribute}, \hyperpage{27}
+
+  \indexspace
+  \bigletter E
+  \item \spxentry{emPath}\spxextra{euromod.core.Model attribute}, \hyperpage{31}
+  \item \spxentry{errors}\spxextra{euromod.core.Model attribute}, \hyperpage{31}
+  \item \spxentry{errors}\spxextra{euromod.core.Simulation attribute}, \hyperpage{36}
+  \item \spxentry{euromod}
+    \subitem \spxentry{module}, \hyperpage{22}
+  \item \spxentry{euromod.container}
+    \subitem \spxentry{module}, \hyperpage{22}
+  \item \spxentry{euromod.core}
+    \subitem \spxentry{module}, \hyperpage{23}
+  \item \spxentry{Extension}\spxextra{class in euromod.core}, \hyperpage{28}
+  \item \spxentry{extension\_name}\spxextra{euromod.core.ExtensionSwitch attribute}, \hyperpage{28}
+  \item \spxentry{extensions}\spxextra{euromod.core.Country attribute}, \hyperpage{24}
+  \item \spxentry{extensions}\spxextra{euromod.core.Function attribute}, \hyperpage{29}
+  \item \spxentry{extensions}\spxextra{euromod.core.FunctionInSystem attribute}, \hyperpage{30}
+  \item \spxentry{extensions}\spxextra{euromod.core.Model attribute}, \hyperpage{31}
+  \item \spxentry{extensions}\spxextra{euromod.core.Parameter attribute}, \hyperpage{32}
+  \item \spxentry{extensions}\spxextra{euromod.core.ParameterInSystem attribute}, \hyperpage{33}
+  \item \spxentry{extensions}\spxextra{euromod.core.Policy attribute}, \hyperpage{34}
+  \item \spxentry{extensions}\spxextra{euromod.core.PolicyInSystem attribute}, \hyperpage{35}
+  \item \spxentry{extensions}\spxextra{euromod.core.ReferencePolicy attribute}, \hyperpage{36}
+  \item \spxentry{ExtensionSwitch}\spxextra{class in euromod.core}, \hyperpage{28}
+
+  \indexspace
+  \bigletter F
+  \item \spxentry{find()}\spxextra{euromod.container.Container method}, \hyperpage{22}
+  \item \spxentry{Function}\spxextra{class in euromod.core}, \hyperpage{29}
+  \item \spxentry{FunctionInSystem}\spxextra{class in euromod.core}, \hyperpage{29}
+  \item \spxentry{functions}\spxextra{euromod.core.Policy attribute}, \hyperpage{34}
+  \item \spxentry{functions}\spxextra{euromod.core.PolicyInSystem attribute}, \hyperpage{35}
+  \item \spxentry{funID}\spxextra{euromod.core.FunctionInSystem attribute}, \hyperpage{30}
+  \item \spxentry{funID}\spxextra{euromod.core.Parameter attribute}, \hyperpage{32}
+  \item \spxentry{funID}\spxextra{euromod.core.ParameterInSystem attribute}, \hyperpage{33}
+
+  \indexspace
+  \bigletter G
+  \item \spxentry{get\_switch\_value()}\spxextra{euromod.core.Country method}, \hyperpage{25}
+  \item \spxentry{group}\spxextra{euromod.core.Parameter attribute}, \hyperpage{32}
+  \item \spxentry{group}\spxextra{euromod.core.ParameterInSystem attribute}, \hyperpage{33}
+
+  \indexspace
+  \bigletter H
+  \item \spxentry{headDefInc}\spxextra{euromod.core.System attribute}, \hyperpage{37}
+
+  \indexspace
+  \bigletter I
+  \item \spxentry{ID}\spxextra{euromod.core.Dataset attribute}, \hyperpage{26}
+  \item \spxentry{ID}\spxextra{euromod.core.DatasetInSystem attribute}, \hyperpage{27}
+  \item \spxentry{ID}\spxextra{euromod.core.Function attribute}, \hyperpage{29}
+  \item \spxentry{ID}\spxextra{euromod.core.FunctionInSystem attribute}, \hyperpage{30}
+  \item \spxentry{ID}\spxextra{euromod.core.Parameter attribute}, \hyperpage{32}
+  \item \spxentry{ID}\spxextra{euromod.core.ParameterInSystem attribute}, \hyperpage{33}
+  \item \spxentry{ID}\spxextra{euromod.core.Policy attribute}, \hyperpage{34}
+  \item \spxentry{ID}\spxextra{euromod.core.PolicyInSystem attribute}, \hyperpage{35}
+  \item \spxentry{ID}\spxextra{euromod.core.System attribute}, \hyperpage{37}
+
+  \indexspace
+  \bigletter L
+  \item \spxentry{load\_data()}\spxextra{euromod.core.Country method}, \hyperpage{25}
+  \item \spxentry{local\_extensions}\spxextra{euromod.core.Country attribute}, \hyperpage{24}
+
+  \indexspace
+  \bigletter M
+  \item \spxentry{Model}\spxextra{class in euromod.core}, \hyperpage{30}
+  \item \spxentry{model}\spxextra{euromod.core.Country attribute}, \hyperpage{24}
+  \item \spxentry{model\_path}\spxextra{euromod.core.Model attribute}, \hyperpage{31}
+  \item \spxentry{module}
+    \subitem \spxentry{euromod}, \hyperpage{22}
+    \subitem \spxentry{euromod.container}, \hyperpage{22}
+    \subitem \spxentry{euromod.core}, \hyperpage{23}
+
+  \indexspace
+  \bigletter N
+  \item \spxentry{name}\spxextra{euromod.core.Country attribute}, \hyperpage{24}
+  \item \spxentry{name}\spxextra{euromod.core.Dataset attribute}, \hyperpage{26}
+  \item \spxentry{name}\spxextra{euromod.core.DatasetInSystem attribute}, \hyperpage{27}
+  \item \spxentry{name}\spxextra{euromod.core.Extension attribute}, \hyperpage{28}
+  \item \spxentry{name}\spxextra{euromod.core.Function attribute}, \hyperpage{29}
+  \item \spxentry{name}\spxextra{euromod.core.FunctionInSystem attribute}, \hyperpage{30}
+  \item \spxentry{name}\spxextra{euromod.core.Parameter attribute}, \hyperpage{32}
+  \item \spxentry{name}\spxextra{euromod.core.ParameterInSystem attribute}, \hyperpage{33}
+  \item \spxentry{name}\spxextra{euromod.core.Policy attribute}, \hyperpage{34}
+  \item \spxentry{name}\spxextra{euromod.core.PolicyInSystem attribute}, \hyperpage{35}
+  \item \spxentry{name}\spxextra{euromod.core.ReferencePolicy attribute}, \hyperpage{36}
+  \item \spxentry{name}\spxextra{euromod.core.System attribute}, \hyperpage{37}
+
+  \indexspace
+  \bigletter O
+  \item \spxentry{order}\spxextra{euromod.core.Function attribute}, \hyperpage{29}
+  \item \spxentry{order}\spxextra{euromod.core.FunctionInSystem attribute}, \hyperpage{30}
+  \item \spxentry{order}\spxextra{euromod.core.Parameter attribute}, \hyperpage{32}
+  \item \spxentry{order}\spxextra{euromod.core.ParameterInSystem attribute}, \hyperpage{33}
+  \item \spxentry{order}\spxextra{euromod.core.Policy attribute}, \hyperpage{34}
+  \item \spxentry{order}\spxextra{euromod.core.PolicyInSystem attribute}, \hyperpage{35}
+  \item \spxentry{order}\spxextra{euromod.core.System attribute}, \hyperpage{38}
+  \item \spxentry{output\_filenames}\spxextra{euromod.core.Simulation attribute}, \hyperpage{36}
+  \item \spxentry{outputs}\spxextra{euromod.core.Simulation attribute}, \hyperpage{36}
+
+  \indexspace
+  \bigletter P
+  \item \spxentry{Parameter}\spxextra{class in euromod.core}, \hyperpage{31}
+  \item \spxentry{ParameterInSystem}\spxextra{class in euromod.core}, \hyperpage{32}
+  \item \spxentry{parameters}\spxextra{euromod.core.Function attribute}, \hyperpage{29}
+  \item \spxentry{parameters}\spxextra{euromod.core.FunctionInSystem attribute}, \hyperpage{30}
+  \item \spxentry{parID}\spxextra{euromod.core.ParameterInSystem attribute}, \hyperpage{33}
+  \item \spxentry{policies}\spxextra{euromod.core.Country attribute}, \hyperpage{24}
+  \item \spxentry{policies}\spxextra{euromod.core.System attribute}, \hyperpage{38}
+  \item \spxentry{Policy}\spxextra{class in euromod.core}, \hyperpage{33}
+  \item \spxentry{PolicyInSystem}\spxextra{class in euromod.core}, \hyperpage{34}
+  \item \spxentry{polID}\spxextra{euromod.core.Function attribute}, \hyperpage{29}
+  \item \spxentry{polID}\spxextra{euromod.core.FunctionInSystem attribute}, \hyperpage{30}
+  \item \spxentry{polID}\spxextra{euromod.core.PolicyInSystem attribute}, \hyperpage{35}
+  \item \spxentry{private}\spxextra{euromod.core.Dataset attribute}, \hyperpage{26}
+  \item \spxentry{private}\spxextra{euromod.core.DatasetInSystem attribute}, \hyperpage{27}
+  \item \spxentry{private}\spxextra{euromod.core.Function attribute}, \hyperpage{29}
+  \item \spxentry{private}\spxextra{euromod.core.FunctionInSystem attribute}, \hyperpage{30}
+  \item \spxentry{private}\spxextra{euromod.core.Policy attribute}, \hyperpage{34}
+  \item \spxentry{private}\spxextra{euromod.core.PolicyInSystem attribute}, \hyperpage{35}
+  \item \spxentry{private}\spxextra{euromod.core.System attribute}, \hyperpage{38}
+
+  \indexspace
+  \bigletter R
+  \item \spxentry{readXVariables}\spxextra{euromod.core.Dataset attribute}, \hyperpage{26}
+  \item \spxentry{readXVariables}\spxextra{euromod.core.DatasetInSystem attribute}, \hyperpage{27}
+  \item \spxentry{ReferencePolicy}\spxextra{class in euromod.core}, \hyperpage{35}
+  \item \spxentry{run()}\spxextra{euromod.core.System method}, \hyperpage{38}
+
+  \indexspace
+  \bigletter S
+  \item \spxentry{shortName}\spxextra{euromod.core.Extension attribute}, \hyperpage{28}
+  \item \spxentry{Simulation}\spxextra{class in euromod.core}, \hyperpage{36}
+  \item \spxentry{spineOrder}\spxextra{euromod.core.Function attribute}, \hyperpage{29}
+  \item \spxentry{spineOrder}\spxextra{euromod.core.FunctionInSystem attribute}, \hyperpage{30}
+  \item \spxentry{spineOrder}\spxextra{euromod.core.Parameter attribute}, \hyperpage{32}
+  \item \spxentry{spineOrder}\spxextra{euromod.core.ParameterInSystem attribute}, \hyperpage{33}
+  \item \spxentry{spineOrder}\spxextra{euromod.core.Policy attribute}, \hyperpage{34}
+  \item \spxentry{spineOrder}\spxextra{euromod.core.PolicyInSystem attribute}, \hyperpage{35}
+  \item \spxentry{switch}\spxextra{euromod.core.FunctionInSystem attribute}, \hyperpage{30}
+  \item \spxentry{switch}\spxextra{euromod.core.PolicyInSystem attribute}, \hyperpage{35}
+  \item \spxentry{sys\_name}\spxextra{euromod.core.ExtensionSwitch attribute}, \hyperpage{28}
+  \item \spxentry{sysID}\spxextra{euromod.core.DatasetInSystem attribute}, \hyperpage{27}
+  \item \spxentry{sysID}\spxextra{euromod.core.FunctionInSystem attribute}, \hyperpage{30}
+  \item \spxentry{sysID}\spxextra{euromod.core.ParameterInSystem attribute}, \hyperpage{33}
+  \item \spxentry{sysID}\spxextra{euromod.core.PolicyInSystem attribute}, \hyperpage{35}
+  \item \spxentry{System}\spxextra{class in euromod.core}, \hyperpage{36}
+  \item \spxentry{systems}\spxextra{euromod.core.Country attribute}, \hyperpage{24}
+
+  \indexspace
+  \bigletter U
+  \item \spxentry{useCommonDefault}\spxextra{euromod.core.Dataset attribute}, \hyperpage{26}
+  \item \spxentry{useCommonDefault}\spxextra{euromod.core.DatasetInSystem attribute}, 
+		\hyperpage{27}
+
+  \indexspace
+  \bigletter V
+  \item \spxentry{value}\spxextra{euromod.core.ExtensionSwitch attribute}, \hyperpage{28}
+  \item \spxentry{value}\spxextra{euromod.core.ParameterInSystem attribute}, \hyperpage{33}
+
+  \indexspace
+  \bigletter Y
+  \item \spxentry{year}\spxextra{euromod.core.System attribute}, \hyperpage{38}
+  \item \spxentry{yearCollection}\spxextra{euromod.core.Dataset attribute}, \hyperpage{26}
+  \item \spxentry{yearCollection}\spxextra{euromod.core.DatasetInSystem attribute}, \hyperpage{28}
+  \item \spxentry{yearInc}\spxextra{euromod.core.Dataset attribute}, \hyperpage{26}
+  \item \spxentry{yearInc}\spxextra{euromod.core.DatasetInSystem attribute}, \hyperpage{28}
+
+\end{sphinxtheindex}
