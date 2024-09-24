@@ -33,7 +33,7 @@ extensions = [
 ]
 
 templates_path = ['_templates']
-exclude_patterns = ['changelog.md','notebooks/getstarted.ipynb','build','_build', '../src/euromod/libs', '../src/euromod/utils','_templates', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['changelog.md','notebooks/userguide.ipynb','build','_build', '../src/euromod/libs', '../src/euromod/utils','_templates', 'Thumbs.db', '.DS_Store']
 
 
 # -- Intersphinx options
