@@ -16,13 +16,27 @@
 
 {% endif %}
 
-Below are listed the main public classes of the {{ obj.name }} module.
+{% block subpackages %}
+{% set visible_subpackages = obj.subpackages|selectattr("display")|list %}
+{% if visible_subpackages %}
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+{% for subpackage in visible_subpackages %}
+   {{ subpackage.short_name }}/index.rst
+{% endfor %}
 
 
+{% endif %}
+{% endblock %}
 {% block submodules %}
 {% set visible_submodules = obj.submodules|selectattr("display")|list %}
 {% if visible_submodules %}
-
+Submodules
+----------
 .. toctree::
    :titlesonly:
    :maxdepth: 1
@@ -31,10 +45,9 @@ Below are listed the main public classes of the {{ obj.name }} module.
    {{ submodule.short_name }}/index.rst
 {% endfor %}
 
+
 {% endif %}
 {% endblock %}
-
-
 {% block content %}
 {% if obj.all is not none %}
 {% set visible_children = obj.children|selectattr("display")|selectattr("short_name", "in", obj.all)|list %}
@@ -52,29 +65,26 @@ Below are listed the main public classes of the {{ obj.name }} module.
 {% if "show-module-summary" in autoapi_options and (visible_classes or visible_functions) %}
 {% block classes scoped %}
 {% if visible_classes %}
-{{ macros.auto_summary(visible_classes, title="**Classes**") }}
+{{ macros.auto_summary(visible_classes, title="Classes") }}
 {% endif %}
 {% endblock %}
 
 {% block functions scoped %}
 {% if visible_functions %}
-{{ macros.auto_summary(visible_functions, title="**Function**") }}
+{{ macros.auto_summary(visible_functions, title="Function") }}
 {% endif %}
 {% endblock %}
 
 {% block attributes scoped %}
 {% if visible_attributes %}
-{{ macros.auto_summary(visible_attributes, title="**Attributes**") }}
+{{ macros.auto_summary(visible_attributes, title="Attributes") }}
 {% endif %}
 {% endblock %}
 {% endif %}
 
 {% if visible_classes %}
-
-.. toctree::
-   :titlesonly:
-   :maxdepth: 3
-
+Classes
+-------
 {% for obj_item in visible_classes %}
 {{ obj_item.render()|indent(0) }}
 {% endfor %}

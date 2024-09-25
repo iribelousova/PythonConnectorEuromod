@@ -1,4 +1,4 @@
-__license__='''
+'''
 Copyright 2024 European Commission
 *
 Licensed under the EUPL, Version 1.2;
@@ -85,7 +85,6 @@ class Euromod_Element(Base_Element):
            
     def get_properties(self):
         properties = [x  for x in super().__dir__() if not x.startswith("_") and x not in  ["get_properties","load_data","run", "model","parent", "parentSystem", "parentTypeObject","show_attr"]] 
-        properties = [x for x in properties if not x.startswith("get_") ]
         properties.sort()
         return properties
     def __repr__(self):

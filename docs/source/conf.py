@@ -12,29 +12,27 @@ sys.path.insert(0, os.path.abspath('../..'))
 project = 'Euromod Connector'
 copyright = '2024 European Commission. EUROMOD is licensed under the EUPL, Version 1.2'
 author = 'Belousova Irina, Serruys Hannes'
-release = "0.2.4"
+release = "0.1.20a"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 
 extensions = [
-	"breathe",
+    "breathe",
 	"sphinx.ext.autodoc",
 	"sphinx_csharp",
-    #"myst_nb",
+    # "myst_nb",
     # "myst_parser",
-    #"autoapi.extension",
+    # "autoapi.extension",
     # "sphinx_copybutton",
-    #"sphinx.ext.napoleon",
-    #"sphinx.ext.viewcode",
+    # "sphinx.ext.napoleon",
+    # "sphinx.ext.viewcode",
     "sphinx.ext.intersphinx",
-	#"sphinxcontrib.jquery"
 ]
 
 templates_path = ['_templates']
-exclude_patterns = ['changelog.md','notebooks/userguide.ipynb','build','_build', '../src/euromod/libs', '../src/euromod/utils','_templates', 'Thumbs.db', '.DS_Store']
-
+exclude_patterns = ['_build', '../src/euromod/libs', '../src/euromod/utils','_templates', 'Thumbs.db', '.DS_Store']
 
 # -- Intersphinx options
 intersphinx_mapping = {
@@ -47,23 +45,19 @@ intersphinx_mapping = {
 # ENABLE_PLAUSIBLE = os.environ.get("READTHEDOCS_VERSION_TYPE", "") in ["branch", "tag"]
 # html_context = {"enable_plausible": ENABLE_PLAUSIBLE}
 
-
-#####################################################
 # -- autoapi configuration ---------------------------------------------------
 
-# autoapi_dirs = ["../../src/euromod"]  # location to parse for API reference
+# autoapi_dirs = ["../src"]  # location to parse for API reference
 # autoapi_type = "python"
 # autoapi_template_dir = "_templates/autoapi"
 # autoapi_options = [
 #     "members", # Display children of an object
 #     "undoc-members", # Display objects without docstrings. ??If this is removed API reference is not generated??
-#     # "show-inheritance", # Display a list of base classes below the class signature.
+#     "show-inheritance", # Display a list of base classes below the class signature.
 #     "show-module-summary", # summary at the top
 #     "imported-members", # display objects imported from the same top level package or module
 # ]
 # autoapi_keep_files = True
-# # autoapi_generate_api_docs = False
-
 # #autoapi_python_class_content = "both" # Use the concatenation of the class docstring and the __init__ docstring.
 # autoapi_member_order = "groupwise"
 
@@ -86,27 +80,14 @@ intersphinx_mapping = {
 # # If true, `todo` and `todoList` produce output, else they produce nothing.
 # todo_include_todos = False
 
-######################################################
-# -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+# # -- Options for HTML output -------------------------------------------------
+# # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'furo'
-
-# extensions.append("sphinxjp.themes.basicstrap")
-# html_theme = 'basicstrap'
-
-# import sphinx_bootstrap_theme
-# html_theme = 'bootstrap'
-# html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-
-# html_theme="sizzle"
-
-# html_theme = "sphinx_rtd_theme"
-# html_static_path = ['_static']
-# # html_css_files = [
-# #     "css/custom.css",
-# # ]
-# html_style = 'css/theme.css' 
+html_theme = "furo"
+html_static_path = ['_static']
+html_css_files = [
+    "css/custom.css",
+]
 html_title = 'Euromod Connector'
 html_short_title = 'Euromod'
 html_last_updated_fmt = ''
@@ -122,9 +103,6 @@ html_show_sourcelink = True
 # of the sidebar.
 ## html_logo = None
 
-
-######################################################
-# -- breathe Configuration -------------------------------------------------
 breathe_projects = {"euromod": "../doxygen_xml"}
 breathe_default_project = "euromod"
 
@@ -145,35 +123,26 @@ def prepare_jinja_env(jinja_env) -> None:
 
 autoapi_prepare_jinja_env = prepare_jinja_env
 
+# Related custom CSS
+html_css_files = [
+    "css/label.css",
+]
+
 
 def skip_member(app, what, name, obj, skip, options):
-    if what == "method" and "add" in name:
+    if what == "class" and "Container" in name:
        skip = True
     if what == "package" and "utils" in name:
        skip = True
     if what == "package" and "libs" in name:
        skip = True
-    if what == "package" and "test" in name:
-       skip = True
-    if what == "attribute" and "containerDict" in name:
-       skip = True
-    if what == "attribute" and "containerList" in name:
-       skip = True
-    if what == "attribute" and "idDict" in name:
-       skip = True
     if what == "module" and "base" in name:
+       skip = True
+    if what == "module" and "container" in name:
        skip = True
     if what == "module" and "info" in name:
        skip = True
     if what == "module" and "euromod_cli" in name:
-       skip = True
-    if what == "class" and "PolicyContainer" in name:
-       skip = True
-    if what == "class" and "OutputContainer" in name:
-       skip = True
-    if what == "class" and "FunctionContainer" in name:
-       skip = True
-    if what == "class" and "CountryContainer" in name:
        skip = True
     return skip
 

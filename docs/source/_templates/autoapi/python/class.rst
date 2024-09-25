@@ -6,6 +6,7 @@
    {{ " " * (obj.type | length) }}   {{ obj.short_name }}{% if args %}({{ args }}){% endif %}
 {% endfor %}
 
+
    {% if obj.bases %}
    {% if "show-inheritance" in autoapi_options %}
    Bases: {% for base in obj.bases %}{{ base|link_objs }}{% if not loop.last %}, {% endif %}{% endfor %}
@@ -29,10 +30,7 @@
    {% else %}
    {% set visible_classes = obj.classes|rejectattr("inherited")|selectattr("display")|list %}
    {% endif %}
-
-
    {% for klass in visible_classes %}
-   {{ klass.short_name }}/index.rst
    {{ klass.render()|indent(3) }}
    {% endfor %}
    {% if "inherited-members" in autoapi_options %}

@@ -2,16 +2,6 @@
 
 <!--next-version-placeholder-->
 
-## v0.1.21a (12/09/2024)
-
-
-### Feature
-
-- Information with respect to Extension Switches can now be retrieved
-- Better formatting of information
-
-<!--next-version-placeholder-->
-
 ## v0.1.20a (18/06/2024)
 
 ### Fix
