@@ -7,13 +7,14 @@ no-build-isolation = true
 
 [project]
 name = "euromod"
-version = "0.1.20a" 
+version = "0.2.4" 
+
 
 requires-python = ">=3.8"
 authors = [  
     {name = "Irina Belousova", email = "iri.belousova@gmail.com"},
     {name = "Hannes Serruys", email = "hannes.serruys@ec.europa.eu"},
-    {name = "Kostas Manios", email = "kostas.manios@ec.europa.eu"},
+    
         ]
 maintainers = [
    {name = "Irina Belousova", email = "iri.belousova@gmail.com"},
@@ -38,8 +39,6 @@ dependencies = [
   "numpy",
             ]
             
-[project.scripts]
-euromod = "euromod.euromod_cli:cli"
 
 [project.urls]
 Documentation = "http://pythonconnectoreuromod.readthedocs.io/"
@@ -49,6 +48,7 @@ EUROMOD = "https://euromod-web.jrc.ec.europa.eu/"
 
 [tool.setuptools]
 include-package-data = true
+
 
 
 [tool.setuptools.packages.find]
