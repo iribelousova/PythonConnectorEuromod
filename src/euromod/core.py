@@ -1,4 +1,4 @@
-'''
+__license__='''
 Copyright 2024 European Commission
 *
 Licensed under the EUPL, Version 1.2;
@@ -28,11 +28,16 @@ clr.AddReference(os.path.join(DLL_PATH, "EM_Executable.dll" ))
 from EM_Executable import Control
 clr.AddReference(os.path.join(DLL_PATH, "EM_XmlHandler.dll" ))
 from EM_XmlHandler import CountryInfoHandler,TAGS, ReadCountryOptions,ModelInfoHandler, ReadModelOptions
+clr.AddReference(os.path.join(DLL_PATH, "EM_Common.dll" ))
+from EM_Common import EMPath
+clr.AddReference(os.path.join(DLL_PATH, "EM_Transformer.dll" ))
+from EM_Transformer import EM3Global
 from container import Container
 from typing import Dict, Tuple, Optional, List
 
 
-class Model:
+
+class Model(Euromod_Element):
     """
     Base class of the Euromod Connector instantiating the microsimulation model 
     EUROMOD.
@@ -41,86 +46,62 @@ class Model:
     ----------
     model_path : :obj:`str`
         Path to the EUROMOD project.
-    countries : :obj:`str`, or :obj:`list` [ :obj:`str` ], optional
-        Countries to load from the project folder. Names must be two-letter 
-        country codes, see the Eurostat `Glossary:Country codes <https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Country_codes>`_.
-        If omitted, will load all the available countries in the project folder.
-        Default is None.
         
     Returns
     -------
-    core.Model
-        A class containing the EUROMOD country models.
+    Model
+        A class containing the EUROMOD base model.
     
     Example
     --------
     >>> from euromod import Model
-    >>> mod=Model(r"C:\EUROMOD_RELEASES_I6.0+")
+    >>> mod=Model("C:\\EUROMOD_RELEASES_I6.0+")
     
     .. _Documentation:
         https://github.com/euromod/PythonIntegration/HOWTO.pdf
     """
     
     
-    def __init__(self, model_path : str, countries = None):
+    def __init__(self, model_path : str):
         """
-        :class:`Model` instance for the tax-benefit model EUROMOD.
+            :class:`Model` instance for the tax-benefit model EUROMOD.
         """
-        self.extensions: list[Extension]
-        """: A :obj:`list` with :class:`Model` extensions."""
+        _errors: list = SystemCs.Collections.Generic.List[SystemCs.String]()
+        _emPath: dict = EMPath(model_path,False)
+        if not os.path.exists(_emPath.GetExtensionsFilePath(False)) & os.path.exists(model_path):
+            EM3Global.Transform(_emPath.GetFolderEuromodFiles(), _errors, True)
+        
         self.model_path: str = model_path 
         """: Path to the EUROMOD project."""
-        self.countries: list[Country] = CountryContainer() #: Container with `core.Country` objects
-        """: A :obj:`list` with :class:`Country` objects."""
-        self._hasMIH: bool = False;
-        if countries == None:
-            countries = os.listdir(os.path.join(model_path,'XMLParam','Countries'))
-            self._load_country(countries)
-        else:
-            self._load_country(countries)
-            # countries_preload = os.listdir(os.path.join(model_path,'XMLParam','Countries'))
-            # self._load_country(countries_preload)
-            # for country in countries: #For countries explicitly demanded, load xmlInfoHandler already
-            #     self.countries[country].load()
-    def __repr__(self):
-        return f"Model located in {self.model_path}"
-                
-                
-    def __getattr__(self,name):
-        if not self._hasMIH:
-            self._modelInfoHandler = ModelInfoHandler(self.model_path)
-            self._hasMIH = True
-            
-        if name == "extensions":
-            self._load_extensions()
-            return self.extensions
-      
         
-    def _load_extensions(self):
+        ## EM3Translate if needed
         
-        self.extensions = Container()
+        
+        
+        self._modelInfoHandler = ModelInfoHandler(self.model_path)
+        self.extensions: Container[Extension] = Container(True)
+        """: A :class:`Container` with :class:`Model` extensions."""
         for el in self._modelInfoHandler.GetModelInfo(ReadModelOptions.EXTENSIONS):
             ext = Extension(el.Value,self)
-            self.extensions.add(el.Key,ext)
+            self.extensions.add(ext.shortName,ext,ext.ID)
+        self.countries: Container[Country] = CountryContainer() #: Container with `core.Country` objects
+        """: A :class:`Container` with :class:`Country` objects."""
+        self._hasMIH: bool = False;
+        countries = os.listdir(os.path.join(model_path,'XMLParam','Countries'))
+        self._load_country(countries)
+
+
+    #def __repr__(self):
+     #   return f"Model located in {self.model_path}"
+                
+      
+        
+    
+            
         
         
     def _load_country(self, countries):        
-        """
-        Load objects of the TAGS.CONFIG_COUNTRY class.
-
-        Parameters:
-        -----------------------------------------------------------------------
-            countries   : (str, list of str) 
-                        The two-letters country codes (ex: ['IT','LV']).
-
-
-       
-        """
-
-        if type(countries) not in [str, list, set]:
-            raise TypeError("Parameter 'countries' must be str, list or set.")
-        if type(countries) == str:
-            countries = [countries]
+        
             
     	### loop over countries to add the country containers
         for country in countries:            
@@ -143,29 +124,45 @@ class Country(Euromod_Element):
     This class contains subclasses of type :class:`System`, :class:`Policy`,
     :class:`Dataset` and :class:`Extension`.
     
+    Parameters
+    ----------
+    country : :obj:`str`
+        Name of the country. 
+        Must be a two-letter country codes, see the Eurostat `Glossary:Country codes <https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Country_codes>`_.
+    model : :obj:`Model`
+        A class containing the EUROMOD base model.
+        
+        
+    Returns
+    -------
+    Country
+        A class containing the EUROMOD country models.
+    
     Example
     --------
     >>> from euromod import Model
-    >>> mod=Model(r"C:\EUROMOD_RELEASES_I6.0+")
+    >>> mod=Model("C:\\EUROMOD_RELEASES_I6.0+")
     >>> mod.countries[0]    
     """
 
-    def __init__(self,country: str,model: str):        
+    def __init__(self,country: str,model: Model):        
         """Instance of the EUORMOD country-specific tax-benefit model.
         """
         self.name: str = country #: Two-letter country code
         """: Two-letters country code."""
         self.model: Model = model
-        """": Returns the base :class:`Model` object."""
+        """":class:`Model` Returns the base :class:`Model` object."""
         self._hasCIH: bool = False
-        self.systems: list[System] | None = None #: Container with `core.System` objects
-        """: A :obj:`list` with :class:`System` objects."""
-        self.policies: list[Policy] | None = None #: Container with `core.Policy` objects
-        """: A :obj:`list` with :class:`Policy` objects."""
-        self.datasets: list[Dataset] | None = None #: Container with `core.Dataset` objects
-        """: A :obj:`list` with :class:`Dataset` objects."""
-        self.local_extensions: list[Extension] | None = None #: Container with `core.Extension` objects
-        """: A :obj:`list` with :class:`Extension` objects."""
+        self.systems: Container[System] | None = None #: Container with `core.System` objects
+        """: A :obj:`Container` with :class:`System` objects."""
+        self.policies: Container[Policy] | None = None #: Container with `core.Policy` objects
+        """: A :obj:`Container` with :class:`Policy` objects."""
+        self.datasets: Container[Dataset] | None = None #: Container with `core.Dataset` objects
+        """: A :obj:`Container` with :class:`Dataset` objects."""
+        self.local_extensions: Container[Extension] | None = None #: Container with `core.Extension` objects
+        """: A :obj:`Container` with :class:`Extension` objects. These are the local extensions defined for the country."""
+        self.extensions: Container[Extension] | None = None #: Container with `core.Extension` objects
+        """: A :obj:`Container` with :class:`Extension` objects. These are the local + model extensions defined."""
 
         
     def _load(self):
@@ -190,23 +187,30 @@ class Country(Euromod_Element):
             return self.datasets
         if name == "local_extensions" and self.__dict__["local_extensions"] is None:
             self._load()
-            self._load_extensions()
+            self._load_local_extensions()
             return self.local_extensions
+        if name == "extensions" and self.__dict__["extensions"] is None:
+            self._load()
+            self._load_extensions()
+            return self.extensions
         return super().__getattribute__(name)
     
         
-    def _load_extensions(self):
-        self.local_extensions = Container()
+    def _load_local_extensions(self):
+        self.local_extensions = Container(True)
         for el in self._countryInfoHandler.GetTypeInfo(ReadCountryOptions.LOCAL_EXTENSION):
             ext = Extension(el.Value,self)
-            self.local_extensions.add(el.Key,ext)
+            self.local_extensions.add(ext.shortName,ext,ext.ID)
+    def _load_extensions(self):
+        self.extensions = self.local_extensions + self.model.extensions
+        
     
     def _load_policies(self):
         self.policies = Container()
         for el in self._countryInfoHandler.GetTypeInfo(ReadCountryOptions.POL):
             pol = Policy(el.Value,self)
+            pol.order = self._countryInfoHandler.GetPieceOfInfo(ReadCountryOptions.SYS_POL,self.systems[-1].ID + pol.ID)["Order"]
             self.policies.add(pol.ID,pol)
-            self.policies[-1].order = self._countryInfoHandler.GetPieceOfInfo(ReadCountryOptions.SYS_POL,self.systems[-1].ID + pol.ID)["Order"]
         for el in self._countryInfoHandler.GetTypeInfo(ReadCountryOptions.REFPOL):
             ref_pol = ReferencePolicy(el.Value,self)
             self.policies.add(ref_pol.ID,ref_pol)
@@ -215,16 +219,16 @@ class Country(Euromod_Element):
         
         
     def _load_datasets(self):
-        self.datasets = Container()
+        self.datasets = Container(True)
         for el in self._countryInfoHandler.GetTypeInfo(ReadCountryOptions.DATA):
             db = Dataset(el.Value,self)
-            self.datasets.add(db.name,db)
+            self.datasets.add(db.name,db,db.ID)
         
     def _load_systems(self):
-        self.systems = Container()
+        self.systems = Container(True)
         systems = self._countryInfoHandler.GetTypeInfo(ReadCountryOptions.SYS)
         for sys in systems:
-            self.systems.add(sys.Value["Name"],System(sys.Value,self))
+            self.systems.add(sys.Value["Name"],System(sys.Value,self),sys.Value["ID"])
         
     def load_data(self, ID_DATASET, PATH_DATA = None):
         """
@@ -235,7 +239,7 @@ class Country(Euromod_Element):
             ID_DATASET : :obj:`str` 
                         Name of the dataset excluding extension (Note: must be a `txt` file).   
             PATH_DATA : :obj:`str`, optional
-                        Path to the dataset. Default is the PATH_TO_EUROMOD_PROJECT/Input folder.
+                        Path to the dataset. Default is the folder "PATH_TO_EUROMOD_PROJECT/Input".
         
         Returns
         -------
@@ -262,13 +266,101 @@ class Country(Euromod_Element):
         return f"Country {self.name}"
     def _container_middle_repr(self):
         return ""
-        
+    
+    def get_switch_value(self,ext_name : Optional[str] = None,dataset_name : Optional[str] = None,sys_name : Optional[str] = None):
+        """
+        Get the configuration of the switch.
 
+        Parameters
+        ----------
+        ext_name : :obj:`str` , optional
+            Name of the extension. The default is None.
+        dataset_name : :obj:`str` , optional
+            Name of the dataset. The default is None.
+        sys_name : :obj:`str`, optional
+            Name of the system. The default is None.
+
+        Raises
+        ------
+        KeyError
+            Is raised if ext_name, dataset_name or sys_name, but is not configured in the model.
+
+        Returns
+        -------
+        Container[ExtensionSwitch]
+            Object containing information how the switch is configured.
+            Note that there is only a value returned if the switch is either explicitly 'off' or 'on'.
+            When it's configured as n/a in the model no value will be included.
+
+        """
+        patterns = SystemCs.Collections.Generic.List[SystemCs.String]()
+        keys = SystemCs.Collections.Generic.List[SystemCs.String]()
+        if ext_name is not None:
+            try:
+                ext_id = self.extensions[ext_name].ID
+            except KeyError as e:
+                raise KeyError(f"{ext_name} is not a configured extension in this model.") from e
+            keys.Add(TAGS.EXTENSION_ID)
+            patterns.Add(ext_id)
+        if dataset_name is not None:
+            try:
+                dataset_id = self.datasets[dataset_name].ID
+            except KeyError as e:
+                raise KeyError(f"{dataset_name} is not a configured dataset in this model.") from e
+            keys.Add(TAGS.DATA_ID)
+            patterns.Add(dataset_id)
+        if sys_name  is not None:
+            try:
+                sys_id = self.systems[sys_name].ID
+            except KeyError as e:
+                raise KeyError(f"{sys_name} is not a system in this model.") from e
+            keys.Add(TAGS.SYS_ID)
+            patterns.Add(sys_id)
+        extension_switches = Container()
         
+        for i,ext_switch in enumerate(self._countryInfoHandler.GetPiecesOfInfo(ReadCountryOptions.EXTENSION_SWITCH,keys,patterns)):
+            extension_switches.add(i, ExtensionSwitch(ext_switch,self))
+        return extension_switches
+    
+    
+class ExtensionSwitch(Euromod_Element):
+    """A class containing the extension switches of an object.
+    
+       This class is returned by :func:`~Country.get_switch_value` method and should not 
+       be used by the user as a stand alone. 
+       
+       Returns
+       -------
+       ExtensionSwitch
+           A class with relevant information on the extension switch.
+    """
+    
+    def __init__(self,info,ctry):
+        self.parent: Country
+        """: The country-specific class."""
+        self.value: str = ""
+        """: Value of the switch as configured in EUROOMOD. """
+        super().__init__(info,ctry)
+        self.extension_name: str = ctry.extensions._get_by_id(info[TAGS.EXTENSION_ID]).shortName
+        """: Short name of the extension."""
+        self.sys_name: str = ctry.systems._get_by_id(info[TAGS.SYS_ID]).name
+        """: Name of the applicable system."""
+        self.data_name: str = ctry.datasets._get_by_id(info[TAGS.DATA_ID]).name
+        """: Name of the applicable dataset."""
+    def _container_middle_repr(self):
+        ### Potential middle_representation of a string
+        return f"{self.value}"
+    def _container_begin_repr(self):
+        return f"{self.extension_name}, {self.data_name}, {self.sys_name}"
+    def _container_end_repr(self):
+        return  ""
+    def _short_repr(self):
+        return f"{self.extension_name}, {self.data_name}, {self.sys_name}"
+              
         
 
 class CountryContainer(Container):
-    """Container class storing core.Country objects.
+    """Container class storing Country objects.
     """
     def add(self,name,model):
         countryObject = Country(name,model)
@@ -278,22 +370,26 @@ class CountryContainer(Container):
  
 
 class System(Euromod_Element):   
-    """A EUROMOD specific tax-benefit system.
+    """A EUROMOD tax-benefit system.
     
-    This class instantiates the EUROMOD tax benefit model for a specific system.
-    A class instance is automatically generated and stored in the attribute  
-    `systems` of class :class:`Country`.
+    This class represents a EUROMOD tax system.
+    Instances of this class are generated when loading the EUROMOD base model.
+    These are collected in a :obj:`Container` as attribute `systems` of the :class:`Country`.
     
-    This class contains subclasses of type :class:`DatasetInSystem`, and
-    :class:`PolicyInSystem`.
-    
+    Returns
+    -------
+    System
+        A class with country systems.
+
     Example
     --------
     >>> from euromod import Model
-    >>> mod=Model(r"C:\EUROMOD_RELEASES_I6.0+")
+    >>> mod=Model("C:\\EUROMOD_RELEASES_I6.0+")
     >>> mod.countries[0].systems[-1]
     """
     def __init__(self,*arg):
+        self.parent: Country
+        """: The country-specific class."""
         self.ID: str 
         """Identifier number of the system."""
         self.comment: str 
@@ -314,12 +410,12 @@ class System(Euromod_Element):
         """System year."""
         
         super().__init__(*arg)
-        self.datasets: list[DatasetInSystem] | None = None
-        """: A :obj:`list` of :class:`DatasetInSystem` objects in the system."""
-        self.policies: list[PolicyInSystem] | None = None
-        """: A :obj:`list` of :class:`PolicyInSystem` objects in the system."""
-        self.bestmatch_datasets: list[Dataset] | None = None
-        """: A :obj:`list` with best-match :class:`Dataset` objects in the system."""
+        self.datasets: Container[DatasetInSystem] | None = None
+        """: A :obj:`Container` of :class:`DatasetInSystem` objects in the system."""
+        self.policies: Container[PolicyInSystem] | None = None
+        """: A :obj:`Container` of :class:`PolicyInSystem` objects in the system."""
+        self.bestmatch_datasets: Container[Dataset] | None = None
+        """: A :obj:`Container` with best-match :class:`Dataset` objects in the system."""
     def __getattribute__(self,name):
         if name == 'policies' and self.__dict__["policies"] is None:
             self._load_policies()
@@ -388,7 +484,7 @@ class System(Euromod_Element):
                     if not is_iterable(keys):
                         raise TypeError("Parameter 'constantsToOverwrite' must be a dictionary, with an iterable containing the constant name and groupnumber as key and a string as value (Example: {('$f_h_cpi','2022'):'1000'}).")
                     key1 = keys[0]
-                    key2 = keys[1] if keys[1] != "" else -2147483648
+                    key2 = keys[1] if keys[1] != "" else "-2147483648" 
 
                         
                     csharpkey = SystemCs.Tuple[SystemCs.String, SystemCs.String](key1, key2)
@@ -412,7 +508,7 @@ class System(Euromod_Element):
         return configsettings
         
         
-    def run(self,data: pd.DataFrame,dataset_id: str,constantsToOverwrite: Optional[Dict[Tuple[str, str], str]] = None,verbose: bool = True,outputpath: str = "",  addons: List[Tuple[str, str]] = [],  switches: List[Tuple[str, bool]] = [],nowarnings=False):
+    def run(self,data: pd.DataFrame,dataset_id: str,constantsToOverwrite: Optional[Dict[Tuple[str, str], str]] = None,verbose: bool = True,outputpath: str = "",  addons: List[Tuple[str, str]] = [],  switches: List[Tuple[str, bool]] = [],nowarnings=False,euro=False,public_components_only=False):
         """Run the simulation of a EUROMOD tax-benefit system.
         
 
@@ -422,22 +518,27 @@ class System(Euromod_Element):
             input dataframe passed to the EUROMOD model.
         dataset_id : :obj:`str`
             ID of the dataset.
-        constantsToOverwrite : Optional[ :obj:`dict` [ :obj:`tuple` [ :obj:`str`, :obj:`str` ], :obj:`str` ]], optional
-            A :obj:`list` of constants to overwrite. Note that the key is a tuple for which the first element is the name of the constant and the second string the groupnumber
+        constantsToOverwrite : :obj:`dict` [ :obj:`tuple` [ :obj:`str`, :obj:`str` ], :obj:`str` ], optional
+            A :obj:`dict` with constants to overwrite. Note that the key is a tuple of two strings, for which the first element is the name of the constant and the second is the groupnumber.
+            Note that the values must be defined as strings.
             Default is :obj:`None`.
         verbose : :obj:`bool`, optional
             If True then information on the output will be printed. Default is :obj:`True`.
         outputpath : :obj:`str`, optional
-            When an output path is provided, there will be anoutput file generated. Default is "".
+            When the output path is provided, there will be anoutput file generated. Default is "".
         addons : :obj:`list` [ :obj:`tuple` [ :obj:`str`, :obj:`str` ]], optional
-            :obj:`list` of addons to be integrated in the spine, where the first element of the tuple is the name of the Addon
+            List of tuples with addons to be integrated in the spine. The first element of the tuple is the name of the addon
             and the second element is the name of the system in the Addon to be integrated. Default is [].
         switches : :obj:`list` [ :obj:`tuple` [ :obj:`str`, :obj:`bool` ]], optional
-            :obj:`list` of Extensions to be switched on or of. The first element of the tuple is the short name of the Addon.
+            List of tuples with extensions to be switched on or of. The first element of the tuple is the short name of the extension.
             The second element is a boolean Default is [].
         nowarnings : :obj:`bool`, optional
             If True, the warning messages resulting from the simulations will be suppressed. Default is :obj:`False`.
-
+        euro : :obj:`bool`, optional
+            If True, the monetary variables will be converted to euro for the simulation. Default value is :obj:`False`.
+        public_compoments_only : :obj:`bool`, optional
+            If True, the the model will be on with only the public compoments. Default value is :obj:`False`.
+       
         Raises
         ------
         Exception
@@ -445,17 +546,17 @@ class System(Euromod_Element):
 
         Returns
         -------
-        core.Simulation 
+        Simulation 
             A class containing simulation output and error messages.
 
         Example
         --------
         >>> # Load the dataset
         >>> import pandas as pd
-        >>> data = pd.read_csv(r"C:\EUROMOD_RELEASES_I6.0+\Input\sl_demo_v4.txt",sep="\t")
+        >>> data = pd.read_csv("C:\\EUROMOD_RELEASES_I6.0+\\Input\\sl_demo_v4.txt",sep="\t")
         >>> # Load EUROMOD
         >>> from euromod import Model
-        >>> mod=Model(r"C:\EUROMOD_RELEASES_I6.0+")
+        >>> mod=Model("C:\\EUROMOD_RELEASES_I6.0+")
         >>> # Run simulation
         >>> out=mod.countries['SL'].systems['SL_1996'].run(data,'sl_demo_v4')
         """
@@ -494,6 +595,12 @@ class System(Euromod_Element):
         
         
         data = data.select_dtypes(['number'])
+        ### check for euro boolean
+        if euro:
+            configSettings[TAGS.CONFIG_FORCE_OUTPUT_EURO] = "yes"
+        if public_components_only:
+            configSettings[TAGS.CONFIG_IGNORE_PRIVATE] = "yes"
+
 
         ### get Csharp objects
         dataArr = self._get_dataArray(data)
@@ -506,7 +613,7 @@ class System(Euromod_Element):
         out = Control().RunFromPython(configSettings_, dataArr, variables, \
                                       constantsToOverwrite = constantsToOverwrite_,countryInfoHandler = self.parent._countryInfoHandler)
         os.chdir(CWD_PATH)
-        sim = Simulation(out, configSettings, constantsToOverwrite) 
+        sim = Simulation(out, constantsToOverwrite) 
         for error in out.Item4:
             if error.isWarning:
             	print(f"Warning: {error.message}")
@@ -549,24 +656,29 @@ class FunctionContainer(Container):
         self.containerList.append(function)
         
 
-class Simulation:
+class Simulation(Euromod_Element):
     """Object storing the simulation results.
     
-    This is a class containing results from the simulation :obj:`run` 
+    This is a class containing results from the simulation :func:`~System.run` 
     and other related configuration information. 
+    
+    Returns
+    -------
+    Simulation
+        A class with simulation output.
     """
     
-    def __init__(self, out, configSettings, constantsToOverwrite):
+    def __init__(self, out, constantsToOverwrite):
         '''
         A class with results from the simulation :obj:`run`.
         
         Simulation results are stored as :class:`pandas.DataFrame` in the 
         '''  
-        self.outputs: list[pd.DataFrame] = OutputContainer()
-        """: A :obj:`list` with type :class:`pandas.DataFrame` simulation results. 
+        self.outputs: Container[pd.DataFrame] = OutputContainer()
+        """: A :obj:`Container` with :class:`pandas.DataFrame`-type simulation results. 
             For indexing use an integer or a label from :obj:`output_filenames`."""
         self.output_filenames: list[str] | [] = []
-        """ A :obj:`list` of file-names with simulation output."""
+        """ A :obj:`list` of file-names of simulation output."""
         if constantsToOverwrite is None:
             constantsToOverwrite = {}
 
@@ -584,25 +696,23 @@ class Simulation:
 
         self.errors: list[str] = [x.message for x in out.Item4]
         """: A :obj:`list` with errors and warnings from the simulation run."""
-
-        self.configSettings: dict[str,str] = configSettings.copy()
-        """: A :obj:`dict`-type object with simulation settings."""
         
         self.constantsToOverwrite: dict[tuple(str,str),str] = constantsToOverwrite.copy()
-        """: A :obj:`dict`-type object with user-defined constants."""
-
-
-    def __repr__(self):
-        return f'''
-output:               {self.outputs}
-
-'''       
+        """: A :obj:`dict`-type object with user-defined constants.""" 
 
 
 
 
 class Dataset(Euromod_Element):
-    """Datasets available in a country model.
+    """Dataset available in a country model.
+    
+    This class contains the relevant information about a dataset.
+    
+    Returns
+    -------
+    Dataset
+        A class with the country-specific dataset.
+        
     """
     _objectType = ReadCountryOptions.DATA
 
@@ -611,6 +721,8 @@ class Dataset(Euromod_Element):
     def _container_middle_repr(self):
         return ""
     def __init__(self,*args): 
+        self.parent: Country
+        """: The country-specific class."""
         self.ID: str 
         """: Dataset identifier number."""
         self.name: str 
@@ -640,6 +752,12 @@ class Dataset(Euromod_Element):
 
 class Policy(SpineElement):
     """Policy rules modeled in a country.
+    
+    Returns
+    -------
+    Policy
+        A class with the country-specific policies.
+        
     """
     _objectType = ReadCountryOptions.POL
     _extensionType = ReadCountryOptions.EXTENSION_POL
@@ -672,13 +790,15 @@ class Policy(SpineElement):
         return super().__getattribute__(name)
 
     def __init__(self,*arg):
+        self.parent: Country
+        """: The country-specific class."""
         self.private: str = "no"
         """: Access type. Default is 'no'."""
         super().__init__(*arg)
-        self.functions: list[Function] | None = None
-        """: A :obj:`list` of policy-specific :class:`Function` objects."""
-        self.extensions: list[Extension] | None = None
-        """: A :obj:`list` of policy-specific :class:`Extension` objects."""
+        self.functions: Container[Function] | None = None
+        """: A :obj:`Container` of policy-specific :class:`Function` objects."""
+        self.extensions: Container[Extension] | None = None
+        """: A :obj:`Container` of policy-specific :class:`Extension` objects."""
         
         self.ID: str 
         """Identifier number of the policy."""
@@ -693,15 +813,24 @@ class Policy(SpineElement):
     
     
 class ReferencePolicy(SpineElement):
-    """Object storing the reference policies."""
+    """Object storing the reference policies.
+    
+    Returns
+    -------
+    ReferencePolicy
+        A class with the country-specific reference policies.
+        
+    """
     _objectType = ReadCountryOptions.REFPOL
     def __init__(self,info,parent):
+        self.parent: Country
+        """The country-specific class."""
         super().__init__(info,parent) #take the parent constructor
         #get name of the reference policy using RefPolID
         self.name: str = self.parent._countryInfoHandler.GetPieceOfInfo(ReadCountryOptions.POL,self.refPolID)["Name"]
         """: Name of the reference policy."""
-        self.extensions: list[Extension] | None = None
-        """: A :obj:`list` of reference policy-specific :class:`Extension` objects."""
+        self.extensions: Container[Extension] | None = None
+        """: A :obj:`Container` of reference policy-specific :class:`Extension` objects."""
 
 
     def _short_repr(self):
@@ -720,6 +849,11 @@ class ReferencePolicy(SpineElement):
 
 class Function(SpineElement):
     """Functions implemented in a country policy.
+    
+    Returns
+    -------
+    Function
+        A class with country-specific function.
     """
     _objectType = ReadCountryOptions.FUN
     _extensionType = ReadCountryOptions.EXTENSION_FUN
@@ -751,11 +885,13 @@ class Function(SpineElement):
             return self.parameters
         return super().__getattribute__(name)
     def __init__(self,*arg):
+        self.parent: Policy
+        """The class of the country-specific policy."""
         super().__init__(*arg)
-        self.parameters: list[Parameter] | None = None
-        """: A :obj:`list` of :class:`Parameter` objects in a country."""
-        self.extensions: list[Extension] | None = None
-        """: A :obj:`list` of :class:`Extension` objects in a country."""
+        self.parameters: Container[Parameter] | None = None
+        """: A :obj:`Container` of :class:`Parameter` objects in a country."""
+        self.extensions: Container[Extension] | None = None
+        """: A :obj:`Container` of :class:`Extension` objects in a country."""
         
         self.ID: str 
         """Identifier number of the function."""
@@ -775,6 +911,11 @@ class Function(SpineElement):
 
 class Parameter(SpineElement):
     """Parameters set up in a function.
+    
+    Returns
+    -------
+    Parameter
+        A class with country-specific parameter.
     """
     _objectType = ReadCountryOptions.PAR
     _extensionType = ReadCountryOptions.EXTENSION_PAR
@@ -796,11 +937,13 @@ class Parameter(SpineElement):
 
         return super().__getattribute__(name)
     def __init__(self,*arg):
+        self.parent: Function
+        """The class of the country-specific function."""
         self.group: str = ""
         """str: Parameter group value."""
         super().__init__(*arg)
-        self.extensions: list[Extension] | None = None
-        """: A :obj:`list` with :class:`Extension` objects."""
+        self.extensions: Container[Extension] | None = None
+        """: A :obj:`Container` with :class:`Extension` objects."""
         
         self.ID: str 
         """Identifier number of the parameter."""
@@ -818,17 +961,24 @@ class Parameter(SpineElement):
 
 class PolicyInSystem(SystemElement):
     """Policy rules modeled in a system.
+    
+    Returns
+    -------
+    PolicyInSystem
+        A class with system-specific policies.
     """
     _objectType = ReadCountryOptions.SYS_POL
     def __init__(self,*arg):
+        self.parent: Country
+        """The country-specific class."""
         super().__init__(*arg)
-        self.functions: list[FunctionInSystem] | None = None
-        """: A :obj:`list` with :class:`FunctionInSystem` objects specific to the system"""
+        self.functions: Container[FunctionInSystem] | None = None
+        """: A :obj:`Container` with :class:`FunctionInSystem` objects specific to the system"""
 
         self.private: str 
         """: Access type. Default is 'no'."""
-        self.extensions: list[Extension]
-        """: A :obj:`list` of policy-specific :class:`Extension` objects."""
+        self.extensions: Container[Extension]
+        """: A :obj:`Container` of policy-specific :class:`Extension` objects."""
         self.ID: str
         """Identifier number of the policy."""
         self.comment: str
@@ -872,11 +1022,18 @@ class PolicyInSystem(SystemElement):
             
 class ParameterInSystem(SystemElement):
     """Parameters set up in a function for a specific system.
+    
+    Returns
+    -------
+    ParameterInSystem
+        A class with the system-specific function parameter.
     """
+    parent: Function
+    """The class of the country-specific function."""
     group: str 
-    """str: Parameter group number."""
-    extensions: list # list[Extension]
-    """: A :obj:`list` with :class:`Extension` objects."""
+    """Parameter group number."""
+    extensions: Container #list # Container[Extension]
+    """: A :obj:`Container` with :class:`Extension` objects."""
     ID: str
     """Identifier number of the parameter."""
     comment: str
@@ -910,7 +1067,14 @@ class ParameterInSystem(SystemElement):
     
 class DatasetInSystem(SystemElement):
     """Datasets available in a system model.
+    
+    Returns
+    -------
+    DatasetInSystem
+        A class with the system-specific dataset.
     """
+    parent: Country
+    """The country specific class."""
     ID: str 
     """: Dataset identifier number."""
     bestMatch: str 
@@ -949,12 +1113,19 @@ class DatasetInSystem(SystemElement):
     
 class FunctionInSystem(SystemElement):
     """Functions implemented in a policy for a specific system.
+    
+    Returns
+    -------
+    FunctionInSystem
+        A class with the system-specific function.
     """
     _ctryOption = ReadCountryOptions.SYS_FUN 
     def __init__(self,*arg):
+        self.parent: Policy
+        """The class of the country-specific policy."""
         super().__init__(*arg)
-        self.parameters: list[ParameterInSystem] | None = None
-        """: A :obj:`list` with :class:`ParameterInSystem` objects specific to a function."""
+        self.parameters: Container[ParameterInSystem] | None = None
+        """: A :obj:`Container` with :class:`ParameterInSystem` objects specific to a function."""
         
         
         self.ID: str
@@ -977,8 +1148,8 @@ class FunctionInSystem(SystemElement):
         """: Policy switch action."""
         self.sysID: str
         """: Identifier number of the reference policy."""
-        self.extensions: list[Extension] 
-        """: A :obj:`list` of :class:`Extension` objects in a country."""
+        self.extensions: Container[Extension] 
+        """: A :obj:`Container` of :class:`Extension` objects in a system."""
 
     
     def _container_middle_repr(self):
@@ -1001,21 +1172,32 @@ class FunctionInSystem(SystemElement):
            self.parameters.add(id,ParameterInSystem(syspar, id, sys, par))
 
 class Extension(Euromod_Element):
-    """EUROMOD built-in extensions. 
-    """
-    name: str 
-    """Full name of the extension."""
-    shortName: str 
-    """Short name of the extension."""
+    """EUROMOD extensions. 
+    
+    Returns
+    -------
+    Extension
+        A class with the model extensions.
         
+    """
+    def __init__(self,*arg):
+        self.parent: Model
+        """The model base class."""
+        self.name: str = None
+        """Long name of the extension."""
+        self.shortName: str  = None
+        """Short name of the extension."""
+        super().__init__(*arg)
     _objectType = ReadModelOptions.EXTENSIONS
-    def __repr__(self):
-        return f"Extension: {self.name}" 
+    #def __repr__(self):
+     #   return f"Extension: {self.name}" 
 
     def _short_repr(self):
         return f"{self.shortName}" 
     def _container_middle_repr(self):
         return  ""
+
+    
     
 
 

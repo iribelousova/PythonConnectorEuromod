@@ -1,4 +1,4 @@
-'''
+__license__='''
 Copyright 2024 European Commission
 *
 Licensed under the EUPL, Version 1.2;

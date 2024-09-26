@@ -1,4 +1,4 @@
-'''
+__license__='''
 Copyright 2024 European Commission
 *
 Licensed under the EUPL, Version 1.2;
@@ -15,18 +15,25 @@ See the Licence for the specific language governing permissions and limitations 
 '''
 
 import re
+import pandas as pd
 class Container:
     """
     This class is a container for objects that allow for indexing and representation in multiple ways:
-    via keys that are the name of the objects 
-    or via integer indexing as in a list.
+    - via keys that are the name of the objects or,
+    - via integer indexing as in a list.
     """
-    def __init__(self):
+    def __init__(self,idDict=False):
         self.containerDict = {}
         self.containerList = []
-    def add(self,key,value):
+        self.idDict = idDict
+        if idDict:
+            self.dictIds = {}
+            
+    def add(self,key,value,identifier=None):
         self.containerDict[key] = value
         self.containerList.append(value)
+        if self.idDict:
+            self.dictIds[identifier] = value
     def _short_repr(self):
         if len(self) > 10:
             return f"{len(self)} elements"
@@ -35,23 +42,33 @@ class Container:
         else:
             rep = ""
             for i,el in enumerate(self):
-                rep += f"{el._short_repr()}"
+                if hasattr(el,"_short_repr"):
+                    rep += f"{el._short_repr()}"
+                elif isinstance(el,pd.DataFrame):
+                    rep += f"Pandas DataFrame of {len(el.columns)} variables and {len(el)} observations."
+                else:
+                    rep += f"{el.__class__.__name__}"
                 if i < len(self)-1:
                     rep += ", "
         return rep
+    def _get_by_id(self,id):
+        if not self.idDict:
+            raise Exception("idDict not generated for this type")
+        else:
+            return self.dictIds[id]
     def __repr__(self):
         s= ""
-        maxlen_name = 0
+        maxlen_begin = 0
         maxlen_middle = 0
         end_is_empty = True
         for i,el in enumerate(self.containerList):
-            maxlen_name = maxlen_name if len(el.name) + len(str(i)) < maxlen_name else len(el.name) + len(str(i))
+            maxlen_begin = maxlen_begin if len(el._container_begin_repr()) + len(str(i)) < maxlen_begin else len(el._container_begin_repr()) + len(str(i))
             repr_middle = el._container_middle_repr()
             maxlen_middle = maxlen_middle if len(repr_middle) + len(str(i)) < maxlen_middle else len(repr_middle) + len(str(i))
             if len(el._container_end_repr()) > 0:
                 end_is_empty = False
         for i,el in enumerate(self.containerList):
-            name_repr = el.name + " "*(maxlen_name - len(el.name) -len(str(i)))
+            name_repr = el._container_begin_repr() + " "*(maxlen_begin - len(el._container_begin_repr()) -len(str(i)))
             repr_middle = el._container_middle_repr() 
             repr_middle_adj = repr_middle + " "*(maxlen_middle - len(repr_middle)) #pretty pritting adjustment middle text
             if maxlen_middle > 0 + len(str(len(self.containerList))):
@@ -64,8 +81,22 @@ class Container:
                 s += "\n"
         return s
     def __getitem__(self,arg):
-        if (type(arg) == int) | (type(arg) == slice):
+        if (type(arg) == int):
             return self.containerList[arg]
+        if (type(arg) == slice):
+            new_container = Container(self.idDict)
+            items_to_select = self.containerList[arg]
+            for k,v in self.containerDict.items():
+                if v in items_to_select:
+                    new_container.containerDict[k] = v
+                
+            for el in self.containerList:
+                new_container.containerList = items_to_select
+            if self.idDict:
+                for k,v in self.dictIds.items():
+                    if v in items_to_select:
+                        new_container.dictIds[k] = v
+            return new_container
         if type(arg) == str:
             return self.containerDict[arg]
         
@@ -83,7 +114,7 @@ class Container:
     def __len__(self):
         return len(self.containerList)
     def __add__(self,other):
-        new_container = Container()
+        new_container = Container(self.idDict)
         for k,v in self.containerDict.items():
             new_container.containerDict[k] = v
             
@@ -94,40 +125,73 @@ class Container:
             new_container.containerDict[k] = v
         for el in other.containerList:
             new_container.containerList.append(el)
+        if self.idDict and other.idDict:
+            for k,v in other.dictIds.items():
+                new_container.dictIds[k] = v
+            for k,v in self.dictIds.items():
+                new_container.dictIds[k] = v
+            
         return new_container
         
     def keys(self):
+        """
+        Get keys of the :class:`Container`.
+        
+        Returns
+        -------
+        :obj:`Container.keys`
+            Names of the attribute or the attribute of a child element.
+
+        """
         return self.containerDict.keys()
     def items(self):
+        """
+        Get items of the :class:`Container`.
+        
+        Returns
+        -------
+        :obj:`Container.items`
+            Object items.
+
+        """
         return self.containerDict.items()
     def values(self):
+        """
+        Get values of the :class:`Container`.
+        
+        Returns
+        -------
+        :obj:`Container.values`
+            Value of the object attribute.
+
+        """
         return self.containerDict.values()
     def find(self,key,pattern,return_children=False,case_insentive=True):
         """
-        
+        Find objects that match pattern.
 
         Parameters
         ----------
-        key : str
+        key : :obj:`str`
             Name of the attribute or the attribute of a child element that you want to look for
             One can search child elements by using the dot-notation. 
             E.g.: mod["BE"]["BE_2023"].policies.find("functions.name","BenCalc")
-        pattern : str
+        pattern : :obj:`str`
             pattern that you want to match.
         return_children : bool, optional
             When True, the return type will be a Container containing elements of the type for which the find method was used
             When False, the return type will be a Container of the elements of the deepest level specified by the pattern key-word.
             E.g.: mod["BE"]["BE_2023"].policies.find("function)
             The default is False.
-        case_insentive : bool, optional
+        case_insentive : :obj:`bool`, optional
             DESCRIPTION. The default is True.
 
         Returns
         -------
-        TYPE
-            DESCRIPTION.
-
+        Container
+            An object that matches the pattern.
         """
+
         return _find(self,key,pattern,return_children,case_insentive=True)
 
 def _find(container,key,pattern,return_children=False,case_insentive=True):
