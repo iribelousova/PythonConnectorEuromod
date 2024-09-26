@@ -1,0 +1,20 @@
+# Read the Docs configuration file for Sphinx projects
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+# Required
+version: 2
+
+# Set the OS, Python version and other tools you might need
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3.11"
+  commands:
+      - echo "Using pre-built HTML files"
+      - mkdir --parents $READTHEDOCS_OUTPUT/html/
+      - cp -r docs/* $READTHEDOCS_OUTPUT/html/
+
+# Optionally build your docs in additional formats such as PDF and ePub
+formats:
+   - pdf
+   - epub
