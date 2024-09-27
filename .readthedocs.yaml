@@ -13,8 +13,8 @@ build:
       - echo "Using pre-built HTML files"
       - mkdir --parents $READTHEDOCS_OUTPUT/html/
       - mkdir --parents $READTHEDOCS_OUTPUT/pdf/
-      # 
       - cp -r docs/* $READTHEDOCS_OUTPUT/html/
+      - pip install sphinx
       - sphinx-build -b simplepdf docs/* $READTHEDOCS_OUTPUT/pdf
       - find docs/* $READTHEDOCS_OUTPUT/pdf -type f ! -name '*.pdf' -delete  # Delete all files except .pdf
       - find docs/* $READTHEDOCS_OUTPUT/pdf -mindepth 1 -type d -delete  # Delete all directories except .pdf
