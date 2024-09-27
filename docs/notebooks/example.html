@@ -260,7 +260,11 @@
 <h1>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h1>
 <section id="loading-and-navigating-the-model">
 <h2>Loading and navigating the model<a class="headerlink" href="#loading-and-navigating-the-model" title="Link to this heading">¶</a></h2>
-<p>We start with importing the euromod package and creating a <code class="docutils literal notranslate"><span class="pre">Model</span></code> object from a EUROMOD model.</p>
+<p>We start with importing the euromod package and creating a <a href="../autoapi/euromod/core/index.html#euromod.core.Model">Model</a> object from a EUROMOD model.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See the <a href="getstarted.html#installation">installation guide</a> on how to install the package and its dependencies.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">euromod</span> <span class="kn">import</span> <span class="n">Model</span>
@@ -284,9 +288,9 @@ Model
 <ul class="simple">
 <li><p>countries</p></li>
 <li><p>extensions</p></li>
-<li><p>model_path
-The countries and extensions attributes say that they contain elements. If we take a look at countries</p></li>
+<li><p>model_path</p></li>
 </ul>
+<p>The <a href="../autoapi/euromod/core/index.html#euromod.core.Model.countries">countries</a> and <a href="../autoapi/euromod/core/index.html#euromod.core.Model.extensions">extensions</a> attributes contain elements of the respective objects. If we take a look at <code class="docutils literal notranslate"><span class="pre">countries</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span>
@@ -326,7 +330,7 @@ The countries and extensions attributes say that they contain elements. If we ta
 </div>
 </div>
 </div>
-<p>We see indeed that the euromod model contains 28 countries. In a similar fashion we could have looked what kind of extensions that are stored in the model. The countries container can be indexed by both the number of the element and the country shortcode. Let us take a look at Sweden.</p>
+<p>We see indeed that the euromod model contains 28 countries. In a similar fashion we can look what kind of extensions are stored in the model. The countries container can be indexed by both the number of the element and the country shortcode. Let us take a look at Sweden.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span>
@@ -347,6 +351,7 @@ Country
 </div>
 </div>
 </div>
+<p>Here we see again an informative representation of the <a href="../autoapi/euromod/core/index.html#euromod.core.Country">Country</a>  object, which contains several attributes that can be accessed. We can for example take a look at the first 10 <a href="../autoapi/euromod/core/index.html#euromod.core.Country.policies">policies</a> that are stored in the country.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
@@ -371,7 +376,7 @@ Country
 </section>
 <section id="running-a-system-with-default-configuration">
 <h2>Running a system with default configuration<a class="headerlink" href="#running-a-system-with-default-configuration" title="Link to this heading">¶</a></h2>
-<p>Say that we are interested in running the tax system for the year 2021 of Sweden. Building further on the previous example we can look at the tax-systems contained in the model for Sweden.</p>
+<p>Say that we are interested in running the tax system for the year 2021 of Sweden. Building further on the previous example we can look at the tax-<a href="../autoapi/euromod/core/index.html#euromod.core.Country.systems">systems</a> contained in the model for Sweden.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span>
@@ -401,7 +406,7 @@ Country
 </div>
 </div>
 </div>
-<p>In order to run the tax system we need a dataset that fits the requirement to use. The model however provides us with a list of datasets that are configured already.</p>
+<p>In order to <a href="../autoapi/euromod/core/index.html#euromod.core.System.run">run</a> the tax system we need a dataset that fits the requirement to use. The model however provides us with a list of <a href="../autoapi/euromod/core/index.html#euromod.core.System.datasets">datasets</a> that are configured already.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s2">&quot;SE_2021&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">datasets</span>
@@ -418,7 +423,7 @@ Country
 </div>
 </div>
 </div>
-<p>Here we see that there are multiple datasets configured, but that PL_2020_b2 is seen as the best match dataset for this taxsystem. Provided that you have the microdata stored somewhere, you can then load it as a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> and run the model in the following way:</p>
+<p>Here we see that there are multiple datasets configured, but that PL_2021_b1 is set as the best match dataset for this taxsystem. Provided that you have the microdata stored somewhere, you can then load it as a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> and run the model in the following way:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -445,7 +450,7 @@ Simulation
 </div>
 <div class="cell tag_remove-input docutils container">
 </div>
-<p>This returned us a <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> object with multiple attributes returned. The one of interest here is outputs, which contains the outputdataset(s) returned by the microsimulation model.</p>
+<p>This returns a <a href="../autoapi/euromod/core/index.html#euromod.core.Simulation">Simulation</a> object with multiple attributes. The one of interest here is <a href="../autoapi/euromod/core/index.html#euromod.core.Simulation.outputs">outputs</a>, which contains the outputdataset(s) returned by the microsimulation model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outputdata_baseline</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -600,7 +605,7 @@ Simulation
 </section>
 <section id="running-a-system-while-changing-a-constant">
 <h2>Running a system while changing a constant<a class="headerlink" href="#running-a-system-while-changing-a-constant" title="Link to this heading">¶</a></h2>
-<p>One of the advantages of using the Python Connectors is the ability to run many counterfactual scenario’s for the EUROMOD model. One can for example change the Tax Free income limit in Poland. There are multiple ways to do this via the euromod package in Python, but one very straightforward way is to use the constantsToOverwrite option which is a a dictionary, having the targetted constant as a key and the value to overwrite with as a value.</p>
+<p>One of the advantages of using the Python Connectors is the ability to <a href="../autoapi/euromod/core/index.html#euromod.core.System.run">run</a> many counterfactual scenario’s for the EUROMOD model. One can for example change the Tax Free income limit in Poland. There are multiple ways to do this via the euromod package in Python, but one very straightforward way is to use the <code class="docutils literal notranslate"><span class="pre">constantsToOverwrite</span></code> option which is a a dictionary, having the targetted constant as a key and the value to overwrite with as a value.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out</span><span class="o">=</span><span class="n">mod</span><span class="p">[</span><span class="s1">&#39;SE&#39;</span><span class="p">][</span><span class="s1">&#39;SE_2021&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="s2">&quot;SE_2021_b1&quot;</span><span class="p">,</span><span class="n">constantsToOverwrite</span><span class="o">=</span><span class="p">{(</span><span class="s2">&quot;$tinna_rate2&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">):</span><span class="s1">&#39;0.4&#39;</span><span class="p">})</span>
@@ -618,20 +623,20 @@ Simulation
 </div>
 </div>
 </div>
-<p>The optional parameter <code class="docutils literal notranslate"><span class="pre">constantsToOverwrite</span></code> specifies which constants to overwrite in the policy spline. <code class="docutils literal notranslate"><span class="pre">constantsToOverwrite</span></code> must be  a <code class="docutils literal notranslate"><span class="pre">dict</span></code>, where the keys are <code class="docutils literal notranslate"><span class="pre">tuples</span></code> of two <code class="docutils literal notranslate"><span class="pre">str</span></code> objects: the first string is the name of the constant and the second string is its group number (<strong>Note:</strong> Pass an empty string if the group number is <code class="docutils literal notranslate"><span class="pre">None</span></code>); the values are <code class="docutils literal notranslate"><span class="pre">str</span></code> with the new values of the constants. The default is None.</p>
+<p>The optional parameter <code class="docutils literal notranslate"><span class="pre">constantsToOverwrite</span></code> specifies which constants to overwrite in the policy spline. <code class="docutils literal notranslate"><span class="pre">constantsToOverwrite</span></code> must be  a <code class="docutils literal notranslate"><span class="pre">dict</span></code>, where the keys are <code class="docutils literal notranslate"><span class="pre">tuples</span></code> of two <code class="docutils literal notranslate"><span class="pre">str</span></code> objects: the first string is the name of the constant and the second string is its group number (<strong>Note:</strong> Pass an empty string if the group number is <code class="docutils literal notranslate"><span class="pre">None</span></code>); the values are <code class="docutils literal notranslate"><span class="pre">str</span></code> with the new values of the constants. The default is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
 </section>
 <section id="run-with-add-ons">
 <h2>Run with add-ons<a class="headerlink" href="#run-with-add-ons" title="Link to this heading">¶</a></h2>
-<p>Run the simulation for the Swedish system SE_2022 including the Marginal Tax-Rate add-on ‘MTR’.</p>
+<p><a href="../autoapi/euromod/core/index.html#euromod.core.System.run">Run</a> the simulation for the Swedish system SE_2021 including the Marginal Tax-Rate add-on ‘MTR’.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span><span class="n">mod</span><span class="p">[</span><span class="s1">&#39;SE&#39;</span><span class="p">][</span><span class="s1">&#39;SE_2022&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="s2">&quot;SE_2021_b1&quot;</span><span class="p">,</span><span class="n">addons</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;MTR&quot;</span><span class="p">,</span><span class="s2">&quot;MTR&quot;</span><span class="p">)])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span><span class="n">mod</span><span class="p">[</span><span class="s1">&#39;SE&#39;</span><span class="p">][</span><span class="s1">&#39;SE_2021&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="s2">&quot;SE_2021_b1&quot;</span><span class="p">,</span><span class="n">addons</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;MTR&quot;</span><span class="p">,</span><span class="s2">&quot;MTR&quot;</span><span class="p">)])</span>
 <span class="n">out</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulation for system SE_2022 with dataset SE_2021_b1 finished.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulation for system SE_2021 with dataset SE_2021_b1 finished.
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
@@ -639,8 +644,8 @@ Simulation
 ------------------------------
 	 constantsToOverwrite: {}
 	 errors: []
-	 output_filenames: [&#39;se_2022_base_mtr.txt&#39;, &#39;se_2022_mtr.txt&#39;]
-	 outputs: Pandas DataFrame of 246 variables and 21671 observations., Pandas DataFrame of 38 variables and 21671 observations.
+	 output_filenames: [&#39;se_2021_base_mtr.txt&#39;, &#39;se_2021_mtr.txt&#39;]
+	 outputs: Pandas DataFrame of 246 variables and 21671 observations., Pandas DataFrame of 39 variables and 21671 observations.
 </pre></div>
 </div>
 </div>
@@ -648,30 +653,30 @@ Simulation
 <p>As one can see there are two datasets returned by the model. Both of them can be accessed. The average marginal tax rate for example can then be straightforwardly computed as</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;se_2022_mtr.txt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mtrpc</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;se_2021_mtr.txt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mtrpc</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>19.551933352523093
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>19.419071885518324
 </pre></div>
 </div>
 </div>
 </div>
-<p>The optional parameter <code class="docutils literal notranslate"><span class="pre">addons</span></code> that we passed to the run command is a <code class="docutils literal notranslate"><span class="pre">list</span></code> of EUROMOD  Addons to be integrated in the spine . Each item of the <code class="docutils literal notranslate"><span class="pre">list</span></code> is   a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> with two <code class="docutils literal notranslate"><span class="pre">str</span></code> objects. The first  <code class="docutils literal notranslate"><span class="pre">str</span></code> is the name of the Addon and the second <code class="docutils literal notranslate"><span class="pre">str</span></code> is the name of the system in the Addon to be integrated (typically, it is the name of the Addon <code class="docutils literal notranslate"><span class="pre">_</span></code> two-letter country code, e.g. LMA_AT).  The default valuye here is [].</p>
+<p>The optional parameter <code class="docutils literal notranslate"><span class="pre">addons</span></code> that we passed to the run command is a <code class="docutils literal notranslate"><span class="pre">list</span></code> of EUROMOD  Addons to be integrated in the spine . Each item of the <code class="docutils literal notranslate"><span class="pre">list</span></code> is   a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> with two <code class="docutils literal notranslate"><span class="pre">str</span></code> objects. The first  <code class="docutils literal notranslate"><span class="pre">str</span></code> is the name of the Addon and the second <code class="docutils literal notranslate"><span class="pre">str</span></code> is the name of the system in the Addon to be integrated (typically, it is the name of the Addon <code class="docutils literal notranslate"><span class="pre">_</span></code> two-letter country code, e.g. LMA_AT).  The default value here is [].</p>
 </section>
 <section id="run-with-extensions">
 <h2>Run with extensions<a class="headerlink" href="#run-with-extensions" title="Link to this heading">¶</a></h2>
-<p>Run the simulation for the Swedish system SE_2022 switching on the Benefit Take-up Adjustment extension ‘BTA’.</p>
+<p><a href="../autoapi/euromod/core/index.html#euromod.core.System.run">Run</a> the simulation for the Swedish system SE_2021 switching on the Benefit Take-up Adjustment extension ‘BTA’.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out_BTA</span> <span class="o">=</span><span class="n">mod</span><span class="p">[</span><span class="s1">&#39;SE&#39;</span><span class="p">][</span><span class="s1">&#39;SE_2022&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="s2">&quot;SE_2021_b1&quot;</span><span class="p">,</span><span class="n">switches</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;BTA&quot;</span><span class="p">,</span><span class="kc">True</span><span class="p">)])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out_BTA</span> <span class="o">=</span><span class="n">mod</span><span class="p">[</span><span class="s1">&#39;SE&#39;</span><span class="p">][</span><span class="s1">&#39;SE_2021&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="s2">&quot;SE_2021_b1&quot;</span><span class="p">,</span><span class="n">switches</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;BTA&quot;</span><span class="p">,</span><span class="kc">True</span><span class="p">)])</span>
 <span class="n">out</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulation for system SE_2022 with dataset SE_2021_b1 finished.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulation for system SE_2021 with dataset SE_2021_b1 finished.
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
@@ -679,8 +684,8 @@ Simulation
 ------------------------------
 	 constantsToOverwrite: {}
 	 errors: []
-	 output_filenames: [&#39;se_2022_base_mtr.txt&#39;, &#39;se_2022_mtr.txt&#39;]
-	 outputs: Pandas DataFrame of 246 variables and 21671 observations., Pandas DataFrame of 38 variables and 21671 observations.
+	 output_filenames: [&#39;se_2021_base_mtr.txt&#39;, &#39;se_2021_mtr.txt&#39;]
+	 outputs: Pandas DataFrame of 246 variables and 21671 observations., Pandas DataFrame of 39 variables and 21671 observations.
 </pre></div>
 </div>
 </div>
@@ -692,7 +697,7 @@ Simulation
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>223.1594797723219
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0
 </pre></div>
 </div>
 </div>
@@ -736,7 +741,7 @@ Simulation
             
             <a href="https://github.com/pradyunsg/furo">Furo</a>
             <div class="last-updated">
-              Last updated on Sep 25, 2024</div>
+              Last updated on Sep 27, 2024</div>
           </div>
           <div class="right-details">
             

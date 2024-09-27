@@ -267,13 +267,13 @@
 </div>
 <section id="requirements">
 <h3>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">¶</a></h3>
-<p>In order to run the model, we require two components: 1) the model (coded policy rules), and 2) the input microdata with the variables that respect the EUROMOD naming conventions.
+<p>In order to <a href="../autoapi/euromod/core/index.html#euromod.core.System.run">run</a> the model, we require two components: 1) the model (coded policy rules), and 2) the input microdata with the variables that respect the EUROMOD naming conventions.
 For more information, please, read the sections “Model” and “Input microdata” on the <a class="reference external" href="https://euromod-web.jrc.ec.europa.eu/download-euromod" title="https://euromod-web.jrc.ec.europa.eu/download-euromod">Download Euromod</a> web page.</p>
 </section>
 </section>
 <section id="running-and-navigating-the-model">
 <h2>Running and navigating the model<a class="headerlink" href="#running-and-navigating-the-model" title="Link to this heading">¶</a></h2>
-<p>The euromod package is object oriented and evolves around using the <code class="docutils literal notranslate"><span class="pre">Model</span></code> class that loads a representation of the EUROMOD model. Creating a euromod object works as follows</p>
+<p>The euromod package is object oriented and evolves around using the <a href="../autoapi/euromod/core/index.html#euromod.core.Model">Model</a> class that loads a representation of the EUROMOD model. This can be imported as follows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">euromod</span> <span class="kn">import</span> <span class="n">Model</span>
@@ -281,7 +281,7 @@ For more information, please, read the sections “Model” and “Input microda
 </div>
 </div>
 </div>
-<p>Create an object of the <code class="docutils literal notranslate"><span class="pre">core.Model</span></code> class by passing  the path to the  EUROMOD project:</p>
+<p>Create an object of the <code class="docutils literal notranslate"><span class="pre">Model</span></code> class by passing  the path to the  EUROMOD project:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">=</span><span class="n">Model</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\EUROMOD_RELEASES_I6.0+&quot;</span><span class="p">)</span>
@@ -306,10 +306,7 @@ Model
 <li><p>extensions</p></li>
 <li><p>model_path</p></li>
 </ul>
-<p>The countries and extensions attributes say that they contain elements. If we take a look at countries</p>
-<p>mod.countriesies</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Model.countries</span></code> attirbute is a container storing the <code class="docutils literal notranslate"><span class="pre">core.Country</span></code> objects which nest the country-specific tax-benefit policies and systems.</p>
-<p>Displays the EUROMOD default countries:</p>
+<p>The <a href="../autoapi/euromod/core/index.html#euromod.core.Model.countries">countries</a> and <a href="../autoapi/euromod/core/index.html#euromod.core.Model.extensions">extensions</a> attributes contain elements of the respective objects. If we take a look at <code class="docutils literal notranslate"><span class="pre">countries</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span>
@@ -349,8 +346,17 @@ Model
 </div>
 </div>
 </div>
-<p>Displaying a specific country model, e.g. Simpleland, using the two-letters country code index:</p>
-<p>We see indeed that the euromod model contains 28 countries. In a similar fashion we could have looked what kind of extensions that are stored in the model. The countries container can be indexed by both the number of the element and the country shortcode. Let us take a look at Sweden.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">countries</span></code> attirbute is a container storing the <a href="../autoapi/euromod/core/index.html#euromod.core.Country">Country</a> objects nesting the country-specific tax-benefit <code class="docutils literal notranslate"><span class="pre">policies</span></code> and <code class="docutils literal notranslate"><span class="pre">systems</span></code>. We see indeed that the euromod model contains 28 countries.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The elements in an attribute of type <a href="../autoapi/euromod/container/index.html">Container</a> can be accessed by indexing the attribute with the element position.</p>
+</div>
+<p>In a similar fashion we can look what kind of extensions are stored in the model.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The countries container can be indexed by both the number of the element and the country shortcode.</p>
+</div>
+<p>Let us take a look at Sweden:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span>
@@ -371,7 +377,7 @@ Country
 </div>
 </div>
 </div>
-<p>Here we see again an informative representation of the <code class="docutils literal notranslate"><span class="pre">Country</span></code> object, which contains several attributes that can be accessed. In order to simulate a system we run a specific <code class="docutils literal notranslate"><span class="pre">System</span></code>. We can obtain the system <code class="docutils literal notranslate"><span class="pre">Container</span></code> of the <code class="docutils literal notranslate"><span class="pre">Country</span></code> Sweden</p>
+<p>Here we see again an informative representation of the <code class="docutils literal notranslate"><span class="pre">Country</span></code> object, which contains several attributes that can be accessed. In order to simulate a system we run a specific <a href="../autoapi/euromod/core/index.html#euromod.core.System">System</a> object. We can obtain the <a href="../autoapi/euromod/core/index.html#euromod.core.Country.systems">systems</a> for Sweden as follows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span>
@@ -401,9 +407,18 @@ Country
 </div>
 </div>
 </div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The systems container can be indexed by both the number of the element and the system name.</p>
+</div>
 <section id="running-a-simulation">
 <h3>Running a simulation<a class="headerlink" href="#running-a-simulation" title="Link to this heading">¶</a></h3>
-<p>In order to run the tax system we need a dataset that fits the requirement to use.In case you already know which dataset you want to use one can simply load the data and run the model as follows:.</p>
+<p>In order to <a href="../autoapi/euromod/core/index.html#euromod.core.System.run">run</a> the tax system we need a dataset that fits the requirement to use.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a href="getstarted.html#other-important-euromod-objects">Other important euromod objects</a> on what datasets are configured and how.</p>
+</div>
+<p>If you know already which dataset to use you can simply load the data and run the model as follows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -430,7 +445,7 @@ Simulation
 </div>
 <div class="cell tag_remove-input docutils container">
 </div>
-<p>Note that the run function here takes the mandatory argument <code class="docutils literal notranslate"><span class="pre">dataset_id</span></code>, which in our case is here SE_2022_b1. This is necessary such that EUROMOD can apply the dataset specific logic with respect to setting default values and uprating. This returned us a Simulation object with multiple attributes returned. The one of interest here is outputs, which contains the outputdataset(s) returned by the microsimulation model.</p>
+<p>Note that the run function here takes the mandatory argument <code class="docutils literal notranslate"><span class="pre">dataset_id</span></code>, which in our case is SE_2021_b1. This is necessary such that EUROMOD can apply the dataset specific logic with respect to setting default values and uprating. This returned us a <a href="../autoapi/euromod/core/index.html#euromod.core.Simulation">Simulation</a> object with multiple attributes. The one of interest here is <a href="../autoapi/euromod/core/index.html#euromod.core.Simulation.outputs">outputs</a>, which contains the outputdataset(s) returned by the microsimulation model:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out_baseline</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -584,10 +599,10 @@ Simulation
 </section>
 <section id="navigating-the-model">
 <h3>Navigating the model<a class="headerlink" href="#navigating-the-model" title="Link to this heading">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">Model</span></code> object actually contains a full representation of the model that can be accessed using it’s attributes.  The implementation in Python mimicks the hierarchical structure of the EUROMOD User Interface. A full description of the available types can be found in the API reference.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Model</span></code> object actually contains a full representation of the model that can be accessed using it’s attributes.  The implementation in Python mimicks the hierarchical structure of the EUROMOD User Interface. A full description of the available types can be found in the <a href="../autoapi/index.html">API reference</a>.</p>
 <section id="the-spine">
 <h4>The spine<a class="headerlink" href="#the-spine" title="Link to this heading">¶</a></h4>
-<p>The spine of EUROMOD is what represents the series of calculations with respect taxes and benefits.
+<p>The spine of EUROMOD is what represents the series of calculations with to respect taxes and benefits.
 The spine consists out of three hierarchically ordered elements:</p>
 <ul class="simple">
 <li><p>Policy</p>
@@ -600,8 +615,8 @@ The spine consists out of three hierarchically ordered elements:</p>
 </ul>
 </li>
 </ul>
-<p>The connector mimmicks this hierarchical implementation through an object-oriented representation. The three hierarchical elements are defined on the <code class="docutils literal notranslate"><span class="pre">Country</span></code> level and implemented on the <code class="docutils literal notranslate"><span class="pre">System</span></code> level.</p>
-<p>Let us take a look at the policies, which are an attribute of the <code class="docutils literal notranslate"><span class="pre">Country</span></code> object.</p>
+<p>The connector mimmicks this hierarchical implementation through an object-oriented representation. The three hierarchical elements are defined on the <a href="../autoapi/euromod/core/index.html#euromod.core.Country">Country</a> level and implemented on the <a href="../autoapi/euromod/core/index.html#euromod.core.System">System</a> level.</p>
+<p>Let us take a look at the <a href="../autoapi/euromod/core/index.html#euromod.core.Country.policies">policies</a>, which are an attribute of the <code class="docutils literal notranslate"><span class="pre">Country</span></code> object:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span>
@@ -639,10 +654,10 @@ The spine consists out of three hierarchically ordered elements:</p>
 </div>
 </div>
 </div>
-<p>As one can see the <code class="docutils literal notranslate"><span class="pre">policies</span></code> attribute is a Container object here, and it’s elements which are of the type <code class="docutils literal notranslate"><span class="pre">Policy</span></code> here are accessible.</p>
+<p>As one can see the <code class="docutils literal notranslate"><span class="pre">policies</span></code> attribute is a <a href="../autoapi/euromod/container/index.html">Container</a> object therefor it’s elements, which are of the type <a href="../autoapi/euromod/core/index.html#euromod.core.Policy">Policy</a> here, are accessible by indexing:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">22</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -650,19 +665,19 @@ The spine consists out of three hierarchically ordered elements:</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
 Policy
 ------------------------------
-	 ID: &#39;22DDB39D-1393-4196-AC79-23825D0D6DF2&#39;
-	 comment: &#39;BEN: Housing allowance for pensioners&#39;
+	 ID: &#39;01f1c7ff-3b6d-4191-bc71-bb86db5603d6&#39;
+	 comment: &#39;BEN: unemployment benefit (contributory)&#39;
 	 extensions: 0 elements
-	 functions: 19 elements
-	 name: &#39;bhope_se&#39;
-	 order: &#39;23&#39;
+	 functions: 16 elements
+	 name: &#39;bunct_se&#39;
+	 order: &#39;13&#39;
 	 private: &#39;no&#39;
-	 spineOrder: &#39;23&#39;
+	 spineOrder: &#39;13&#39;
 </pre></div>
 </div>
 </div>
 </div>
-<p>The implementation of a policy is accessible through the <code class="docutils literal notranslate"><span class="pre">System</span></code> object.</p>
+<p>The implementation of a policy is accessible through the <a href="../autoapi/euromod/core/index.html#euromod.core.System">System</a> object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s2">&quot;SE_2021&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span>
@@ -700,10 +715,10 @@ Policy
 </div>
 </div>
 </div>
-<p>Here we see that some policies are turned off by default. Note that the behaviour of the policies can be controlled from the connector. We can for example switch the policy bunct_se to on. Let us first look at the policy</p>
+<p>Here we see that some policies are turned <strong>off</strong> by default. Note that the behaviour of the policies can be controlled from the connector. We can for example switch the policy bunct_se to <strong>on</strong>. Let us first look at the policy:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s2">&quot;SE_2021&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">22</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s2">&quot;SE_2021&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -711,22 +726,31 @@ Policy
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
 PolicyInSystem
 ------------------------------
-	 ID: &#39;bde78132-3f44-4d2e-a1ea-4849f88c277622DDB39D-1393-4196-AC79-23825D0D6DF2&#39;
-	 comment: &#39;BEN: Housing allowance for pensioners&#39;
+	 ID: &#39;bde78132-3f44-4d2e-a1ea-4849f88c277601f1c7ff-3b6d-4191-bc71-bb86db5603d6&#39;
+	 comment: &#39;BEN: unemployment benefit (contributory)&#39;
 	 extensions: 0 elements
-	 functions: 19 elements
-	 name: &#39;bhope_se&#39;
-	 order: &#39;23&#39;
-	 polID: &#39;22DDB39D-1393-4196-AC79-23825D0D6DF2&#39;
+	 functions: 16 elements
+	 name: &#39;bunct_se&#39;
+	 order: &#39;13&#39;
+	 polID: &#39;01f1c7ff-3b6d-4191-bc71-bb86db5603d6&#39;
 	 private: &#39;no&#39;
-	 spineOrder: &#39;23&#39;
-	 switch: &#39;on&#39;
+	 spineOrder: &#39;13&#39;
+	 switch: &#39;off&#39;
 	 sysID: &#39;bde78132-3f44-4d2e-a1ea-4849f88c2776&#39;
 </pre></div>
 </div>
 </div>
 </div>
-<p>We see here that there is this attribute <code class="docutils literal notranslate"><span class="pre">switch</span></code> that is part of the <code class="docutils literal notranslate"><span class="pre">PolicyInSystem</span></code> class. This attribute, similar to attribute is modifiable and the changes that you will make will be passed to the EUROMOD software when simulating. Changes implemented during your Python session are however not lasting. For now, when making lasting changes to the model, one should implement them via the User Interface of EUROMOD. Note that the python connector is not checking what kind of modifications you make to the model. Changing attributes like ID’s are definitely not adviseable.</p>
+<p>We see here the attribute <a href="../autoapi/euromod/core/index.html#euromod.core.PolicyInSystem.switch">switch</a> that is part of the <a href="../autoapi/euromod/core/index.html#euromod.core.PolicyInSystem">PolicyInSystem</a> class. This attribute, and similarly the other attributes of the object, is modifiable and the changes that you will make will be passed to the EUROMOD software when simulating.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Currently, the python connector does not support the save option. Therefore, changes implemented during a Python session cannot be saved.</p>
+<p>To apply permanent changes to the model, we recommend using the <a href="https://euromod-web.jrc.ec.europa.eu/download-euromod">User Interface</a> of EUROMOD.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Note that the python connector is not checking what kind of modifications you make to the model. Changing values of attributes like ID’s are definitely not recommended.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s2">&quot;SE_2021&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span><span class="o">.</span><span class="n">switch</span> <span class="o">=</span> <span class="s1">&#39;on&#39;</span>
@@ -782,18 +806,19 @@ PolicyInSystem
 </div>
 </div>
 </div>
-<p>As mentioned earlier, the connector mimicks the hierarchical structure of the UI. Hence, the definition of functions and parameters are defined on the country level, and their actual implementation are here also accessible via the Tax System. Note that also here, the values of a parameter and the switch of a function can be manipulated through the Python Connector without saving the changes permanently.</p>
+<p>As mentioned earlier, the connector mimicks the hierarchical structure of the UI. Hence, the definition of functions and parameters are defined on the country level, and their actual implementation are here also accessible via the Tax System. Note that also here, the values of a <a href="../autoapi/euromod/core/index.html#euromod.core.Parameter">Parameter</a> and the switch of a <a href="../autoapi/euromod/core/index.html#euromod.core.Function">Function</a> can be manipulated through the Python Connector without saving the changes permanently:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Overview of the functions defined in the bho_se policy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Overview of the functions defined in the bho_se policy:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">22</span><span class="p">]</span><span class="o">.</span><span class="n">functions</span><span class="p">)</span>
-<span class="c1"># System specific Implementation of functions</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;System specific Implementation of functions:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s2">&quot;SE_2021&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">22</span><span class="p">]</span><span class="o">.</span><span class="n">functions</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0: DefVar       |    Temporary variables for Housing Allowance for pens ... 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Overview of the functions defined in the bho_se policy:
+0: DefVar       |    Temporary variables for Housing Allowance for pens ... 
 1: Elig         |    Living with partner 
 2: ArithOp      |    Wealth to be included in the means 
 3: Elig         |    Living without partner 
@@ -813,6 +838,7 @@ PolicyInSystem
 17: Allocate    |    Sharing housing cost 
 18: BenCalc     |    Housing allowance for pensioners 
 
+System specific Implementation of functions:
 0: DefVar        | on        |    Temporary variables for Housing Allowance for pens ... 
 1: Elig          | on        |    Living with partner 
 2: ArithOp       | on        |    Wealth to be included in the means 
@@ -838,16 +864,18 @@ PolicyInSystem
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Overview of the parameters defined in the bho_se policy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Overview of the parameters defined in the bho_se policy:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">22</span><span class="p">]</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
-<span class="c1"># Implementation of parameters</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Implementation of parameters:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s2">&quot;SE_2021&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">policies</span><span class="p">[</span><span class="mi">22</span><span class="p">]</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0: i_means_bhope_prel
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Overview of the parameters defined in the bho_se policy:
+0: i_means_bhope_prel
 
+Implementation of parameters:
 0: i_means_bhope_prel     | 0  
 </pre></div>
 </div>
@@ -856,7 +884,7 @@ PolicyInSystem
 </section>
 <section id="other-important-euromod-objects">
 <h4>Other Important EUROMOD Objects<a class="headerlink" href="#other-important-euromod-objects" title="Link to this heading">¶</a></h4>
-<p>Central to the EUROMOD project, next to the coding of the policies is the microdata. How datasets should be treated by the model is configured in the model already. The attributes of the datasets are just like the spine-elements accessible and modifiable.</p>
+<p>Central to the EUROMOD project, next to the coding of the policies is the microdata. How <a href="../autoapi/euromod/core/index.html#euromod.core.Country.datasets">datasets</a> should be treated by the model is configured in the model already. The attributes of the datasets are just like the spine-elements accessible and modifiable.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">datasets</span>
@@ -895,7 +923,7 @@ PolicyInSystem
 </div>
 </div>
 </div>
-<p>In the previous section we used SE_2022_b1. Let us have a look at it.</p>
+<p>In the previous section we used SE_2021_b1. Let us have a look at it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="s2">&quot;SE_2021_b1&quot;</span><span class="p">]</span>
@@ -921,7 +949,72 @@ Dataset
 </div>
 </div>
 </div>
-<p>Similar to policies, functions and parameters, can the attributes of the policies be modified here. An other important concept in euromod are extensions and are defined globally on the <code class="docutils literal notranslate"><span class="pre">Model</span></code> level or locally on the <code class="docutils literal notranslate"><span class="pre">Country</span></code> level.</p>
+<p>Similarly to the attributes in the <code class="docutils literal notranslate"><span class="pre">Policy</span></code>, <code class="docutils literal notranslate"><span class="pre">Function</span></code> and <code class="docutils literal notranslate"><span class="pre">Parameter</span></code> objects, the attributes of the <a href="../autoapi/euromod/core/index.html#euromod.core.Dataset">Dataset</a> can be modified here.</p>
+<p>We can further check what datasets are implemented for a given system, for example SE_2021, as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">][</span><span class="s2">&quot;SE_2021&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">datasets</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0: training_data     |             
+1: SE_2019_a1        |             
+2: SE_2020_b1        |             
+3: SE_2021_hhot      |             
+4: SE_2021_b1        | best match  
+</pre></div>
+</div>
+</div>
+</div>
+<p>Another important concept in euromod are <a href="../autoapi/euromod/core/index.html#euromod.core.Model.extensions">extensions</a> that are defined globally on the <code class="docutils literal notranslate"><span class="pre">Model</span></code> level:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">extensions</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0: Benefit Take-up Adjustments    
+1: Tax Compliance Adjustments     
+2: Full Year Adjustments          
+3: Uprating by Average Adjustment 
+4: Extended Policy Simulation     
+5: Parental leave benefits        
+6: Minimum Wage Adjustments       
+7: HHoT unemployment extension    
+8: EUROMOD JRC-Interface          
+9: HHoT - Extended Simulation     
+10: HHoT - Non Compulsory Payments
+</pre></div>
+</div>
+</div>
+</div>
+<p>Or locally on the <code class="docutils literal notranslate"><span class="pre">Country</span></code> level:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">extensions</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0: COVID benefit                  
+1: Benefit Take-up Adjustments    
+2: Tax Compliance Adjustments     
+3: Full Year Adjustments          
+4: Uprating by Average Adjustment 
+5: Extended Policy Simulation     
+6: Parental leave benefits        
+7: Minimum Wage Adjustments       
+8: HHoT unemployment extension    
+9: EUROMOD JRC-Interface          
+10: HHoT - Extended Simulation    
+11: HHoT - Non Compulsory Payments
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">extensions</span></code> attribute is of type <a href="../autoapi/euromod/container/index.html">Container</a>. If we want to access the information stored in the Minimum Wage Adjustments extension for example, we can simply use the following command:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">extensions</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
@@ -936,34 +1029,6 @@ Extension
 	 look: &#39;|BUTTON_COLOR=-16744384|&#39;
 	 name: &#39;Minimum Wage Adjustments&#39;
 	 shortName: &#39;MWA&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">extensions</span></code> object is of the type <code class="docutils literal notranslate"><span class="pre">Container</span></code>, which means that you can index it by the number preceding their name. If we want to access the information stored in the Minimum Wage Adjustments extension for example, one can simply use the following command.</p>
-<p>Displaying information about a dataset relative to a system, e.g. dataset ‘sl_demo_v4’ for the system ‘SL_1996’, by indexing the attribute <code class="docutils literal notranslate"><span class="pre">datasets</span></code>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;SL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;SL_1996&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
-DatasetInSystem
-------------------------------
-	 ID: &#39;F7E5CACE-CECC-4BB6-9841-A936D0975481CBA7E428-F8E4-4CEB-8A5E-9ACE73987DD7&#39;
-	 bestMatch: &#39;yes&#39;
-	 coicopVersion: &#39;&#39;
-	 comment: &#39;&#39;
-	 currency: &#39;euro&#39;
-	 dataID: &#39;CBA7E428-F8E4-4CEB-8A5E-9ACE73987DD7&#39;
-	 decimalSign: &#39;.&#39;
-	 name: &#39;sl_demo_v4&#39;
-	 private: &#39;no&#39;
-	 readXVariables: &#39;no&#39;
-	 sysID: &#39;F7E5CACE-CECC-4BB6-9841-A936D0975481&#39;
-	 useCommonDefault: &#39;no&#39;
 </pre></div>
 </div>
 </div>
@@ -1008,7 +1073,7 @@ DatasetInSystem
             
             <a href="https://github.com/pradyunsg/furo">Furo</a>
             <div class="last-updated">
-              Last updated on Sep 25, 2024</div>
+              Last updated on Sep 27, 2024</div>
           </div>
           <div class="right-details">
             
