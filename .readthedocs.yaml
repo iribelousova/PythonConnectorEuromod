@@ -14,7 +14,8 @@ build:
       - mkdir --parents $READTHEDOCS_OUTPUT/html/
       - cp -r docs/* $READTHEDOCS_OUTPUT/html/
 
-      - cp docs/_static/euromodconnector.pdf docs/_readthedocs/_static/euromodconnector.pdf
+      - mkdir --parents $READTHEDOCS_OUTPUT/pdf/
+      - cp docs/_static/euromodconnector.pdf docs/_readthedocs/pdf/euromodconnector.pdf
 
 # Optionally build your docs in additional formats such as PDF and ePub
 formats:
