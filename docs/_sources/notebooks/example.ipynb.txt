@@ -7,12 +7,21 @@
     "# Examples\n",
     "\n",
     "## Loading and navigating the model\n",
-    "We start with importing the euromod package and creating a `Model` object from a EUROMOD model."
+    "We start with importing the euromod package and creating a <a href=\"../autoapi/euromod/core/index.html#euromod.core.Model\">Model</a> object from a EUROMOD model. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "```{seealso} \n",
+    "See the <a href=\"getstarted.html#installation\">installation guide</a> on how to install the package and its dependencies.\n",
+    "```"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 1,
    "metadata": {
     "editable": true,
     "slideshow": {
@@ -32,7 +41,7 @@
        "\t model_path: 'C:\\\\EUROMOD_RELEASES_I6.0+'"
       ]
      },
-     "execution_count": 8,
+     "execution_count": 1,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -51,12 +60,13 @@
     "- countries\n",
     "- extensions\n",
     "- model_path\n",
-    "The countries and extensions attributes say that they contain elements. If we take a look at countries"
+    "\n",
+    "The <a href=\"../autoapi/euromod/core/index.html#euromod.core.Model.countries\">countries</a> and <a href=\"../autoapi/euromod/core/index.html#euromod.core.Model.extensions\">extensions</a> attributes contain elements of the respective objects. If we take a look at `countries`:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [
     {
@@ -92,7 +102,7 @@
        "27: SL"
       ]
      },
-     "execution_count": 9,
+     "execution_count": 2,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -105,12 +115,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "We see indeed that the euromod model contains 28 countries. In a similar fashion we could have looked what kind of extensions that are stored in the model. The countries container can be indexed by both the number of the element and the country shortcode. Let us take a look at Sweden."
+    "We see indeed that the euromod model contains 28 countries. In a similar fashion we can look what kind of extensions are stored in the model. The countries container can be indexed by both the number of the element and the country shortcode. Let us take a look at Sweden."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [
     {
@@ -127,7 +137,7 @@
        "\t systems: 18 elements"
       ]
      },
-     "execution_count": 10,
+     "execution_count": 3,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -137,15 +147,15 @@
    ]
   },
   {
-   "cell_type": "raw",
+   "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Here we see again an informative representation of the `Country` object, which contains several attributes that can be accessed. We can for example take a look at the first 10 policies that are stored in the country."
+    "Here we see again an informative representation of the <a href=\"../autoapi/euromod/core/index.html#euromod.core.Country\">Country</a>  object, which contains several attributes that can be accessed. We can for example take a look at the first 10 <a href=\"../autoapi/euromod/core/index.html#euromod.core.Country.policies\">policies</a> that are stored in the country."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
@@ -163,7 +173,7 @@
        "9: yem_se            |  (with switch set for MWA)       |    DEF: minimum wage "
       ]
      },
-     "execution_count": 11,
+     "execution_count": 4,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -177,12 +187,12 @@
    "metadata": {},
    "source": [
     "## Running a system with default configuration\n",
-    "Say that we are interested in running the tax system for the year 2021 of Sweden. Building further on the previous example we can look at the tax-systems contained in the model for Sweden."
+    "Say that we are interested in running the tax system for the year 2021 of Sweden. Building further on the previous example we can look at the tax-<a href=\"../autoapi/euromod/core/index.html#euromod.core.Country.systems\">systems</a> contained in the model for Sweden."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
@@ -208,7 +218,7 @@
        "17: SE_2023"
       ]
      },
-     "execution_count": 12,
+     "execution_count": 5,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -221,12 +231,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "In order to run the tax system we need a dataset that fits the requirement to use. The model however provides us with a list of datasets that are configured already."
+    "In order to <a href=\"../autoapi/euromod/core/index.html#euromod.core.System.run\">run</a> the tax system we need a dataset that fits the requirement to use. The model however provides us with a list of <a href=\"../autoapi/euromod/core/index.html#euromod.core.System.datasets\">datasets</a> that are configured already."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [
     {
@@ -239,7 +249,7 @@
        "4: SE_2021_b1        | best match  "
       ]
      },
-     "execution_count": 13,
+     "execution_count": 6,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -252,12 +262,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Here we see that there are multiple datasets configured, but that PL_2020_b2 is seen as the best match dataset for this taxsystem. Provided that you have the microdata stored somewhere, you can then load it as a `pandas.DataFrame` and run the model in the following way:"
+    "Here we see that there are multiple datasets configured, but that PL_2021_b1 is set as the best match dataset for this taxsystem. Provided that you have the microdata stored somewhere, you can then load it as a `pandas.DataFrame` and run the model in the following way:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 7,
    "metadata": {
     "editable": true,
     "slideshow": {
@@ -285,7 +295,7 @@
        "\t outputs: Pandas DataFrame of 240 variables and 21671 observations."
       ]
      },
-     "execution_count": 14,
+     "execution_count": 7,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -299,7 +309,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 8,
    "metadata": {
     "editable": true,
     "slideshow": {
@@ -318,12 +328,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "This returned us a `Simulation` object with multiple attributes returned. The one of interest here is outputs, which contains the outputdataset(s) returned by the microsimulation model."
+    "This returns a <a href=\"../autoapi/euromod/core/index.html#euromod.core.Simulation\">Simulation</a> object with multiple attributes. The one of interest here is <a href=\"../autoapi/euromod/core/index.html#euromod.core.Simulation.outputs\">outputs</a>, which contains the outputdataset(s) returned by the microsimulation model."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [
     {
@@ -502,7 +512,7 @@
        "[21671 rows x 240 columns]"
       ]
      },
-     "execution_count": 16,
+     "execution_count": 9,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -517,12 +527,12 @@
    "metadata": {},
    "source": [
     "## Running a system while changing a constant\n",
-    "One of the advantages of using the Python Connectors is the ability to run many counterfactual scenario's for the EUROMOD model. One can for example change the Tax Free income limit in Poland. There are multiple ways to do this via the euromod package in Python, but one very straightforward way is to use the constantsToOverwrite option which is a a dictionary, having the targetted constant as a key and the value to overwrite with as a value.\n"
+    "One of the advantages of using the Python Connectors is the ability to <a href=\"../autoapi/euromod/core/index.html#euromod.core.System.run\">run</a> many counterfactual scenario's for the EUROMOD model. One can for example change the Tax Free income limit in Poland. There are multiple ways to do this via the euromod package in Python, but one very straightforward way is to use the `constantsToOverwrite` option which is a a dictionary, having the targetted constant as a key and the value to overwrite with as a value.\n"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
+   "execution_count": 10,
    "metadata": {
     "editable": true,
     "slideshow": {
@@ -544,7 +554,7 @@
        "-12247774.761818277"
       ]
      },
-     "execution_count": 17,
+     "execution_count": 10,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -559,7 +569,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The optional parameter ```constantsToOverwrite``` specifies which constants to overwrite in the policy spline. `constantsToOverwrite` must be  a ```dict```, where the keys are ```tuples``` of two ```str``` objects: the first string is the name of the constant and the second string is its group number (**Note:** Pass an empty string if the group number is `None`); the values are ```str``` with the new values of the constants. The default is None."
+    "The optional parameter ```constantsToOverwrite``` specifies which constants to overwrite in the policy spline. `constantsToOverwrite` must be  a ```dict```, where the keys are ```tuples``` of two ```str``` objects: the first string is the name of the constant and the second string is its group number (**Note:** Pass an empty string if the group number is `None`); the values are ```str``` with the new values of the constants. The default is `None`."
    ]
   },
   {
@@ -567,12 +577,12 @@
    "metadata": {},
    "source": [
     "## Run with add-ons\n",
-    "Run the simulation for the Swedish system SE_2022 including the Marginal Tax-Rate add-on 'MTR'."
+    "<a href=\"../autoapi/euromod/core/index.html#euromod.core.System.run\">Run</a> the simulation for the Swedish system SE_2021 including the Marginal Tax-Rate add-on 'MTR'."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
+   "execution_count": 11,
    "metadata": {
     "editable": true,
     "slideshow": {
@@ -585,7 +595,7 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "Simulation for system SE_2022 with dataset SE_2021_b1 finished.\n"
+      "Simulation for system SE_2021 with dataset SE_2021_b1 finished.\n"
      ]
     },
     {
@@ -596,17 +606,17 @@
        "------------------------------\n",
        "\t constantsToOverwrite: {}\n",
        "\t errors: []\n",
-       "\t output_filenames: ['se_2022_base_mtr.txt', 'se_2022_mtr.txt']\n",
-       "\t outputs: Pandas DataFrame of 246 variables and 21671 observations., Pandas DataFrame of 38 variables and 21671 observations."
+       "\t output_filenames: ['se_2021_base_mtr.txt', 'se_2021_mtr.txt']\n",
+       "\t outputs: Pandas DataFrame of 246 variables and 21671 observations., Pandas DataFrame of 39 variables and 21671 observations."
       ]
      },
-     "execution_count": 18,
+     "execution_count": 11,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "out =mod['SE']['SE_2022'].run(data,\"SE_2021_b1\",addons=[(\"MTR\",\"MTR\")])\n",
+    "out =mod['SE']['SE_2021'].run(data,\"SE_2021_b1\",addons=[(\"MTR\",\"MTR\")])\n",
     "out"
    ]
   },
@@ -619,29 +629,29 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 12,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "19.551933352523093"
+       "19.419071885518324"
       ]
      },
-     "execution_count": 19,
+     "execution_count": 12,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "out.outputs['se_2022_mtr.txt'].mtrpc.mean()"
+    "out.outputs['se_2021_mtr.txt'].mtrpc.mean()"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The optional parameter `addons` that we passed to the run command is a ```list``` of EUROMOD  Addons to be integrated in the spine . Each item of the ``list`` is   a ```tuple``` with two ```str``` objects. The first  ```str``` is the name of the Addon and the second `str` is the name of the system in the Addon to be integrated (typically, it is the name of the Addon ```_``` two-letter country code, e.g. LMA_AT).  The default valuye here is []. "
+    "The optional parameter `addons` that we passed to the run command is a ```list``` of EUROMOD  Addons to be integrated in the spine . Each item of the ``list`` is   a ```tuple``` with two ```str``` objects. The first  ```str``` is the name of the Addon and the second `str` is the name of the system in the Addon to be integrated (typically, it is the name of the Addon ```_``` two-letter country code, e.g. LMA_AT).  The default value here is []. "
    ]
   },
   {
@@ -649,12 +659,12 @@
    "metadata": {},
    "source": [
     "## Run with extensions\n",
-    "Run the simulation for the Swedish system SE_2022 switching on the Benefit Take-up Adjustment extension 'BTA'."
+    "<a href=\"../autoapi/euromod/core/index.html#euromod.core.System.run\">Run</a> the simulation for the Swedish system SE_2021 switching on the Benefit Take-up Adjustment extension 'BTA'."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
+   "execution_count": 13,
    "metadata": {
     "editable": true,
     "slideshow": {
@@ -667,7 +677,7 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "Simulation for system SE_2022 with dataset SE_2021_b1 finished.\n"
+      "Simulation for system SE_2021 with dataset SE_2021_b1 finished.\n"
      ]
     },
     {
@@ -678,32 +688,32 @@
        "------------------------------\n",
        "\t constantsToOverwrite: {}\n",
        "\t errors: []\n",
-       "\t output_filenames: ['se_2022_base_mtr.txt', 'se_2022_mtr.txt']\n",
-       "\t outputs: Pandas DataFrame of 246 variables and 21671 observations., Pandas DataFrame of 38 variables and 21671 observations."
+       "\t output_filenames: ['se_2021_base_mtr.txt', 'se_2021_mtr.txt']\n",
+       "\t outputs: Pandas DataFrame of 246 variables and 21671 observations., Pandas DataFrame of 39 variables and 21671 observations."
       ]
      },
-     "execution_count": 20,
+     "execution_count": 13,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "out_BTA =mod['SE']['SE_2022'].run(data,\"SE_2021_b1\",switches=[(\"BTA\",True)])\n",
+    "out_BTA =mod['SE']['SE_2021'].run(data,\"SE_2021_b1\",switches=[(\"BTA\",True)])\n",
     "out"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
+   "execution_count": 14,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "223.1594797723219"
+       "0.0"
       ]
      },
-     "execution_count": 21,
+     "execution_count": 14,
      "metadata": {},
      "output_type": "execute_result"
     }

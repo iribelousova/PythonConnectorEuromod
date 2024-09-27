@@ -15,16 +15,21 @@
     "```\n",
     "\n",
     "### Requirements\n",
-    "In order to run the model, we require two components: 1) the model (coded policy rules), and 2) the input microdata with the variables that respect the EUROMOD naming conventions.\n",
-    "For more information, please, read the sections \"Model\" and \"Input microdata\" on the [Download Euromod](https://euromod-web.jrc.ec.europa.eu/download-euromod \"https://euromod-web.jrc.ec.europa.eu/download-euromod\") web page.\n",
-    "\n",
+    "In order to <a href=\"../autoapi/euromod/core/index.html#euromod.core.System.run\">run</a> the model, we require two components: 1) the model (coded policy rules), and 2) the input microdata with the variables that respect the EUROMOD naming conventions.\n",
+    "For more information, please, read the sections \"Model\" and \"Input microdata\" on the [Download Euromod](https://euromod-web.jrc.ec.europa.eu/download-euromod \"https://euromod-web.jrc.ec.europa.eu/download-euromod\") web page."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
     "## Running and navigating the model\n",
-    "The euromod package is object oriented and evolves around using the `Model` class that loads a representation of the EUROMOD model. Creating a euromod object works as follows"
+    "The euromod package is object oriented and evolves around using the <a href=\"../autoapi/euromod/core/index.html#euromod.core.Model\">Model</a> class that loads a representation of the EUROMOD model. This can be imported as follows:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 1,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -35,12 +40,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Create an object of the `core.Model` class by passing  the path to the  EUROMOD project: "
+    "Create an object of the `Model` class by passing  the path to the  EUROMOD project: "
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
+   "execution_count": 2,
    "metadata": {
     "editable": true,
     "slideshow": {
@@ -60,7 +65,7 @@
        "\t model_path: 'C:\\\\EUROMOD_RELEASES_I6.0+'"
       ]
      },
-     "execution_count": 20,
+     "execution_count": 2,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -79,28 +84,12 @@
     "- extensions\n",
     "- model_path\n",
     "  \n",
-    "The countries and extensions attributes say that they contain elements. If we take a look at countries"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "mod.countriesies"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "The `Model.countries` attirbute is a container storing the `core.Country` objects which nest the country-specific tax-benefit policies and systems.\n",
-    "\n",
-    "Displays the EUROMOD default countries:"
+    "The <a href=\"../autoapi/euromod/core/index.html#euromod.core.Model.countries\">countries</a> and <a href=\"../autoapi/euromod/core/index.html#euromod.core.Model.extensions\">extensions</a> attributes contain elements of the respective objects. If we take a look at `countries`:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
+   "execution_count": 34,
    "metadata": {},
    "outputs": [
     {
@@ -136,7 +125,7 @@
        "27: SL"
       ]
      },
-     "execution_count": 21,
+     "execution_count": 34,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -149,19 +138,44 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Displaying a specific country model, e.g. Simpleland, using the two-letters country code index:"
+    "The `countries` attirbute is a container storing the <a href=\"../autoapi/euromod/core/index.html#euromod.core.Country\">Country</a> objects nesting the country-specific tax-benefit `policies` and `systems`. We see indeed that the euromod model contains 28 countries. "
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "We see indeed that the euromod model contains 28 countries. In a similar fashion we could have looked what kind of extensions that are stored in the model. The countries container can be indexed by both the number of the element and the country shortcode. Let us take a look at Sweden."
+    "```{note} \n",
+    "The elements in an attribute of type <a href=\"../autoapi/euromod/container/index.html\">Container</a> can be accessed by indexing the attribute with the element position.\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In a similar fashion we can look what kind of extensions are stored in the model. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "```{tip} \n",
+    "The countries container can be indexed by both the number of the element and the country shortcode. \n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Let us take a look at Sweden:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 22,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
@@ -178,7 +192,7 @@
        "\t systems: 18 elements"
       ]
      },
-     "execution_count": 22,
+     "execution_count": 4,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -191,12 +205,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Here we see again an informative representation of the `Country` object, which contains several attributes that can be accessed. In order to simulate a system we run a specific `System`. We can obtain the system `Container` of the `Country` Sweden"
+    "Here we see again an informative representation of the `Country` object, which contains several attributes that can be accessed. In order to simulate a system we run a specific <a href=\"../autoapi/euromod/core/index.html#euromod.core.System\">System</a> object. We can obtain the <a href=\"../autoapi/euromod/core/index.html#euromod.core.Country.systems\">systems</a> for Sweden as follows:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 23,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
@@ -222,7 +236,7 @@
        "17: SE_2023"
       ]
      },
-     "execution_count": 23,
+     "execution_count": 5,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -235,14 +249,39 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
+    "```{tip} \n",
+    "The systems container can be indexed by both the number of the element and the system name. \n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
     "### Running a simulation\n",
     "\n",
-    "In order to run the tax system we need a dataset that fits the requirement to use.In case you already know which dataset you want to use one can simply load the data and run the model as follows:."
+    "In order to <a href=\"../autoapi/euromod/core/index.html#euromod.core.System.run\">run</a> the tax system we need a dataset that fits the requirement to use. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "```{seealso} \n",
+    "See <a href=\"getstarted.html#other-important-euromod-objects\">Other important euromod objects</a> on what datasets are configured and how.\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If you know already which dataset to use you can simply load the data and run the model as follows:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
+   "execution_count": 6,
    "metadata": {
     "editable": true,
     "slideshow": {
@@ -270,7 +309,7 @@
        "\t outputs: Pandas DataFrame of 240 variables and 21671 observations."
       ]
      },
-     "execution_count": 24,
+     "execution_count": 6,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -284,7 +323,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 25,
+   "execution_count": 7,
    "metadata": {
     "editable": true,
     "slideshow": {
@@ -303,12 +342,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Note that the run function here takes the mandatory argument `dataset_id`, which in our case is here SE_2022_b1. This is necessary such that EUROMOD can apply the dataset specific logic with respect to setting default values and uprating. This returned us a Simulation object with multiple attributes returned. The one of interest here is outputs, which contains the outputdataset(s) returned by the microsimulation model."
+    "Note that the run function here takes the mandatory argument `dataset_id`, which in our case is SE_2021_b1. This is necessary such that EUROMOD can apply the dataset specific logic with respect to setting default values and uprating. This returned us a <a href=\"../autoapi/euromod/core/index.html#euromod.core.Simulation\">Simulation</a> object with multiple attributes. The one of interest here is <a href=\"../autoapi/euromod/core/index.html#euromod.core.Simulation.outputs\">outputs</a>, which contains the outputdataset(s) returned by the microsimulation model:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 26,
+   "execution_count": 8,
    "metadata": {},
    "outputs": [
     {
@@ -487,7 +526,7 @@
        "[21671 rows x 240 columns]"
       ]
      },
-     "execution_count": 26,
+     "execution_count": 8,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -501,22 +540,23 @@
    "metadata": {},
    "source": [
     "### Navigating the model\n",
-    "The `Model` object actually contains a full representation of the model that can be accessed using it's attributes.  The implementation in Python mimicks the hierarchical structure of the EUROMOD User Interface. A full description of the available types can be found in the API reference.\n",
+    "The `Model` object actually contains a full representation of the model that can be accessed using it's attributes.  The implementation in Python mimicks the hierarchical structure of the EUROMOD User Interface. A full description of the available types can be found in the <a href=\"../autoapi/index.html\">API reference</a>. \n",
+    "\n",
     "#### The spine\n",
-    "The spine of EUROMOD is what represents the series of calculations with respect taxes and benefits.\n",
+    "The spine of EUROMOD is what represents the series of calculations with to respect taxes and benefits.\n",
     "The spine consists out of three hierarchically ordered elements:\n",
     "- Policy\n",
     "    - Function\n",
     "        - Parameter\n",
     "     \n",
-    "The connector mimmicks this hierarchical implementation through an object-oriented representation. The three hierarchical elements are defined on the `Country` level and implemented on the `System` level.\n",
+    "The connector mimmicks this hierarchical implementation through an object-oriented representation. The three hierarchical elements are defined on the <a href=\"../autoapi/euromod/core/index.html#euromod.core.Country\">Country</a> level and implemented on the <a href=\"../autoapi/euromod/core/index.html#euromod.core.System\">System</a> level.\n",
     "\n",
-    "Let us take a look at the policies, which are an attribute of the `Country` object."
+    "Let us take a look at the <a href=\"../autoapi/euromod/core/index.html#euromod.core.Country.policies\">policies</a>, which are an attribute of the `Country` object:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 27,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [
     {
@@ -550,7 +590,7 @@
        "25: output_std_hh_se     |                                   |    DEF: STANDARD OUTPUT HOUSEHOLD LEVEL "
       ]
      },
-     "execution_count": 27,
+     "execution_count": 9,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -563,12 +603,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "As one can see the `policies` attribute is a Container object here, and it's elements which are of the type `Policy` here are accessible."
+    "As one can see the `policies` attribute is a <a href=\"../autoapi/euromod/container/index.html\">Container</a> object therefor it's elements, which are of the type <a href=\"../autoapi/euromod/core/index.html#euromod.core.Policy\">Policy</a> here, are accessible by indexing:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 28,
+   "execution_count": 32,
    "metadata": {},
    "outputs": [
     {
@@ -577,35 +617,35 @@
        "------------------------------\n",
        "Policy\n",
        "------------------------------\n",
-       "\t ID: '22DDB39D-1393-4196-AC79-23825D0D6DF2'\n",
-       "\t comment: 'BEN: Housing allowance for pensioners'\n",
+       "\t ID: '01f1c7ff-3b6d-4191-bc71-bb86db5603d6'\n",
+       "\t comment: 'BEN: unemployment benefit (contributory)'\n",
        "\t extensions: 0 elements\n",
-       "\t functions: 19 elements\n",
-       "\t name: 'bhope_se'\n",
-       "\t order: '23'\n",
+       "\t functions: 16 elements\n",
+       "\t name: 'bunct_se'\n",
+       "\t order: '13'\n",
        "\t private: 'no'\n",
-       "\t spineOrder: '23'"
+       "\t spineOrder: '13'"
       ]
      },
-     "execution_count": 28,
+     "execution_count": 32,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "mod.countries[\"SE\"].policies[22]"
+    "mod.countries[\"SE\"].policies[12]"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The implementation of a policy is accessible through the `System` object."
+    "The implementation of a policy is accessible through the <a href=\"../autoapi/euromod/core/index.html#euromod.core.System\">System</a> object."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 29,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [
     {
@@ -639,7 +679,7 @@
        "25: output_std_hh_se     | off                                  |    DEF: STANDARD OUTPUT HOUSEHOLD LEVEL "
       ]
      },
-     "execution_count": 29,
+     "execution_count": 11,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -652,12 +692,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Here we see that some policies are turned off by default. Note that the behaviour of the policies can be controlled from the connector. We can for example switch the policy bunct_se to on. Let us first look at the policy"
+    "Here we see that some policies are turned **off** by default. Note that the behaviour of the policies can be controlled from the connector. We can for example switch the policy bunct_se to **on**. Let us first look at the policy:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 30,
+   "execution_count": 33,
    "metadata": {},
    "outputs": [
     {
@@ -666,38 +706,58 @@
        "------------------------------\n",
        "PolicyInSystem\n",
        "------------------------------\n",
-       "\t ID: 'bde78132-3f44-4d2e-a1ea-4849f88c277622DDB39D-1393-4196-AC79-23825D0D6DF2'\n",
-       "\t comment: 'BEN: Housing allowance for pensioners'\n",
+       "\t ID: 'bde78132-3f44-4d2e-a1ea-4849f88c277601f1c7ff-3b6d-4191-bc71-bb86db5603d6'\n",
+       "\t comment: 'BEN: unemployment benefit (contributory)'\n",
        "\t extensions: 0 elements\n",
-       "\t functions: 19 elements\n",
-       "\t name: 'bhope_se'\n",
-       "\t order: '23'\n",
-       "\t polID: '22DDB39D-1393-4196-AC79-23825D0D6DF2'\n",
+       "\t functions: 16 elements\n",
+       "\t name: 'bunct_se'\n",
+       "\t order: '13'\n",
+       "\t polID: '01f1c7ff-3b6d-4191-bc71-bb86db5603d6'\n",
        "\t private: 'no'\n",
-       "\t spineOrder: '23'\n",
-       "\t switch: 'on'\n",
+       "\t spineOrder: '13'\n",
+       "\t switch: 'off'\n",
        "\t sysID: 'bde78132-3f44-4d2e-a1ea-4849f88c2776'"
       ]
      },
-     "execution_count": 30,
+     "execution_count": 33,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "mod.countries[\"SE\"].systems[\"SE_2021\"].policies[22]"
+    "mod.countries[\"SE\"].systems[\"SE_2021\"].policies[12]"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "We see here that there is this attribute `switch` that is part of the `PolicyInSystem` class. This attribute, similar to attribute is modifiable and the changes that you will make will be passed to the EUROMOD software when simulating. Changes implemented during your Python session are however not lasting. For now, when making lasting changes to the model, one should implement them via the User Interface of EUROMOD. Note that the python connector is not checking what kind of modifications you make to the model. Changing attributes like ID's are definitely not adviseable. "
+    "We see here the attribute <a href=\"../autoapi/euromod/core/index.html#euromod.core.PolicyInSystem.switch\">switch</a> that is part of the <a href=\"../autoapi/euromod/core/index.html#euromod.core.PolicyInSystem\">PolicyInSystem</a> class. This attribute, and similarly the other attributes of the object, is modifiable and the changes that you will make will be passed to the EUROMOD software when simulating. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "```{important} \n",
+    "Currently, the python connector does not support the save option. Therefore, changes implemented during a Python session cannot be saved.\n",
+    "\n",
+    "To apply permanent changes to the model, we recommend using the <a href=\"https://euromod-web.jrc.ec.europa.eu/download-euromod\">User Interface</a> of EUROMOD.  \n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "```{attention}\n",
+    "Note that the python connector is not checking what kind of modifications you make to the model. Changing values of attributes like ID's are definitely not recommended. \n",
+    "```"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 31,
+   "execution_count": 13,
    "metadata": {
     "editable": true,
     "slideshow": {
@@ -719,7 +779,7 @@
        "0.0"
       ]
      },
-     "execution_count": 31,
+     "execution_count": 13,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -733,7 +793,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 32,
+   "execution_count": 14,
    "metadata": {},
    "outputs": [
     {
@@ -767,7 +827,7 @@
        "25: output_std_hh_se     | off                                  |    DEF: STANDARD OUTPUT HOUSEHOLD LEVEL "
       ]
      },
-     "execution_count": 32,
+     "execution_count": 14,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -780,18 +840,19 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "As mentioned earlier, the connector mimicks the hierarchical structure of the UI. Hence, the definition of functions and parameters are defined on the country level, and their actual implementation are here also accessible via the Tax System. Note that also here, the values of a parameter and the switch of a function can be manipulated through the Python Connector without saving the changes permanently."
+    "As mentioned earlier, the connector mimicks the hierarchical structure of the UI. Hence, the definition of functions and parameters are defined on the country level, and their actual implementation are here also accessible via the Tax System. Note that also here, the values of a <a href=\"../autoapi/euromod/core/index.html#euromod.core.Parameter\">Parameter</a> and the switch of a <a href=\"../autoapi/euromod/core/index.html#euromod.core.Function\">Function</a> can be manipulated through the Python Connector without saving the changes permanently:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 33,
+   "execution_count": 15,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
+      "Overview of the functions defined in the bho_se policy:\n",
       "0: DefVar       |    Temporary variables for Housing Allowance for pens ... \n",
       "1: Elig         |    Living with partner \n",
       "2: ArithOp      |    Wealth to be included in the means \n",
@@ -812,6 +873,7 @@
       "17: Allocate    |    Sharing housing cost \n",
       "18: BenCalc     |    Housing allowance for pensioners \n",
       "\n",
+      "System specific Implementation of functions:\n",
       "0: DefVar        | on        |    Temporary variables for Housing Allowance for pens ... \n",
       "1: Elig          | on        |    Living with partner \n",
       "2: ArithOp       | on        |    Wealth to be included in the means \n",
@@ -836,32 +898,34 @@
     }
    ],
    "source": [
-    "# Overview of the functions defined in the bho_se policy\n",
+    "print(\"Overview of the functions defined in the bho_se policy:\")\n",
     "print(mod.countries[\"SE\"].policies[22].functions)\n",
-    "# System specific Implementation of functions\n",
+    "print(\"System specific Implementation of functions:\")\n",
     "print(mod.countries[\"SE\"].systems[\"SE_2021\"].policies[22].functions)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 34,
+   "execution_count": 16,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
+      "Overview of the parameters defined in the bho_se policy:\n",
       "0: i_means_bhope_prel\n",
       "\n",
+      "Implementation of parameters:\n",
       "0: i_means_bhope_prel     | 0  \n",
       "\n"
      ]
     }
    ],
    "source": [
-    "# Overview of the parameters defined in the bho_se policy\n",
+    "print(\"Overview of the parameters defined in the bho_se policy:\")\n",
     "print(mod.countries[\"SE\"].policies[22].functions[0].parameters)\n",
-    "# Implementation of parameters\n",
+    "print(\"Implementation of parameters:\")\n",
     "print(mod.countries[\"SE\"].systems[\"SE_2021\"].policies[22].functions[0].parameters)"
    ]
   },
@@ -870,12 +934,12 @@
    "metadata": {},
    "source": [
     "#### Other Important EUROMOD Objects\n",
-    "Central to the EUROMOD project, next to the coding of the policies is the microdata. How datasets should be treated by the model is configured in the model already. The attributes of the datasets are just like the spine-elements accessible and modifiable."
+    "Central to the EUROMOD project, next to the coding of the policies is the microdata. How <a href=\"../autoapi/euromod/core/index.html#euromod.core.Country.datasets\">datasets</a> should be treated by the model is configured in the model already. The attributes of the datasets are just like the spine-elements accessible and modifiable."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 35,
+   "execution_count": 17,
    "metadata": {},
    "outputs": [
     {
@@ -910,7 +974,7 @@
        "26: SE_2023_hhot"
       ]
      },
-     "execution_count": 35,
+     "execution_count": 17,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -923,12 +987,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "In the previous section we used SE_2022_b1. Let us have a look at it."
+    "In the previous section we used SE_2021_b1. Let us have a look at it."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 36,
+   "execution_count": 18,
    "metadata": {},
    "outputs": [
     {
@@ -950,7 +1014,7 @@
        "\t yearInc: '2020'"
       ]
      },
-     "execution_count": 36,
+     "execution_count": 18,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -963,12 +1027,125 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Similar to policies, functions and parameters, can the attributes of the policies be modified here. An other important concept in euromod are extensions and are defined globally on the `Model` level or locally on the `Country` level. "
+    "Similarly to the attributes in the `Policy`, `Function` and `Parameter` objects, the attributes of the <a href=\"../autoapi/euromod/core/index.html#euromod.core.Dataset\">Dataset</a> can be modified here. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We can further check what datasets are implemented for a given system, for example SE_2021, as follows:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 37,
+   "execution_count": 25,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0: training_data     |             \n",
+       "1: SE_2019_a1        |             \n",
+       "2: SE_2020_b1        |             \n",
+       "3: SE_2021_hhot      |             \n",
+       "4: SE_2021_b1        | best match  "
+      ]
+     },
+     "execution_count": 25,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "mod.countries[\"SE\"][\"SE_2021\"].datasets"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Another important concept in euromod are <a href=\"../autoapi/euromod/core/index.html#euromod.core.Model.extensions\">extensions</a> that are defined globally on the `Model` level:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0: Benefit Take-up Adjustments    \n",
+       "1: Tax Compliance Adjustments     \n",
+       "2: Full Year Adjustments          \n",
+       "3: Uprating by Average Adjustment \n",
+       "4: Extended Policy Simulation     \n",
+       "5: Parental leave benefits        \n",
+       "6: Minimum Wage Adjustments       \n",
+       "7: HHoT unemployment extension    \n",
+       "8: EUROMOD JRC-Interface          \n",
+       "9: HHoT - Extended Simulation     \n",
+       "10: HHoT - Non Compulsory Payments"
+      ]
+     },
+     "execution_count": 29,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "mod.extensions"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Or locally on the `Country` level:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0: COVID benefit                  \n",
+       "1: Benefit Take-up Adjustments    \n",
+       "2: Tax Compliance Adjustments     \n",
+       "3: Full Year Adjustments          \n",
+       "4: Uprating by Average Adjustment \n",
+       "5: Extended Policy Simulation     \n",
+       "6: Parental leave benefits        \n",
+       "7: Minimum Wage Adjustments       \n",
+       "8: HHoT unemployment extension    \n",
+       "9: EUROMOD JRC-Interface          \n",
+       "10: HHoT - Extended Simulation    \n",
+       "11: HHoT - Non Compulsory Payments"
+      ]
+     },
+     "execution_count": 30,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "mod.countries[\"SE\"].extensions"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The `extensions` attribute is of type <a href=\"../autoapi/euromod/container/index.html\">Container</a>. If we want to access the information stored in the Minimum Wage Adjustments extension for example, we can simply use the following command: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
    "metadata": {},
    "outputs": [
     {
@@ -983,61 +1160,13 @@
        "\t shortName: 'MWA'"
       ]
      },
-     "execution_count": 37,
+     "execution_count": 31,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
     "mod.countries[\"SE\"].extensions[7]"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "The `extensions` object is of the type `Container`, which means that you can index it by the number preceding their name. If we want to access the information stored in the Minimum Wage Adjustments extension for example, one can simply use the following command. "
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "Displaying information about a dataset relative to a system, e.g. dataset 'sl_demo_v4' for the system 'SL_1996', by indexing the attribute `datasets`:"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 38,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "------------------------------\n",
-       "DatasetInSystem\n",
-       "------------------------------\n",
-       "\t ID: 'F7E5CACE-CECC-4BB6-9841-A936D0975481CBA7E428-F8E4-4CEB-8A5E-9ACE73987DD7'\n",
-       "\t bestMatch: 'yes'\n",
-       "\t coicopVersion: ''\n",
-       "\t comment: ''\n",
-       "\t currency: 'euro'\n",
-       "\t dataID: 'CBA7E428-F8E4-4CEB-8A5E-9ACE73987DD7'\n",
-       "\t decimalSign: '.'\n",
-       "\t name: 'sl_demo_v4'\n",
-       "\t private: 'no'\n",
-       "\t readXVariables: 'no'\n",
-       "\t sysID: 'F7E5CACE-CECC-4BB6-9841-A936D0975481'\n",
-       "\t useCommonDefault: 'no'"
-      ]
-     },
-     "execution_count": 38,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "mod.countries['SL'].systems['SL_1996'].datasets[0]"
    ]
   }
  ],
