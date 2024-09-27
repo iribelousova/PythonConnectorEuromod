@@ -12,6 +12,7 @@ build:
   commands:
       - echo "Using pre-built HTML files"
       - mkdir --parents $READTHEDOCS_OUTPUT/html/
+      - mkdir --parents $READTHEDOCS_OUTPUT/pdf/
       - cp -r docs/* $READTHEDOCS_OUTPUT/html/
 
 # Optionally build your docs in additional formats such as PDF and ePub
