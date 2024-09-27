@@ -13,8 +13,12 @@ build:
       - echo "Using pre-built HTML files"
       - mkdir --parents $READTHEDOCS_OUTPUT/html/
       - mkdir --parents $READTHEDOCS_OUTPUT/pdf/
+      # 
       - cp -r docs/* $READTHEDOCS_OUTPUT/html/
-      - cp -r docs/* $READTHEDOCS_OUTPUT/pdf/pythonconnectoreuromod.pdf
+      - sphinx-build -b simplepdf docs/* $READTHEDOCS_OUTPUT/pdf
+      - find docs/* $READTHEDOCS_OUTPUT/pdf -type f ! -name '*.pdf' -delete  # Delete all files except .pdf
+      - find docs/* $READTHEDOCS_OUTPUT/pdf -mindepth 1 -type d -delete  # Delete all directories except .pdf
+      - mv docs/* $READTHEDOCS_OUTPUT/pdf/*.pdf docs/* $READTHEDOCS_OUTPUT/pdf/PythonConnectorEuromod.pdf  # Rename the pdf
 
 # Optionally build your docs in additional formats such as PDF and ePub
 formats:
